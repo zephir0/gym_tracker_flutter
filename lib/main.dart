@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
       title: 'GymDiary',
       routes: {
         '/home': (context) => LoginScreen(),
-        // '/register': (context) => RegisterPage(),
       },
       home: LoginScreen(),
     );

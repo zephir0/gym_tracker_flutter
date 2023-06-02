@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/api/auth_service.dart';
+import 'package:gym_tracker_flutter/auth_screen/form_handler.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/authentication_button.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/authentication_form.dart';
+import 'package:gym_tracker_flutter/auth_screen/widgets/error_dialog.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/gym_diary_logo.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/logo_section.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/social_icons_field.dart';
@@ -49,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
               buttonText: _getButtonText(),
               onButtonPressed: _onButtonPressed,
             ),
-            _formType == FormType.login ? SocialIconsField() : Container(),
+            _formType != FormType.forgotPassword
+                ? SocialIconsField()
+                : Container(),
             _buildAlternativeAction(),
           ],
         ),
@@ -167,16 +171,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onButtonPressed() {
-    if (_formType == FormType.login) {
-      print(
-          "Logging in with Email: ${_emailController.text}, Password: ${_passwordController.text}");
-      AuthService().attemptLogin(
-          _emailController.text, _passwordController.text, context);
-    } else if (_formType == FormType.forgotPassword) {
-      print("Sending recovery email to: ${_emailController.text}");
-    } else if (_formType == FormType.signUp) {
-      print(
-          "Signing up with Username: ${_usernameController.text}, Email: ${_emailController.text}, Password: ${_passwordController.text}");
+    switch (_formType) {
+      case FormType.login:
+        FormHandler().handleLogin(
+            _emailController.text, _passwordController.text, context);
+        break;
+
+      case FormType.forgotPassword:
+        FormHandler().handleForgotPassword(_emailController.text, context);
+        break;
+
+      case FormType.signUp:
+        FormHandler().handleSignUp(
+            _usernameController.text,
+            _emailController.text,
+            _passwordController.text,
+            _confirmPasswordController.text,
+            context);
+        break;
+
+      default:
+        print("FormType not recognized");
     }
   }
 
