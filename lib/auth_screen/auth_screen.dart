@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/auth_service.dart';
 import 'package:gym_tracker_flutter/auth_screen/form_handler.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/authentication_button.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/authentication_form.dart';
-import 'package:gym_tracker_flutter/auth_screen/widgets/error_dialog.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/gym_diary_logo.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/logo_section.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/social_icons_field.dart';
+import 'package:gym_tracker_flutter/global_variables.dart';
 
 enum FormType { login, forgotPassword, signUp }
 
@@ -24,22 +23,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   FormType _formType = FormType.login;
 
-  var boxDecoration = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [Color.fromARGB(255, 48, 47, 47), Color(0xff000000)],
-      stops: [0, 1],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: boxDecoration,
+        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: ListView(
           children: [
             LogoSection(),
@@ -113,11 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
             AuthField(
                 hintText: "Enter your email",
                 controller: _emailController,
-                icon: Icons.email),
+                icon: Icons.email,
+                isPasswordField: false),
             AuthField(
                 hintText: "Enter your password",
                 controller: _passwordController,
-                icon: Icons.lock),
+                icon: Icons.lock,
+                isPasswordField: true),
           ],
         );
       case FormType.forgotPassword:
@@ -127,7 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
             AuthField(
                 hintText: "Enter your email",
                 controller: _emailController,
-                icon: Icons.email),
+                icon: Icons.email,
+                isPasswordField: false),
           ],
         );
       case FormType.signUp:
@@ -137,19 +130,23 @@ class _LoginScreenState extends State<LoginScreen> {
             AuthField(
                 hintText: "Enter your username",
                 controller: _usernameController,
-                icon: Icons.person),
+                icon: Icons.person,
+                isPasswordField: false),
             AuthField(
                 hintText: "Enter your email",
                 controller: _emailController,
-                icon: Icons.email),
+                icon: Icons.email,
+                isPasswordField: false),
             AuthField(
                 hintText: "Enter your password",
                 controller: _passwordController,
-                icon: Icons.lock),
+                icon: Icons.lock,
+                isPasswordField: true),
             AuthField(
                 hintText: "Confirm your password",
                 controller: _confirmPasswordController,
-                icon: Icons.lock),
+                icon: Icons.lock,
+                isPasswordField: true),
           ],
         );
       default:
@@ -255,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: (() => setState(() {
                       _formType = FormType.signUp;
                     })),
-                child: Text("Signup here",
+                child: Text("Signup",
                     style: TextStyle(
                         color: Color.fromRGBO(43, 138, 132, 100),
                         fontSize: 17,

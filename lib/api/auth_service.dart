@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gym_tracker_flutter/auth_screen/widgets/error_dialog.dart';
@@ -28,6 +27,7 @@ class AuthService {
       String? token =
           await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
       print(token);
+      Navigator.popAndPushNamed(context, "/navi-bar");
     } else {
       ErrorDialog.showErrorDialog(context, "Failed to authenticate");
     }
@@ -50,12 +50,20 @@ class AuthService {
     if (response.statusCode == 201) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          duration: Duration(seconds: 2),
-          content: Text("Successfully registered"),
+          backgroundColor: Color.fromRGBO(43, 138, 132, 100),
+          duration: Duration(seconds: 3),
+          content: Text(
+            "Successfully registered",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ),
         ),
       );
-      await Future.delayed(Duration(seconds: 2));
-      Navigator.popAndPushNamed(context, "/home");
+      await Future.delayed(Duration(seconds: 3));
+      Navigator.popAndPushNamed(context, "/login");
     } else {
       ErrorDialog.showErrorDialog(context, "Failed to register");
     }

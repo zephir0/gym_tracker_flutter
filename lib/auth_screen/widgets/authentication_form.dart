@@ -18,6 +18,7 @@ class AuthenticationForm extends StatelessWidget {
                   hintText: field.hintText,
                   controller: field.controller,
                   icon: field.icon,
+                  isPasswordField: field.isPasswordField,
                 ))
             .toList(),
       ),
@@ -29,7 +30,10 @@ class AuthField {
   final String hintText;
   final TextEditingController controller;
   final IconData icon;
-
+  final bool isPasswordField;
   AuthField(
-      {required this.hintText, required this.controller, required this.icon});
+      {required this.hintText,
+      required this.controller,
+      required this.icon,
+      required this.isPasswordField});
 }

@@ -14,6 +14,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   flutter_secure_storage: ^8.0.0
+  flutter_speed_dial: ^6.2.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

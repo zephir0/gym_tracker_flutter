@@ -5,11 +5,10 @@ class GlobalVariables {
   Color inputFillColor = Color.fromRGBO(81, 80, 80, 100);
   var backendApiAddress = "http://192.168.0.5:8080/";
 
-  BoxDecoration primaryGradient = BoxDecoration(
-      gradient: LinearGradient(
+  var primaryGradient = LinearGradient(
     colors: [Color.fromARGB(255, 48, 47, 47), Color(0xff000000)],
     stops: [0, 1],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-  ));
+  );
 }
