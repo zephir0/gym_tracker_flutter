@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:gym_tracker_flutter/home-screen.dart/home-screen.dart';
+import 'package:gym_tracker_flutter/training-routines-screen/training-routine-creator/training-routine-creator-screen.dart';
 
 import '../setting-screen/setting-screen.dart';
 
@@ -14,10 +15,6 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    // if (index == 1) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    // } else {
     setState(() {
       _selectedIndex = index;
     });
@@ -52,11 +49,10 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
           ),
           Positioned(
             bottom:
-                30, // you can adjust this value as per your requirement to move the FAB
+                30, 
             left: MediaQuery.of(context).size.width / 2 -
-                28, // this will place the FAB at the center of the screen, adjust the value 28 to move the FAB along the x-axis
+                28, 
             child: SpeedDial(
-              // icon: Icons.add,
               animatedIcon: AnimatedIcons.add_event,
               animatedIconTheme: IconThemeData(size: 22.0),
               backgroundColor: Color.fromRGBO(43, 138, 132, 1),
@@ -66,7 +62,30 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                 SpeedDialChild(
                   child: Icon(Icons.calendar_today, color: Colors.white),
                   backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            TrainingRoutineCreatorScreen(),
+                        opaque: false,
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(0.0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end)
+                              .chain(CurveTween(curve: curve));
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                  },
                   label: 'Create new session',
                   labelStyle: TextStyle(fontWeight: FontWeight.w500),
                   labelBackgroundColor: Colors.white,

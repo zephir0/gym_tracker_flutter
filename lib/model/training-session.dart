@@ -5,7 +5,7 @@ class TrainingSession {
   var id;
   String routineName;
   var trainingDate;
-  int totalWeight;
+  var totalWeight;
   TrainingSession({
     required this.id,
     required this.routineName,

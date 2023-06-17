@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/training-session-details-screen/training-session-details.dart';
 
 import '../../api/json_service.dart';
 import '../../model/training-session.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RecentTrainingSessionsDisplay extends StatefulWidget {
   @override
@@ -29,7 +31,17 @@ class _RecentTrainingSessionsDisplayState
               itemBuilder: (context, index) {
                 return GestureDetector(
                     onTap: () {
-                      print(trainingSessions[index].trainingDate);
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeftWithFade,
+                          child: TrainingSessionDetails(
+                              routineName: trainingSessions[index].routineName,
+                              trainingSessions: trainingSessions,
+                              index: index),
+                          duration: Duration(milliseconds: 300),
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(10),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/json_service.dart';
 
 class UserWelcomePanel extends StatefulWidget {
   @override
@@ -69,12 +70,25 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
         ),
-        Text(
-          "Krystian Zajac",
-          style: TextStyle(
-              color: Color.fromRGBO(14, 233, 218, 1),
-              fontSize: 30,
-              fontWeight: FontWeight.w500),
+        FutureBuilder<String>(
+          future: JsonService().fetchNameFromJson(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data!,
+                style: TextStyle(
+                    color: Color.fromRGBO(14, 233, 218, 1),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500),
+              );
+            } else if (snapshot.hasError) {
+              return Text(
+                "${snapshot.error}",
+                style: TextStyle(color: Colors.red),
+              );
+            }
+            return CircularProgressIndicator();
+          },
         ),
       ],
     );

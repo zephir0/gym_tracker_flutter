@@ -16,6 +16,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   flutter_speed_dial: ^6.2.0
   intl: ^0.18.1
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:

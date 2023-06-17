@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
-import '../../routines-screen/routines-screen.dart';
+import '../../training-routines-screen/training-routine-screen.dart';
 
 class UserTrainingRoutines extends StatefulWidget {
   @override
@@ -29,7 +30,14 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
     });
     Future.delayed(Duration(milliseconds: 200)).then((_) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RoutinesScreen()));
+        context,
+        PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          child: TrainingRoutineScreen(),
+          duration: Duration(milliseconds: 300),
+        ),
+      );
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() {
           _tapped = false;
