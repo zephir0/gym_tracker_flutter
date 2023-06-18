@@ -12,10 +12,9 @@ class TrainingRoutineCard extends StatelessWidget {
     return Card(
       color: Color.fromRGBO(43, 138, 132, 1),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16), // Rounded corner radius
+        borderRadius: BorderRadius.circular(16),
       ),
-      clipBehavior: Clip
-          .antiAlias, // Clip the card's content to fit within the rounded corners
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Column(

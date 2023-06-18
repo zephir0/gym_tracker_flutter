@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/api/json_service.dart';
 import 'package:gym_tracker_flutter/global_variables.dart';
 import 'package:gym_tracker_flutter/model/training-routine.dart';
+import 'package:gym_tracker_flutter/training-routines-screen/training-routine-creator/training-routine-creator-screen.dart';
 import 'package:gym_tracker_flutter/training-routines-screen/widgets/training-routine-detail-dialog.dart';
 import 'package:gym_tracker_flutter/training-routines-screen/widgets/training-routine-card.dart';
 
@@ -66,7 +67,30 @@ class TrainingRoutineScreen extends StatelessWidget {
                 backgroundColor: Color.fromRGBO(21, 119, 184, 0.612),
                 minimumSize: Size(double.infinity, 50),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        TrainingRoutineCreatorScreen(),
+                    opaque: false,
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      var begin = Offset(0.0, 1.0);
+                      var end = Offset.zero;
+                      var curve = Curves.ease;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+                  ),
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

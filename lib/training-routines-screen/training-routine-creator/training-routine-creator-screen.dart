@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:gym_tracker_flutter/training-routines-screen/training-routine-creator/widgets/dismissible-routine-form.dart';
-
-import '../../global_variables.dart';
 
 enum MuscleGroup {
   chest,
@@ -23,8 +18,6 @@ class TrainingRoutineCreatorScreen extends StatefulWidget {
 class _TrainingRoutineCreatorScreenState
     extends State<TrainingRoutineCreatorScreen>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String routineName = '';
   List<Map<String, dynamic>> exercises = [{}];
   late AnimationController _deleteAnimationController;
   late CurvedAnimation _deleteAnimationCurve;
@@ -54,39 +47,26 @@ class _TrainingRoutineCreatorScreenState
       onWillPop: () async {
         return false;
       },
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: DismissibleRoutineForm(
-          formKey: _formKey,
-          routineName: routineName,
-          exercises: exercises,
-          deleteAnimationCurve: _deleteAnimationCurve,
-          onAddExercise: () {
-            setState(() {
-              exercises.add({});
-            });
-          },
-          onSubmit: () {
-            if (_formKey.currentState!.validate()) {
-              _formKey.currentState!.save();
-              var routine = {
-                'routineName': routineName,
-                'exercises': exercises
-                    .map((e) => {
-                          'description': e['description'],
-                          'muscleGroup':
-                              e['muscleGroup'].toString().split('.').last,
-                        })
-                    .toList(),
-              };
-              String routineJson = jsonEncode(routine);
-              print(routineJson);
-            } else
-              _formKey.currentState!.save();
-          },
-          onBack: () {
+      child: GestureDetector(
+        onPanEnd: (details) {
+          if (details.velocity.pixelsPerSecond.dx > 0) {
             Navigator.of(context).pop();
-          },
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: DismissibleRoutineForm(
+            exercises: exercises,
+            deleteAnimationCurve: _deleteAnimationCurve,
+            onAddExercise: () {
+              setState(() {
+                exercises.add({});
+              });
+            },
+            onBack: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
       ),
     );

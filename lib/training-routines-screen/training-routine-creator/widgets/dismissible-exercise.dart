@@ -9,6 +9,8 @@ class DismissibleExercise extends StatefulWidget {
   final VoidCallback onDismissed;
   final ValueChanged<String?> onDescriptionSaved;
   final ValueChanged<MuscleGroup?> onMuscleGroupChanged;
+  final FormFieldValidator<String?> validateDescription;
+  final FormFieldValidator<MuscleGroup?> validateMuscleGroup;
 
   const DismissibleExercise({
     required this.exerciseIndex,
@@ -17,6 +19,8 @@ class DismissibleExercise extends StatefulWidget {
     required this.onDismissed,
     required this.onDescriptionSaved,
     required this.onMuscleGroupChanged,
+    required this.validateDescription,
+    required this.validateMuscleGroup,
   });
 
   @override
@@ -85,18 +89,29 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
             Expanded(
               flex: 2,
               child: TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
                 controller: descriptionController,
+                validator: widget.validateDescription,
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.white,
+                ),
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 128, 125, 125)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromRGBO(78, 180, 173, 0.612)),
+                  ),
                   labelText: 'Description',
+                  labelStyle:
+                      TextStyle(color: Color.fromRGBO(78, 180, 173, 0.612)),
                   border: OutlineInputBorder(),
                 ),
-                onSaved: widget.onDescriptionSaved,
+                onChanged: (newValue) {
+                  widget.onDescriptionSaved(newValue);
+                },
               ),
             ),
             SizedBox(width: 16.0),
@@ -106,14 +121,25 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
                 valueListenable: muscleGroupController,
                 builder: (context, value, child) {
                   return DropdownButtonFormField<MuscleGroup>(
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please select a muscle group.';
-                      }
-                      return null;
-                    },
+                    validator: widget.validateMuscleGroup,
                     decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 128, 125, 125)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(96, 194, 187, 0.612)),
+                      ),
                       labelText: 'Muscle Group',
+                      labelStyle: TextStyle(
+                          color: Color.fromRGBO(
+                            78,
+                            180,
+                            173,
+                            0.612,
+                          ),
+                          fontSize: 17),
                       border: OutlineInputBorder(),
                     ),
                     value: value,
@@ -126,6 +152,10 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
                         value: muscleGroup,
                         child: Text(
                           muscleGroup.toString().split('.').last,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
                         ),
                       );
                     }).toList(),

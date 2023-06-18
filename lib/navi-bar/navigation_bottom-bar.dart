@@ -48,10 +48,8 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
             onTap: _onItemTapped,
           ),
           Positioned(
-            bottom:
-                30, 
-            left: MediaQuery.of(context).size.width / 2 -
-                28, 
+            bottom: 30,
+            left: MediaQuery.of(context).size.width / 2 - 28,
             child: SpeedDial(
               animatedIcon: AnimatedIcons.add_event,
               animatedIconTheme: IconThemeData(size: 22.0),
@@ -61,6 +59,14 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
               children: [
                 SpeedDialChild(
                   child: Icon(Icons.calendar_today, color: Colors.white),
+                  backgroundColor: Color.fromRGBO(43, 138, 132, 1),
+                  onTap: () {},
+                  label: 'Create new session',
+                  labelStyle: TextStyle(fontWeight: FontWeight.w500),
+                  labelBackgroundColor: Colors.white,
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.fitness_center, color: Colors.white),
                   backgroundColor: Color.fromRGBO(43, 138, 132, 1),
                   onTap: () {
                     Navigator.push(
@@ -86,14 +92,6 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                       ),
                     );
                   },
-                  label: 'Create new session',
-                  labelStyle: TextStyle(fontWeight: FontWeight.w500),
-                  labelBackgroundColor: Colors.white,
-                ),
-                SpeedDialChild(
-                  child: Icon(Icons.fitness_center, color: Colors.white),
-                  backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-                  onTap: () {},
                   label: 'Create new routine',
                   labelStyle: TextStyle(fontWeight: FontWeight.w500),
                   labelBackgroundColor: Colors.white,
