@@ -20,4 +20,8 @@ class TrainingRoutine {
         routineName: json['routineName'],
         exerciseList: exerciseList);
   }
+  Map<String, dynamic> toJson() => {
+        'routineName': routineName,
+        'exerciseList': exerciseList.map((e) => e.toJson()).toList(),
+      };
 }

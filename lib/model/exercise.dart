@@ -9,14 +9,18 @@ class Exercise {
       required this.name,
       required this.MuscleGroup,
       required this.adminCreated});
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'muscleGroup': MuscleGroup.split('.').last,
+      };
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
       id: json['id'],
       name: json['name'],
-      MuscleGroup: json['MuscleGroup'],
+      MuscleGroup: json['muscleGroup'],
       adminCreated: json['adminCreated'],
     );
   }
 }
 
-enum MuscleGroup { Chest, Back, Legs, Shoulders, Arms, Abs }
+enum MuscleGroup { CHEST, BACK, LEGS, SHOULDERS, ARMS, ABS }

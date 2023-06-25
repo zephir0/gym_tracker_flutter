@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/home-screen.dart/home-screen.dart';
+import 'package:gym_tracker_flutter/main-dashboard.dart/home-page.dart';
 import 'package:gym_tracker_flutter/navi-bar/navigation_bottom-bar.dart';
-import 'package:gym_tracker_flutter/setting-screen/setting-screen.dart';
+import 'package:gym_tracker_flutter/settings/settings-page.dart';
 import 'package:gym_tracker_flutter/user-profile-screen/user-profile-screen.dart';
+import 'package:gym_tracker_flutter/utills/time-provider.dart';
+import 'package:provider/provider.dart';
 
-import 'auth_screen/auth_screen.dart';
+import 'auth/auth_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,16 +15,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GymDiary',
-      routes: {
-        '/login': (context) => LoginScreen(),
-        '/home': (context) => HomeScreen(),
-        '/settings': (context) => SettingScreen(),
-        '/navi-bar': (context) => NavigationBottomBar(),
-        '/user-profile': (context) => UserProfileScreen(),
-      },
-      initialRoute: "/login",
+    return ChangeNotifierProvider(
+      create: (context) => TimerProvider(),
+      child: MaterialApp(
+        title: 'GymDiary',
+        routes: {
+          '/login': (context) => LoginScreen(),
+          '/home': (context) => HomePage(),
+          '/settings': (context) => SettingsPage(),
+          '/navi-bar': (context) => NavigationBottomBar(),
+          '/user-profile': (context) => UserProfileScreen(),
+        },
+        initialRoute: "/login",
+      ),
     );
   }
 }

@@ -19,6 +19,8 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   intl: ^0.18.1
   page_transition: ^2.0.9
+  flutter_typeahead: "^3.2.1"
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
