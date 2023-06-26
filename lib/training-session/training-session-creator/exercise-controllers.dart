@@ -55,23 +55,28 @@ class ExerciseControllers {
     }
   }
 
-  List<Map<String, dynamic>> getJsonData({required TrainingRoutine routine}) {
-    List<Map<String, dynamic>> jsonData = [];
+  Map<String, dynamic> prepareJsonData({required TrainingRoutine routine}) {
+    Map<String, dynamic> jsonData = {};
+    List<Map<String, dynamic>> trainingLogDtoList = [];
+
     for (var i = 0; i < routine.exerciseList.length; i++) {
       List<Map<String, dynamic>> exerciseData = [];
       for (int j = 0; j < repsControllers[i].length; j++) {
         exerciseData.add({
+          'exerciseId': routine.exerciseList[i].id,
           'reps': repsControllers[i][j].text,
           'weight': weightControllers[i][j].text,
-          'notes': notesControllers[i][j].text,
+          'personalNotes': notesControllers[i][j].text,
         });
       }
-
-      jsonData.add({
-        'exerciseName': routine.exerciseList[i].name,
-        'exerciseData': exerciseData,
-      });
+      trainingLogDtoList.addAll(exerciseData);
     }
+
+    jsonData = {
+      'trainingRoutineId': routine.id,
+      'trainingLogDtoList': trainingLogDtoList,
+    };
+
     return jsonData;
   }
 }

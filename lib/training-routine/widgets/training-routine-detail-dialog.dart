@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/training-session-service.dart';
 import 'package:gym_tracker_flutter/model/exercise.dart';
 import 'package:gym_tracker_flutter/model/training-routine.dart';
 
@@ -70,13 +71,12 @@ class TrainingRoutineDetailDialog {
                               primary: Colors.white,
                             ),
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      TrainingSessionCreatorPage(
-                                          routine: routine),
-                                ),
-                              );
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return TrainingSessionCreatorPage(
+                                  routine: routine,
+                                );
+                              }));
                             },
                             child: Text('Start Routine'),
                           ),

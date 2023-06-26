@@ -35,21 +35,21 @@ class ExerciseSetRow extends StatelessWidget {
           ),
         ),
         onDismissed: (_) => onDelete(exerciseIndex, setIndex),
-        child: buildSetRow(),
+        child: buildSetRow(context),
       );
     } else {
-      return buildSetRow();
+      return buildSetRow(context);
     }
   }
 
-  Row buildSetRow() {
+  Row buildSetRow(context) {
     return Row(
       children: [
         buildSetNumber(),
         buildPreviousWeight(), // This appears to be a duplicate in the original code
-        buildTextField('Reps', repsController),
-        buildTextField('Weight', weightController),
-        buildTextField('Notes', notesController),
+        buildTextField('Reps', repsController, context),
+        buildTextField('Weight', weightController, context),
+        buildTextField('Notes', notesController, context),
       ],
     );
   }
@@ -92,12 +92,16 @@ class ExerciseSetRow extends StatelessWidget {
     );
   }
 
-  Expanded buildTextField(String hint, TextEditingController controller) {
+  Expanded buildTextField(
+      String hint, TextEditingController controller, BuildContext context) {
     return Expanded(
       flex: 3,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
+          keyboardType: hint.contains("Notes")
+              ? TextInputType.text
+              : TextInputType.numberWithOptions(decimal: true),
           textAlign: TextAlign.center,
           controller: controller,
           style: TextStyle(
@@ -105,6 +109,7 @@ class ExerciseSetRow extends StatelessWidget {
             fontSize: 12,
           ),
           decoration: InputDecoration(
+            alignLabelWithHint: true,
             isDense: true,
             contentPadding: EdgeInsets.all(8),
             border: OutlineInputBorder(),
@@ -114,8 +119,11 @@ class ExerciseSetRow extends StatelessWidget {
             ),
           ),
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
+            if (value == null ||
+                value.isEmpty ||
+                ((hint == "Weight" || hint == "Reps") &&
+                    double.tryParse(value) == null)) {
+              return 'Error!';
             }
             return null;
           },

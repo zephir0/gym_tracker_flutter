@@ -1,0 +1,10 @@
+[
+  {
+    "exerciseId": "1",
+    "exerciseData": [{ "reps": "3", "weight": "3", "notes": "3w" }]
+  },
+  {
+    "exerciseId": "2",
+    "exerciseData": [{ "reps": "3", "weight": "3", "notes": "3" }]
+  }
+]

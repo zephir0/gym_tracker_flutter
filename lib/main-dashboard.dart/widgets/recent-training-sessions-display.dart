@@ -24,7 +24,8 @@ class _RecentTrainingSessionsDisplayState
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          List<TrainingSession> trainingSessions = snapshot.data!;
+          List<TrainingSession> trainingSessions =
+              snapshot.data!.reversed.toList();
           return Expanded(
             child: ListView.builder(
               itemCount: trainingSessions.length,

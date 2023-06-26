@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/training-session-service.dart';
 import 'package:gym_tracker_flutter/training-session/training-session-creator/exercise-controllers.dart';
 import 'package:gym_tracker_flutter/training-session/training-session-creator/widgets/exercise-card-builder.dart';
 import 'package:gym_tracker_flutter/training-session/training-session-creator/widgets/timer-display-widget.dart';
@@ -24,6 +25,7 @@ class RoutineExercisesDisplayer extends StatefulWidget {
 class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
   ExerciseControllers? controllers;
   var _formKey = GlobalKey<FormState>();
+  bool isWorkoutFinished = false;
 
   void initState() {
     super.initState();
@@ -50,11 +52,26 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
 
       WorkoutSummary.showSummary(context);
 
-      List<Map<String, dynamic>> jsonData = controllers!.getJsonData(
+      Map<String, dynamic> jsonData = controllers!.prepareJsonData(
         routine: widget.routine,
       );
+
       String s = jsonEncode(jsonData);
+      TrainingSessionService().startTrainingSession(s, context);
+
       print(s);
+
+      setState(() {
+        isWorkoutFinished = true;
+      });
+    }
+  }
+
+  void onButtonPress() {
+    if (!isWorkoutFinished) {
+      onSubmit();
+    } else {
+      Navigator.pop(context);
     }
   }
 
@@ -90,13 +107,14 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
                   children: [
                     TimerDisplayWidget(),
                     FinishWorkoutButton(
-                      onFinishWorkout: (() => onSubmit()),
+                      onFinishWorkout: (() => onButtonPress()),
+                      isWorkoutFinished: isWorkoutFinished,
                     ),
                   ],
                 ),
               ),
             ),
-          )
+          ),
         ]),
       ),
     );
