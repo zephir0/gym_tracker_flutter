@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../auth/widgets/error_dialog.dart';
-import '../model/training-session.dart';
-import '../training-session/training-session-creator/training-session-creator-page.dart';
+import 'models/training-session.dart';
 
 class TrainingSessionService {
   Future<List<TrainingSession>> getRecentTrainingSessions() async {

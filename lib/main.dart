@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/main-dashboard.dart/home-page.dart';
-import 'package:gym_tracker_flutter/navi-bar/navigation_bottom-bar.dart';
-import 'package:gym_tracker_flutter/settings/settings-page.dart';
-import 'package:gym_tracker_flutter/user-profile-screen/user-profile-screen.dart';
+import 'package:gym_tracker_flutter/screens/main-dashboard.dart/home-page.dart';
+import 'package:gym_tracker_flutter/navi-bar/navigation-bottom-bar.dart';
+import 'package:gym_tracker_flutter/screens/settings/settings-page.dart';
+import 'package:gym_tracker_flutter/screens/user-profile-screen/user-profile-screen.dart';
 import 'package:gym_tracker_flutter/utills/time-provider.dart';
 import 'package:provider/provider.dart';
 

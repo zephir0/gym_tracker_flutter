@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/training_log.dart';
+import 'models/training_log.dart';
 
 class TrainingLogService {
   Future<List<TrainingLog>> getAllLogsForTrainingSession(var sessionId) async {

@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/training-routine.dart';
+import 'models/training-routine.dart';
 
 class TrainingRoutineService {
   Future<List<TrainingRoutine>> getTrainingRoutines() async {
@@ -47,5 +47,24 @@ class TrainingRoutineService {
     );
 
     return response.statusCode;
+  }
+
+  Future<void> archiveTrainingRoutine(routineId) async {
+    String? token =
+        await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
+
+    var url = Uri.parse(GlobalVariables().backendApiAddress +
+        'api/training-routines/$routineId');
+
+    final request = await http.put(
+      url,
+      headers: {
+        'Authorization': 'Bearer ' + '$token',
+      },
+    );
+
+    if (request.statusCode != 200) {
+      throw Exception('Failed to delete training routine');
+    }
   }
 }
