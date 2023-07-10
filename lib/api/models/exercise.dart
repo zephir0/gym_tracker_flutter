@@ -1,9 +1,12 @@
+import '../../screens/training-routine/training-routine-creator/training-routine-creator-page.dart';
+
 class Exercise {
   final id;
-  final name;
+  final String name;
   final MuscleGroup;
   final adminCreated;
-
+  set name(String name) => name;
+  set MuscleGroup(muscleGroup) => muscleGroup;
   Exercise(
       {required this.id,
       required this.name,

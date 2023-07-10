@@ -16,7 +16,6 @@ class FormHandler {
       ErrorDialog.showErrorDialog(context, "Invalid email address");
     } else {
       AuthService().attemptLogin(email, password, context);
-      Navigator.pushReplacementNamed(context, '/navi-bar');
     }
   }
 
@@ -24,9 +23,7 @@ class FormHandler {
     print("Sending recovery email to: $email");
     if (!_validateEmail(email)) {
       ErrorDialog.showErrorDialog(context, "Invalid email address");
-    } else {
-      // Call the appropriate method here
-    }
+    } else {}
   }
 
   void handleSignUp(String username, String email, String password,

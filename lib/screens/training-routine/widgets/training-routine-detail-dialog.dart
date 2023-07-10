@@ -1,15 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-routine-service.dart';
 import 'package:gym_tracker_flutter/api/models/exercise.dart';
 import 'package:gym_tracker_flutter/api/models/training-routine.dart';
 
+import '../../../api/training-routine-bloc.dart';
 import '../../training-session/training-session-creator/training-session-creator-page.dart';
 
 class TrainingRoutineDetailDialog {
   static void showRoutineDetailDialog(BuildContext context,
       TrainingRoutine routine, VoidCallback onRoutineArchived) {
+    final bloc = TrainingRoutineBloc();
+
     showDialog(
       context: context,
       builder: (context) {
@@ -93,7 +95,7 @@ class TrainingRoutineDetailDialog {
                       ),
                       onPressed: () {
                         _deleteConfirmation(
-                            context, routine, onRoutineArchived);
+                            context, routine, bloc, onRoutineArchived);
                       },
                       child: Text('Archive routine'),
                     ),
@@ -107,8 +109,11 @@ class TrainingRoutineDetailDialog {
     );
   }
 
-  static Future<dynamic> _deleteConfirmation(BuildContext context,
-      TrainingRoutine routine, VoidCallback onRoutineArchived) {
+  static Future<dynamic> _deleteConfirmation(
+      BuildContext context,
+      TrainingRoutine routine,
+      TrainingRoutineBloc bloc,
+      VoidCallback onRoutineArchived) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -128,8 +133,7 @@ class TrainingRoutineDetailDialog {
             ),
             TextButton(
               onPressed: () async {
-                await TrainingRoutineService()
-                    .archiveTrainingRoutine(routine.id);
+                await bloc.archiveTrainingRoutine(routine.id);
                 Navigator.of(context).pop();
                 onRoutineArchived();
                 Navigator.of(context).pop();

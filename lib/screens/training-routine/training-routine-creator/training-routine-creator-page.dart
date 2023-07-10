@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/models/exercise.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-creator/widgets/dismissible-routine-form.dart';
 
 enum MuscleGroup {

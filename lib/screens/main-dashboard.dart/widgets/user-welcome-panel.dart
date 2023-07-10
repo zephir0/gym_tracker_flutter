@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../api/user-service.dart';
+import '../../../api/user-bloc.dart';
 
 class UserWelcomePanel extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class UserWelcomePanel extends StatefulWidget {
 class _UserWelcomePanelState extends State<UserWelcomePanel>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late UserBloc userBloc;
 
   @override
   void initState() {
@@ -18,6 +20,8 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
       duration: const Duration(seconds: 1),
       vsync: this,
     );
+    userBloc = Provider.of<UserBloc>(context, listen: false);
+    userBloc.fetchNameFromJson();
   }
 
   @override
@@ -40,28 +44,6 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
     );
   }
 
-  GestureDetector userAvatar(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        await _controller.forward();
-        Navigator.pushNamed(context, '/user-profile');
-        _controller.reset();
-      },
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.rotate(
-            angle: _controller.value * 2 * 3.14,
-            child: CircleAvatar(
-              minRadius: 40,
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   Column welcomeUserText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +53,8 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
         ),
-        FutureBuilder<String>(
-          future: UserService().fetchNameFromJson(),
+        StreamBuilder<String>(
+          stream: userBloc.name,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
               return Text(
@@ -92,6 +74,28 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
           },
         ),
       ],
+    );
+  }
+
+  GestureDetector userAvatar(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        await _controller.forward();
+        Navigator.pushNamed(context, '/user-profile');
+        _controller.reset();
+      },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget? child) {
+          return Transform.rotate(
+            angle: _controller.value * 2 * 3.14,
+            child: CircleAvatar(
+              minRadius: 40,
+              backgroundImage: AssetImage('assets/images/avatar.png'),
+            ),
+          );
+        },
+      ),
     );
   }
 }

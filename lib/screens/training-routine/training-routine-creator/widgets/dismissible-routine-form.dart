@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-routine-service.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-creator/widgets/submit-button.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-page.dart';
 
+import '../../../../api/training-routine-bloc.dart';
 import '../../../../utills/global_variables.dart';
 import 'add-exercise-button.dart';
 import 'back-button.dart';
@@ -31,6 +31,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
   bool shouldShake = false;
   bool isFailed = false;
   bool isSaved = false;
+  final _bloc = TrainingRoutineBloc();
 
   @override
   void initState() {
@@ -171,17 +172,16 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
 
   Future<void> _createRoutine() async {
     final routine = _prepareRoutine();
-    final statusCode =
-        await TrainingRoutineService().createTrainingRoutine(routine);
+    bool isRoutineCreated = await _bloc.createTrainingRoutine(routine);
 
-    if (statusCode == 201) {
-      _handleSuccessRoutineCreation();
+    if (isRoutineCreated) {
+      await _handleSuccessRoutineCreation();
     } else {
       _handleFailedRoutineCreation();
     }
   }
 
-  void _handleSuccessRoutineCreation() {
+  Future<void> _handleSuccessRoutineCreation() async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Training routine created successfully'),

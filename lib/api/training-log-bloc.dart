@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -7,20 +8,29 @@ import 'package:http/http.dart' as http;
 
 import 'models/training_log.dart';
 
-class TrainingLogService {
-  Future<List<TrainingLog>> getAllLogsForTrainingSession(var sessionId) async {
+class TrainingLogBloc {
+  final _trainingLogStateController = StreamController<List<TrainingLog>>();
+
+  Stream<List<TrainingLog>> get trainingLogs =>
+      _trainingLogStateController.stream;
+
+  TrainingLogBloc();
+
+  fetchTrainingLogs(sessionId) async {
+    var logs = await _getAllLogsForTrainingSession(sessionId);
+    _trainingLogStateController.sink.add(logs);
+  }
+
+  Future<List<TrainingLog>> _getAllLogsForTrainingSession(var sessionId) async {
     String? token =
         await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
 
     var url = Uri.parse(GlobalVariables().backendApiAddress +
         'api/training-logs/gym-diary/$sessionId');
 
-    final request = await http.get(
-      url,
-      headers: {
-        'Authorization': 'Bearer ' + '$token',
-      },
-    );
+    final request = await http.get(url, headers: {
+      'Authorization': 'Bearer ' + '$token',
+    });
 
     if (request.statusCode == 200) {
       var trainingLogs = (json.decode(request.body) as List)
@@ -30,5 +40,9 @@ class TrainingLogService {
     } else {
       throw Exception('Failed to load training sessions');
     }
+  }
+
+  void dispose() {
+    _trainingLogStateController.close();
   }
 }

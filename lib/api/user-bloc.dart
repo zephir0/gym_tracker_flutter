@@ -1,12 +1,18 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
-import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:http/http.dart' as http;
 
-class UserService {
-  Future<String> fetchNameFromJson() async {
+import '../token/token_storage.dart';
+import '../utills/global_variables.dart';
+
+class UserBloc {
+  final _nameController = StreamController<String>.broadcast();
+
+  Stream<String> get name => _nameController.stream;
+
+  void fetchNameFromJson() async {
     String? token =
         await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
     var url = Uri.parse(
@@ -20,9 +26,13 @@ class UserService {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse['login'];
+      _nameController.sink.add(jsonResponse['login']);
     } else {
-      throw Exception('Failed to load name from JSON');
+      _nameController.sink.addError('Failed to load name from JSON');
     }
+  }
+
+  void dispose() {
+    _nameController.close();
   }
 }

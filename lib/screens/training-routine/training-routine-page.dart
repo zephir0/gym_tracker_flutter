@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-routine-service.dart';
-import 'package:gym_tracker_flutter/screens/training-routine/training-routine-creator/training-routine-creator-page.dart';
+import 'package:gym_tracker_flutter/api/models/training-routine.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/back-to-home-button.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/create-routine-button.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/training-routine-card.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/training-routine-detail-dialog.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
-import 'package:gym_tracker_flutter/api/models/training-routine.dart';
+
+import '../../api/training-routine-bloc.dart';
 
 class TrainingRoutinePage extends StatefulWidget {
   @override
@@ -16,40 +16,41 @@ class TrainingRoutinePage extends StatefulWidget {
 }
 
 class _TrainingRoutinePageState extends State<TrainingRoutinePage> {
-  late StreamController<List<TrainingRoutine>> _streamController;
-  late Stream<List<TrainingRoutine>> _stream;
+  final _bloc = TrainingRoutineBloc();
 
   @override
   void initState() {
     super.initState();
-    _streamController = StreamController();
-    _stream = _streamController.stream;
-    loadRoutines();
+    _bloc.getTrainingRoutines();
   }
 
-  void loadRoutines() async {
-    var routines = await TrainingRoutineService().getTrainingRoutines();
-    _streamController.add(routines);
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        RoutineGridDisplayContainer(),
-        CreateRoutineButton(context: context),
-        BackToHomeButton(context: context),
-      ],
+    return RefreshIndicator(
+      onRefresh: () => _bloc.getTrainingRoutines(),
+      child: Stack(
+        children: [
+          _routineGridDisplayContainer(),
+          CreateRoutineButton(context: context),
+          BackToHomeButton(context: context),
+        ],
+      ),
     );
   }
 
-  Widget RoutineGridDisplayContainer() {
+  Widget _routineGridDisplayContainer() {
     return Container(
       decoration: BoxDecoration(
         gradient: GlobalVariables().primaryGradient,
       ),
       child: StreamBuilder<List<TrainingRoutine>>(
-        stream: _stream,
+        stream: _bloc.routines,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -74,7 +75,9 @@ class _TrainingRoutinePageState extends State<TrainingRoutinePage> {
                     trainingRoutine: reversedList[index],
                     onTap: () {
                       TrainingRoutineDetailDialog.showRoutineDetailDialog(
-                          context, reversedList[index], loadRoutines);
+                          context,
+                          reversedList[index],
+                          _bloc.getTrainingRoutines);
                     },
                   );
                 },

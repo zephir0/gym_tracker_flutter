@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-log-service.dart';
+import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-details/widgets/back-button.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-details/widgets/training-log-list.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
@@ -7,27 +7,24 @@ import 'package:gym_tracker_flutter/api/models/training_log.dart';
 
 import '../../../api/models/training-session.dart';
 
-class TrainingSessionDetailPage extends StatefulWidget {
-  final List<TrainingSession> trainingSessions;
-  final int index;
+class TrainingSessionLogsPage extends StatefulWidget {
+  final trainingSessionId;
   final String routineName;
 
-  const TrainingSessionDetailPage({
-    required this.trainingSessions,
-    required this.index,
-    required this.routineName,
-  });
+  const TrainingSessionLogsPage(
+      {required this.routineName, required this.trainingSessionId});
 
   @override
-  _TrainingSessionDetailPageState createState() =>
-      _TrainingSessionDetailPageState();
+  _TrainingSessionLogsPageState createState() =>
+      _TrainingSessionLogsPageState();
 }
 
-class _TrainingSessionDetailPageState extends State<TrainingSessionDetailPage> {
-  Future<List<TrainingLog>> _fetchTrainingLogs() async {
-    final trainingSessionId =
-        widget.trainingSessions[widget.index].id.toString();
-    return TrainingLogService().getAllLogsForTrainingSession(trainingSessionId);
+class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
+  final _trainingLogBloc = TrainingLogBloc();
+  @override
+  void initState() {
+    super.initState();
+    _trainingLogBloc.fetchTrainingLogs(widget.trainingSessionId);
   }
 
   @override
@@ -62,8 +59,8 @@ class _TrainingSessionDetailPageState extends State<TrainingSessionDetailPage> {
               ),
               SizedBox(height: 16.0),
               Expanded(
-                child: FutureBuilder<List<TrainingLog>>(
-                  future: _fetchTrainingLogs(),
+                child: StreamBuilder<List<TrainingLog>>(
+                  stream: _trainingLogBloc.trainingLogs,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());

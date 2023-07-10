@@ -10,29 +10,82 @@ import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  bool _isRefreshing = false;
+  late AnimationController _deleteAnimationController;
+  late CurvedAnimation _deleteAnimationCurve;
+
+  @override
+  void initState() {
+    super.initState();
+    _deleteAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _deleteAnimationCurve = CurvedAnimation(
+      parent: _deleteAnimationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _deleteAnimationController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleRefresh() async {
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      _isRefreshing = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
-      child: Column(
-        children: [
-          UserWelcomePanel(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              WorkoutCount(),
-              UserTrainingRoutines(),
-            ],
+    return Stack(
+      children: [
+        GestureDetector(
+          onVerticalDragEnd: (details) {
+            _handleRefresh();
+          },
+          child: Container(
+            decoration:
+                BoxDecoration(gradient: GlobalVariables().primaryGradient),
+            child: Column(
+              children: [
+                UserWelcomePanel(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    WorkoutCount(),
+                    UserTrainingRoutines(),
+                  ],
+                ),
+                ProgressTracker(),
+                RecentWorkoutsHeader(),
+                RecentTrainingSessionsDisplay(
+                  deleteAnimationCurve: _deleteAnimationCurve,
+                ),
+              ],
+            ),
           ),
-          ProgressTracker(),
-          RecentWorkoutsHeader(),
-          RecentTrainingSessionsDisplay(),
-        ],
-      ),
+        ),
+        if (_isRefreshing)
+          LinearProgressIndicator(
+            color: Color.fromRGBO(24, 218, 205, 0.612),
+            minHeight: 8,
+            backgroundColor: Colors.transparent,
+          ), // Shows at the top of the widget
+      ],
     );
   }
 }

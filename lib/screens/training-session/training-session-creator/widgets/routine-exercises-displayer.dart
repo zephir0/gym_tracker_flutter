@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-session-service.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/timer-display-widget.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/workout-summary.dart';
 
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../api/models/exercise.dart';
 import '../../../../api/models/training-routine.dart';
+import '../../../../api/training-session-bloc.dart';
 import '../../../../utills/time-provider.dart';
 import '../exercise-controllers.dart';
 import 'exercise-card-builder.dart';
@@ -57,8 +57,10 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
         routine: widget.routine,
       );
 
-      String json = jsonEncode(jsonData);
-      TrainingSessionService().startTrainingSession(json, context);
+      String jsonEncoded = jsonEncode(jsonData);
+
+      var bloc = TrainingSessionBloc();
+      bloc.startTrainingSession(jsonEncoded, context);
 
       setState(() {
         isWorkoutFinished = true;
@@ -70,7 +72,8 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
     if (!isWorkoutFinished) {
       onSubmit();
     } else {
-      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/navi-bar', (Route<dynamic> route) => false);
     }
   }
 
