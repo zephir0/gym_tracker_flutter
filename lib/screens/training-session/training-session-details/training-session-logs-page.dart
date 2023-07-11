@@ -5,8 +5,6 @@ import 'package:gym_tracker_flutter/screens/training-session/training-session-de
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:gym_tracker_flutter/api/models/training_log.dart';
 
-import '../../../api/models/training-session.dart';
-
 class TrainingSessionLogsPage extends StatefulWidget {
   final trainingSessionId;
   final String routineName;

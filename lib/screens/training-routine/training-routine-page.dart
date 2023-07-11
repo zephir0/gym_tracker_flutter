@@ -7,6 +7,7 @@ import 'package:gym_tracker_flutter/screens/training-routine/widgets/create-rout
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/training-routine-card.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/widgets/training-routine-detail-dialog.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:provider/provider.dart';
 
 import '../../api/training-routine-bloc.dart';
 
@@ -16,17 +17,17 @@ class TrainingRoutinePage extends StatefulWidget {
 }
 
 class _TrainingRoutinePageState extends State<TrainingRoutinePage> {
-  final _bloc = TrainingRoutineBloc();
+  late TrainingRoutineBloc _bloc;
 
   @override
   void initState() {
     super.initState();
+    _bloc = Provider.of<TrainingRoutineBloc>(context, listen: false);
     _bloc.getTrainingRoutines();
   }
 
   @override
   void dispose() {
-    _bloc.dispose();
     super.dispose();
   }
 

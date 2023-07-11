@@ -8,6 +8,7 @@ import 'package:gym_tracker_flutter/screens/user-profile-screen/user-profile-scr
 import 'package:gym_tracker_flutter/utills/time-provider.dart';
 import 'package:provider/provider.dart';
 
+import 'api/training-routine-bloc.dart';
 import 'auth/auth_screen.dart';
 
 void main() {
@@ -25,6 +26,10 @@ class MyApp extends StatelessWidget {
         ),
         Provider<UserBloc>(
           create: (context) => UserBloc(),
+          dispose: (context, bloc) => bloc.dispose(),
+        ),
+        Provider<TrainingRoutineBloc>(
+          create: (context) => TrainingRoutineBloc(),
           dispose: (context, bloc) => bloc.dispose(),
         ),
       ],

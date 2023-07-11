@@ -10,10 +10,14 @@ class TrainingSessionBloc {
   final _trainingSessionStateController =
       StreamController<List<TrainingSession>>.broadcast();
 
+  final _workoutCounter = StreamController<String>.broadcast();
+  Stream<String> get workoutCounter => _workoutCounter.stream;
+
   Stream<List<TrainingSession>> get recentTrainingSessions =>
       _trainingSessionStateController.stream;
 
   TrainingSessionBloc() {
+    getWorkoutCount().then((value) => _workoutCounter.sink.add(value));
     fetchRecentTrainingSessions();
   }
 
@@ -34,7 +38,24 @@ class TrainingSessionBloc {
       var trainingSessionList = (json.decode(request.body) as List)
           .map((data) => TrainingSession.fromJson(data))
           .toList();
+      getWorkoutCount().then((value) => _workoutCounter.sink.add(value));
+
       return trainingSessionList;
+    } else {
+      throw Exception('Failed to load training sessions');
+    }
+  }
+
+  Future<String> getWorkoutCount() async {
+    String? token =
+        await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
+    var url = Uri.parse(GlobalVariables().backendApiAddress +
+        'api/progress-tracker/training-sessions/workouts-count');
+    final request = await http.get(url, headers: {
+      'Authorization': 'Bearer ' + '$token',
+    });
+    if (request.statusCode == 200) {
+      return request.body;
     } else {
       throw Exception('Failed to load training sessions');
     }
@@ -54,6 +75,7 @@ class TrainingSessionBloc {
     if (response.statusCode != 201) {
       throw Exception('Failed to start training session');
     }
+    getWorkoutCount().then((value) => _workoutCounter.sink.add(value));
   }
 
   Future<void> deleteTrainingSession(sessionId) async {
@@ -70,9 +92,13 @@ class TrainingSessionBloc {
     if (response.statusCode != 200) {
       throw Exception('Failed to delete training session');
     }
+
+    fetchRecentTrainingSessions();
+    getWorkoutCount().then((value) => _workoutCounter.sink.add(value));
   }
 
   void dispose() {
     _trainingSessionStateController.close();
+    _workoutCounter.close();
   }
 }

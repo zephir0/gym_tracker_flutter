@@ -22,6 +22,11 @@ class _RecentTrainingSessionsDisplayState
   late TrainingSessionBloc _trainingSessionBloc;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _trainingSessionBloc = Provider.of<TrainingSessionBloc>(context);
@@ -51,8 +56,11 @@ class _RecentTrainingSessionsDisplayState
                 children: trainingSessions.map((trainingSession) {
                   return Dismissible(
                     key: UniqueKey(),
-                    onDismissed: (direction) => TrainingSessionBloc()
-                        .deleteTrainingSession(trainingSession.id),
+                    onDismissed: (direction) {
+                      _trainingSessionBloc
+                          .deleteTrainingSession(trainingSession.id);
+                      trainingSessions.remove(trainingSession);
+                    },
                     background: Container(
                       color: Colors.red,
                       child: Stack(

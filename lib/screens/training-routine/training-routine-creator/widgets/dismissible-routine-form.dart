@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-creator/widgets/submit-button.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-page.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../api/training-routine-bloc.dart';
 import '../../../../utills/global_variables.dart';
@@ -31,11 +32,12 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
   bool shouldShake = false;
   bool isFailed = false;
   bool isSaved = false;
-  final _bloc = TrainingRoutineBloc();
+  late TrainingRoutineBloc _bloc;
 
   @override
   void initState() {
     super.initState();
+    _bloc = Provider.of<TrainingRoutineBloc>(context, listen: false);
     routineNameController = TextEditingController();
   }
 

@@ -7,6 +7,9 @@ import 'package:gym_tracker_flutter/screens/main-dashboard.dart/widgets/user-tra
 import 'package:gym_tracker_flutter/screens/main-dashboard.dart/widgets/user-welcome-panel.dart';
 import 'package:gym_tracker_flutter/screens/main-dashboard.dart/widgets/workout-count.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:provider/provider.dart';
+
+import '../../api/training-session-bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,6 +25,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+
     _deleteAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),

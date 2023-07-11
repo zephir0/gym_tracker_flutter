@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/api/models/exercise.dart';
 import 'package:gym_tracker_flutter/api/models/training-routine.dart';
+import 'package:provider/provider.dart';
 
 import '../../../api/training-routine-bloc.dart';
 import '../../training-session/training-session-creator/training-session-creator-page.dart';
@@ -10,7 +11,7 @@ import '../../training-session/training-session-creator/training-session-creator
 class TrainingRoutineDetailDialog {
   static void showRoutineDetailDialog(BuildContext context,
       TrainingRoutine routine, VoidCallback onRoutineArchived) {
-    final bloc = TrainingRoutineBloc();
+    final bloc = Provider.of<TrainingRoutineBloc>(context, listen: false);
 
     showDialog(
       context: context,
