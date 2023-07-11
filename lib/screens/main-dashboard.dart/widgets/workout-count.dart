@@ -15,7 +15,7 @@ class _WorkoutCountState extends State<WorkoutCount> {
   void initState() {
     super.initState();
     _trainingSessionBloc =
-        Provider.of<TrainingSessionBloc>(context, listen: true);
+        Provider.of<TrainingSessionBloc>(context, listen: false);
   }
 
   @override

@@ -61,9 +61,7 @@ class TrainingRoutineDetailDialog {
                               style: TextButton.styleFrom(
                                 primary: Colors.white,
                               ),
-                              onPressed: () {
-                                // Add code for editing routine
-                              },
+                              onPressed: () {},
                               child: Text('Edit Routine'),
                             ),
                           ),
