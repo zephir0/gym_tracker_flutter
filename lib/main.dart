@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
 import 'package:gym_tracker_flutter/api/training-session-bloc.dart';
 import 'package:gym_tracker_flutter/api/user-bloc.dart';
 import 'package:gym_tracker_flutter/screens/main-dashboard.dart/home-page.dart';
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
         ),
         Provider<TrainingRoutineBloc>(
           create: (context) => TrainingRoutineBloc(),
+          dispose: (context, bloc) => bloc.dispose(),
+        ),
+        Provider<TrainingLogBloc>(
+          create: (context) => TrainingLogBloc(),
           dispose: (context, bloc) => bloc.dispose(),
         ),
       ],

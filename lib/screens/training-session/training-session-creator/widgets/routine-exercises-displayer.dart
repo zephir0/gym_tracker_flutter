@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/api/models/training_log.dart';
+import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/timer-display-widget.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/workout-summary.dart';
 
@@ -27,12 +29,28 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
   ExerciseControllers? controllers;
   var _formKey = GlobalKey<FormState>();
   bool isWorkoutFinished = false;
+  late TrainingLogBloc _trainingLogBloc;
+  Map<int, TrainingLog> previousTrainingLogs = {};
 
   void initState() {
     super.initState();
     controllers = ExerciseControllers(
         exercisesLength: widget.routine.exerciseList.length,
         notifyParent: updateUI);
+    _trainingLogBloc = Provider.of<TrainingLogBloc>(context, listen: false);
+    _fetchPreviousTrainingLogs();
+  }
+
+  void _fetchPreviousTrainingLogs() async {
+    try {
+      Map<int, TrainingLog> logs =
+          await _trainingLogBloc.fetchPreviousTrainingLogs();
+      setState(() {
+        previousTrainingLogs = logs;
+      });
+    } catch (e) {
+      print('Error fetching previous training logs: $e');
+    }
   }
 
   void updateUI() {
@@ -43,6 +61,67 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
   void dispose() {
     controllers?.dispose();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Form(
+        key: _formKey,
+        child: Stack(children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.66,
+            child: ListView(
+              children:
+                  widget.routine.exerciseList.asMap().entries.map((entry) {
+                int index = entry.key;
+                Exercise exercise = entry.value;
+                return ExerciseCardBuilder(
+                  hintWeights:
+                      extractLastEntryForExercise(exercise.id, 'weight'),
+                  hintReps: extractLastEntryForExercise(exercise.id, 'reps'),
+                  exercise: exercise,
+                  index: index,
+                  controllers: controllers!,
+                );
+              }).toList(),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Container(
+                child: Column(
+                  children: [
+                    TimerDisplayWidget(),
+                    FinishWorkoutButton(
+                      onFinishWorkout: (() => onButtonPress()),
+                      isWorkoutFinished: isWorkoutFinished,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
+  String extractLastEntryForExercise(int exerciseId, String type) {
+    if (previousTrainingLogs.containsKey(exerciseId)) {
+      if (type == 'weight') {
+        int weight = previousTrainingLogs[exerciseId]?.weight ?? 0;
+        return weight.toString();
+      } else if (type == 'reps') {
+        int reps = previousTrainingLogs[exerciseId]?.reps ?? 0;
+        return reps.toString();
+      }
+    }
+    return '0';
   }
 
   void onSubmit() {
@@ -75,50 +154,5 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/navi-bar', (Route<dynamic> route) => false);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Form(
-        key: _formKey,
-        child: Stack(children: [
-          Container(
-            height: 555,
-            child: ListView(
-              children:
-                  widget.routine.exerciseList.asMap().entries.map((entry) {
-                int index = entry.key;
-                Exercise exercise = entry.value;
-                return ExerciseCardBuilder(
-                  exercise: exercise,
-                  index: index,
-                  controllers: controllers!,
-                );
-              }).toList(),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Container(
-                child: Column(
-                  children: [
-                    TimerDisplayWidget(),
-                    FinishWorkoutButton(
-                      onFinishWorkout: (() => onButtonPress()),
-                      isWorkoutFinished: isWorkoutFinished,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ]),
-      ),
-    );
   }
 }

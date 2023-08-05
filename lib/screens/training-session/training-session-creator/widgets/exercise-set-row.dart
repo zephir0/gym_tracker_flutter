@@ -8,6 +8,8 @@ class ExerciseSetRow extends StatelessWidget {
   final TextEditingController notesController;
   final bool canDelete;
   final Function onDelete;
+  final String hintsReps;
+  final String hintsWeight;
 
   const ExerciseSetRow({
     required this.exerciseIndex,
@@ -17,6 +19,8 @@ class ExerciseSetRow extends StatelessWidget {
     required this.notesController,
     required this.canDelete,
     required this.onDelete,
+    required this.hintsReps,
+    required this.hintsWeight,
   });
 
   @override
@@ -46,9 +50,8 @@ class ExerciseSetRow extends StatelessWidget {
     return Row(
       children: [
         buildSetNumber(),
-        buildPreviousWeight(), // This appears to be a duplicate in the original code
-        buildTextField('Reps', repsController, context),
-        buildTextField('Weight', weightController, context),
+        buildTextField(hintsReps, repsController, context),
+        buildTextField(hintsWeight, weightController, context),
         buildTextField('Notes', notesController, context),
       ],
     );
@@ -67,24 +70,6 @@ class ExerciseSetRow extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 14,
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Expanded buildPreviousWeight() {
-    return Expanded(
-      flex: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Center(
-          child: Text(
-            "1",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
             ),
           ),
         ),

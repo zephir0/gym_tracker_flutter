@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/models/training-session.dart';
 import 'package:gym_tracker_flutter/api/training-session-bloc.dart';
 import 'package:provider/provider.dart';
 

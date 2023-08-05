@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class TrainingLog {
   var id;
-  String name;
+  String? name;
   var reps;
   var weight;
   String personalNotes;

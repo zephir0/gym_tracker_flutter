@@ -35,7 +35,7 @@ class TrainingLogCard extends StatelessWidget {
               ),
             ),
             title: Text(
-              currentLog.name,
+              currentLog.name!,
               style: TextStyle(
                 color: Color.fromRGBO(80, 187, 180, 0.612),
                 fontSize: 19.0,

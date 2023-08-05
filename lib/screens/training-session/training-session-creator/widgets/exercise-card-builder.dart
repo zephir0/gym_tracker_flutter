@@ -3,16 +3,28 @@ import '../../../../api/models/exercise.dart';
 import '../exercise-controllers.dart';
 import 'exercise-set-row.dart';
 
-class ExerciseCardBuilder extends StatelessWidget {
+class ExerciseCardBuilder extends StatefulWidget {
+  final String hintReps;
+  final String hintWeights;
   final Exercise exercise;
   final int index;
   final ExerciseControllers controllers;
-
+  @override
+  _ExerciseCardBuilderState createState() => _ExerciseCardBuilderState();
   const ExerciseCardBuilder({
+    required this.hintReps,
+    required this.hintWeights,
     required this.exercise,
     required this.index,
     required this.controllers,
   });
+}
+
+class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,7 @@ class ExerciseCardBuilder extends StatelessWidget {
         color: Color.fromARGB(255, 48, 49, 48),
         child: Column(
           children: [
-            buildTitleTile(exercise),
+            buildTitleTile(widget.exercise),
             buildRowHeaders(),
             ...buildRowEntries(),
             buildAddSetButton(),
@@ -56,7 +68,6 @@ class ExerciseCardBuilder extends StatelessWidget {
       child: Row(
         children: [
           buildHeader('Set', 2),
-          buildHeader('Previous', 3),
           buildHeader('Reps', 3),
           buildHeader('Weight', 3),
           buildHeader('Notes', 3),
@@ -83,22 +94,28 @@ class ExerciseCardBuilder extends StatelessWidget {
   }
 
   List<Widget> buildRowEntries() {
-    return List.generate(controllers.repsControllers[index].length, (setIndex) {
+    return List.generate(
+        widget.controllers.repsControllers[widget.index].length, (setIndex) {
       return ExerciseSetRow(
-        exerciseIndex: index,
+        exerciseIndex: widget.index,
         setIndex: setIndex,
-        repsController: controllers.repsControllers[index][setIndex],
-        weightController: controllers.weightControllers[index][setIndex],
-        notesController: controllers.notesControllers[index][setIndex],
-        canDelete: controllers.repsControllers[index].length > 1,
-        onDelete: controllers.removeSet,
+        repsController: widget.controllers.repsControllers[widget.index]
+            [setIndex],
+        weightController: widget.controllers.weightControllers[widget.index]
+            [setIndex],
+        notesController: widget.controllers.notesControllers[widget.index]
+            [setIndex],
+        canDelete: widget.controllers.repsControllers[widget.index].length > 1,
+        onDelete: widget.controllers.removeSet,
+        hintsReps: widget.hintReps,
+        hintsWeight: widget.hintWeights,
       );
     });
   }
 
   OutlinedButton buildAddSetButton() {
     return OutlinedButton.icon(
-      onPressed: () => controllers.addNewSet(index),
+      onPressed: () => widget.controllers.addNewSet(widget.index),
       icon: Icon(Icons.add, size: 16),
       label: Text(
         'Add new set',

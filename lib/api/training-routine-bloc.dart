@@ -10,6 +10,7 @@ import 'models/training-routine.dart';
 class TrainingRoutineBloc {
   final _routinesController =
       StreamController<List<TrainingRoutine>>.broadcast();
+
   Stream<List<TrainingRoutine>> get routines => _routinesController.stream;
 
   final _createRoutineController = StreamController<int>.broadcast();

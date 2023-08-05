@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/api/models/training-routine.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/routine-exercises-displayer.dart';
@@ -65,7 +64,11 @@ class _TrainingSessionCreatorPageState
                     new Text('No', style: TextStyle(color: Colors.redAccent)),
               ),
               new TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () => {
+                  Provider.of<TimerProvider>(context, listen: false)
+                      .stopTimer(),
+                  Navigator.of(context).pop(true),
+                },
                 child: new Text('Yes',
                     style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1))),
               ),
