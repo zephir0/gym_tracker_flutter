@@ -38,6 +38,7 @@ class TrainingSessionBloc {
       var trainingSessionList = (json.decode(request.body) as List)
           .map((data) => TrainingSession.fromJson(data))
           .toList();
+
       getWorkoutCount().then((value) => _workoutCounter.sink.add(value));
 
       return trainingSessionList;
@@ -61,7 +62,7 @@ class TrainingSessionBloc {
     }
   }
 
-  Future<void> startTrainingSession(jsonData, context) async {
+  Future<void> createTrainingSession(jsonData, context) async {
     String? token =
         await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
     final response = await http.post(

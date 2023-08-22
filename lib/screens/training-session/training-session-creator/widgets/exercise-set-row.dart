@@ -100,7 +100,7 @@ class ExerciseSetRow extends StatelessWidget {
             border: OutlineInputBorder(),
             hintText: hint,
             hintStyle: TextStyle(
-              color: Colors.white70,
+              color: Color.fromRGBO(193, 207, 59, 0.612),
             ),
           ),
           validator: (value) {

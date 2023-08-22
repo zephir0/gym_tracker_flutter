@@ -70,7 +70,6 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
         key: _formKey,
         child: Stack(children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.66,
             child: ListView(
               children:
                   widget.routine.exerciseList.asMap().entries.map((entry) {
@@ -139,8 +138,7 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
       String jsonEncoded = jsonEncode(jsonData);
 
       var bloc = TrainingSessionBloc();
-      bloc.startTrainingSession(jsonEncoded, context);
-
+      bloc.createTrainingSession(jsonEncoded, context);
       setState(() {
         isWorkoutFinished = true;
       });
