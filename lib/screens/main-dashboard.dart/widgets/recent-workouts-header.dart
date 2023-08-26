@@ -6,7 +6,7 @@ class RecentWorkoutsHeader extends StatefulWidget {
 }
 
 class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
-  bool _tapped = false;
+  bool _isButtonTapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +39,12 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
 
   Widget _buildSeeAllButton() {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _tapped = true;
-        });
-        Future.delayed(Duration(milliseconds: 200)).then((_) {
-          setState(() {
-            _tapped = false;
-          });
-        });
-      },
+      onTap: _handleSeeAllButtonTap,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          color: _tapped
+          color: _isButtonTapped
               ? Color.fromARGB(255, 173, 171, 171)
               : Color.fromRGBO(43, 138, 132, 1),
         ),
@@ -69,6 +60,17 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
         ),
       ),
     );
+  }
+
+  void _handleSeeAllButtonTap() {
+    setState(() {
+      _isButtonTapped = true;
+    });
+    Future.delayed(Duration(milliseconds: 200)).then((_) {
+      setState(() {
+        _isButtonTapped = false;
+      });
+    });
   }
 
   Widget _buildDivider() {

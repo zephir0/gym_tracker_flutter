@@ -9,7 +9,7 @@ class UserTrainingRoutines extends StatefulWidget {
 }
 
 class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
-  bool _tapped = false;
+  bool _isTapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,29 +25,36 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
 
   void _handleTap() {
     setState(() {
-      _tapped = true;
+      _isTapped = true;
     });
     Future.delayed(Duration(milliseconds: 200)).then((_) {
-      Navigator.push(
-        context,
-        PageTransition(
-          type: PageTransitionType.rightToLeftWithFade,
-          child: TrainingRoutinePage(),
-          duration: Duration(milliseconds: 300),
-        ),
-      );
+      _navigateToTrainingRoutinePage();
+      _resetTapState();
+    });
+  }
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() {
-          _tapped = false;
-        });
+  void _navigateToTrainingRoutinePage() {
+    Navigator.push(
+      context,
+      PageTransition(
+        type: PageTransitionType.rightToLeftWithFade,
+        child: TrainingRoutinePage(),
+        duration: Duration(milliseconds: 300),
+      ),
+    );
+  }
+
+  void _resetTapState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        _isTapped = false;
       });
     });
   }
 
   BoxDecoration _buildDecoration() {
     return BoxDecoration(
-      color: _tapped
+      color: _isTapped
           ? Color.fromARGB(255, 173, 171, 171)
           : Color.fromRGBO(43, 138, 132, 1),
       borderRadius: BorderRadius.circular(30),
@@ -65,7 +72,10 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
       child: Text(
         "Your training\nroutines",
         style: TextStyle(
-            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
         textAlign: TextAlign.center,
       ),
     );

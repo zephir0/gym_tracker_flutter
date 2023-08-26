@@ -9,8 +9,10 @@ class TrainingSessionLogsPage extends StatefulWidget {
   final trainingSessionId;
   final String routineName;
 
-  const TrainingSessionLogsPage(
-      {required this.routineName, required this.trainingSessionId});
+  const TrainingSessionLogsPage({
+    required this.routineName,
+    required this.trainingSessionId,
+  });
 
   @override
   _TrainingSessionLogsPageState createState() =>
@@ -19,10 +21,59 @@ class TrainingSessionLogsPage extends StatefulWidget {
 
 class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   final _trainingLogBloc = TrainingLogBloc();
+
   @override
   void initState() {
     super.initState();
+    _fetchTrainingLogs();
+  }
+
+  @override
+  void dispose() {
+    _trainingLogBloc.dispose();
+    super.dispose();
+  }
+
+  void _fetchTrainingLogs() {
     _trainingLogBloc.fetchTrainingLogs(widget.trainingSessionId);
+  }
+
+  Widget _buildHeader() {
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(80, 207, 199, 0.612),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+          child: Text(
+            widget.routineName,
+            style: TextStyle(
+              color: Color.fromARGB(255, 70, 69, 69),
+              fontSize: 42.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTrainingLogList() {
+    return StreamBuilder<List<TrainingLog>>(
+      stream: _trainingLogBloc.trainingLogs,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final trainingLogs = snapshot.data!;
+          return TrainingLogList(trainingLogs: trainingLogs);
+        }
+      },
+    );
   }
 
   @override
@@ -37,40 +88,9 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(80, 207, 199, 0.612),
-                      borderRadius: BorderRadius.circular(32)),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                    child: Text(
-                      widget.routineName,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 70, 69, 69),
-                        fontSize: 42.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              _buildHeader(),
               SizedBox(height: 16.0),
-              Expanded(
-                child: StreamBuilder<List<TrainingLog>>(
-                  stream: _trainingLogBloc.trainingLogs,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      final trainingLogs = snapshot.data!;
-                      return TrainingLogList(trainingLogs: trainingLogs);
-                    }
-                  },
-                ),
-              ),
+              Expanded(child: _buildTrainingLogList()),
               SizedBox(height: 14.0),
               BackToHomeButton(),
             ],

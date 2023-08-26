@@ -11,7 +11,8 @@ import '../../../utills/time-provider.dart';
 
 class TrainingSessionCreatorPage extends StatefulWidget {
   final TrainingRoutine routine;
-  TrainingSessionCreatorPage({
+
+  const TrainingSessionCreatorPage({
     required this.routine,
   });
 
@@ -25,6 +26,10 @@ class _TrainingSessionCreatorPageState
   @override
   void initState() {
     super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
     Provider.of<TimerProvider>(context, listen: false).startTimer();
   }
 
@@ -45,36 +50,46 @@ class _TrainingSessionCreatorPageState
   }
 
   Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            ),
-            backgroundColor: Colors.grey[850],
-            title: new Text('Are you sure?',
-                style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1))),
-            content: new Text(
-                'Do you really want to cancel the training session?',
-                style: TextStyle(color: Colors.white)),
-            actions: <Widget>[
-              new TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child:
-                    new Text('No', style: TextStyle(color: Colors.redAccent)),
-              ),
-              new TextButton(
-                onPressed: () => {
-                  Provider.of<TimerProvider>(context, listen: false)
-                      .stopTimer(),
-                  Navigator.of(context).pop(true),
-                },
-                child: new Text('Yes',
-                    style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1))),
-              ),
-            ],
+    return (await _showConfirmationDialog()) ?? false;
+  }
+
+  Future<bool?> _showConfirmationDialog() async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+        backgroundColor: Colors.grey[850],
+        title: Text(
+          'Are you sure?',
+          style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+        ),
+        content: Text(
+          'Do you really want to cancel the training session?',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No', style: TextStyle(color: Colors.redAccent)),
           ),
-        )) ??
-        false;
+          TextButton(
+            onPressed: () {
+              _stopTimerAndPop();
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _stopTimerAndPop() {
+    Provider.of<TimerProvider>(context, listen: false).stopTimer();
+    Navigator.of(context).pop(true);
   }
 }

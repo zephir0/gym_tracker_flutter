@@ -29,7 +29,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
       child: Card(
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -116,16 +116,18 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
   OutlinedButton buildAddSetButton() {
     return OutlinedButton.icon(
       onPressed: () => widget.controllers.addNewSet(widget.index),
-      icon: Icon(Icons.add, size: 16),
+      icon: Icon(Icons.add, size: 19, color: Colors.white),
       label: Text(
-        'Add new set',
-        style: TextStyle(fontSize: 12),
+        'ADD SET',
+        style:
+            TextStyle(fontSize: 17, color: Color.fromARGB(255, 177, 189, 182)),
       ),
       style: OutlinedButton.styleFrom(
-        side: BorderSide(width: 1.0, color: Colors.blue),
+        side: BorderSide(width: 3.0, color: Color.fromARGB(255, 6, 53, 31)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
+        backgroundColor: Color.fromARGB(255, 14, 61, 41),
         padding: EdgeInsets.symmetric(
           vertical: 8.0,
           horizontal: 12.0,

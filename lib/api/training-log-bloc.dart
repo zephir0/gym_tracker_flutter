@@ -10,12 +10,11 @@ import 'models/training_log.dart';
 
 class TrainingLogBloc {
   final _trainingLogStateController = StreamController<List<TrainingLog>>();
+  final _trainingPreviousLogStateController =
+      StreamController<Map<int, TrainingLog>>.broadcast();
 
   Stream<List<TrainingLog>> get trainingLogs =>
       _trainingLogStateController.stream;
-
-  final _trainingPreviousLogStateController =
-      StreamController<Map<int, TrainingLog>>.broadcast();
 
   Stream<Map<int, TrainingLog>> get previousTrainingLogs =>
       _trainingPreviousLogStateController.stream;
@@ -23,8 +22,12 @@ class TrainingLogBloc {
   TrainingLogBloc();
 
   fetchTrainingLogs(sessionId) async {
-    var logs = await _getAllLogsForTrainingSession(sessionId);
-    _trainingLogStateController.sink.add(logs);
+    try {
+      var logs = await _getAllLogsForTrainingSession(sessionId);
+      _trainingLogStateController.sink.add(logs);
+    } catch (e) {
+      _trainingLogStateController.sink.addError('Failed to load training logs');
+    }
   }
 
   fetchPreviousEntries() async {
@@ -33,16 +36,19 @@ class TrainingLogBloc {
       _trainingPreviousLogStateController.sink.add(logs);
     } catch (e) {
       _trainingPreviousLogStateController.sink
-          .addError('Failed to load training sessions');
+          .addError('Failed to load previous training logs');
     }
   }
 
   Future<List<TrainingLog>> _getAllLogsForTrainingSession(var sessionId) async {
-    String? token =
-        await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
+    String? token = await TokenStorage(
+      secureStorage: FlutterSecureStorage(),
+    ).getToken();
 
-    var url = Uri.parse(GlobalVariables().backendApiAddress +
-        'api/training-logs/gym-diary/$sessionId');
+    var url = Uri.parse(
+      GlobalVariables().backendApiAddress +
+          'api/training-logs/gym-diary/$sessionId',
+    );
 
     final request = await http.get(url, headers: {
       'Authorization': 'Bearer ' + '$token',
@@ -54,16 +60,19 @@ class TrainingLogBloc {
           .toList();
       return trainingLogs;
     } else {
-      throw Exception('Failed to load training sessions');
+      throw Exception('Failed to load training logs');
     }
   }
 
   Future<Map<int, TrainingLog>> fetchPreviousTrainingLogs() async {
-    String? token =
-        await TokenStorage(secureStorage: FlutterSecureStorage()).getToken();
+    String? token = await TokenStorage(
+      secureStorage: FlutterSecureStorage(),
+    ).getToken();
 
-    var url = Uri.parse(GlobalVariables().backendApiAddress +
-        'api/training-routines/previous-logs/214');
+    var url = Uri.parse(
+      GlobalVariables().backendApiAddress +
+          'api/training-routines/previous-logs/214',
+    );
 
     final request = await http.get(url, headers: {
       'Authorization': 'Bearer ' + '$token',
@@ -82,7 +91,7 @@ class TrainingLogBloc {
 
       return trainingLogs;
     } else {
-      throw Exception('Failed to load training sessions');
+      throw Exception('Failed to load previous training logs');
     }
   }
 

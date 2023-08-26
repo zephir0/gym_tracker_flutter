@@ -68,8 +68,8 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
     return Expanded(
       child: Form(
         key: _formKey,
-        child: Stack(children: [
-          Container(
+        child: Column(children: [
+          Expanded(
             child: ListView(
               children:
                   widget.routine.exerciseList.asMap().entries.map((entry) {
@@ -86,22 +86,17 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
               }).toList(),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Container(
-                child: Column(
-                  children: [
-                    TimerDisplayWidget(),
-                    FinishWorkoutButton(
-                      onFinishWorkout: (() => onButtonPress()),
-                      isWorkoutFinished: isWorkoutFinished,
-                    ),
-                  ],
-                ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+            child: Container(
+              child: Column(
+                children: [
+                  TimerDisplayWidget(),
+                  FinishWorkoutButton(
+                    onFinishWorkout: (() => onButtonPress()),
+                    isWorkoutFinished: isWorkoutFinished,
+                  ),
+                ],
               ),
             ),
           ),

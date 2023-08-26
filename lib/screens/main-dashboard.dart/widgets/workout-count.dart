@@ -13,6 +13,10 @@ class _WorkoutCountState extends State<WorkoutCount> {
   @override
   void initState() {
     super.initState();
+    _initializeTrainingSessionBloc();
+  }
+
+  void _initializeTrainingSessionBloc() {
     _trainingSessionBloc =
         Provider.of<TrainingSessionBloc>(context, listen: false);
   }
@@ -20,10 +24,7 @@ class _WorkoutCountState extends State<WorkoutCount> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(43, 138, 132, 1),
-        borderRadius: BorderRadius.circular(30),
-      ),
+      decoration: _buildContainerDecoration(),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
         child: Column(
@@ -39,26 +40,30 @@ class _WorkoutCountState extends State<WorkoutCount> {
     );
   }
 
+  BoxDecoration _buildContainerDecoration() {
+    return BoxDecoration(
+      color: Color.fromRGBO(43, 138, 132, 1),
+      borderRadius: BorderRadius.circular(30),
+    );
+  }
+
   Column _buildColumnHeader() {
     return Column(
       children: [
-        Text(
-          "Workout",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          "Count",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        _buildHeaderText("Workout"),
+        _buildHeaderText("Count"),
       ],
+    );
+  }
+
+  Text _buildHeaderText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -67,27 +72,35 @@ class _WorkoutCountState extends State<WorkoutCount> {
       stream: _trainingSessionBloc.workoutCounter,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          return Text(
-            snapshot.data.toString(),
-            style: TextStyle(
-              color: Color.fromRGBO(43, 238, 225, 1),
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          );
+          return _buildCountText(snapshot.data.toString());
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else {
-          return Text(
-            'No data',
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          );
+          return _buildErrorText('No data');
         }
       },
+    );
+  }
+
+  Text _buildCountText(String count) {
+    return Text(
+      count,
+      style: TextStyle(
+        color: Color.fromRGBO(43, 238, 225, 1),
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Text _buildErrorText(String error) {
+    return Text(
+      error,
+      style: TextStyle(
+        color: Colors.red,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }

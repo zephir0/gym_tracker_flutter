@@ -11,17 +11,25 @@ class UserWelcomePanel extends StatefulWidget {
 class _UserWelcomePanelState extends State<UserWelcomePanel>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late UserBloc userBloc;
+  late UserBloc _userBloc;
 
   @override
   void initState() {
     super.initState();
+    _initController();
+    _initUserBloc();
+  }
+
+  void _initController() {
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-    userBloc = Provider.of<UserBloc>(context, listen: false);
-    userBloc.fetchNameFromJson();
+  }
+
+  void _initUserBloc() {
+    _userBloc = Provider.of<UserBloc>(context, listen: false);
+    _userBloc.fetchNameFromJson();
   }
 
   @override
@@ -37,14 +45,14 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          welcomeUserText(),
-          userAvatar(context),
+          _buildWelcomeUserText(),
+          _buildUserAvatar(context),
         ],
       ),
     );
   }
 
-  Column welcomeUserText() {
+  Column _buildWelcomeUserText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -54,7 +62,7 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
         ),
         StreamBuilder<String>(
-          stream: userBloc.name,
+          stream: _userBloc.name,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
               return Text(
@@ -77,13 +85,9 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
     );
   }
 
-  GestureDetector userAvatar(BuildContext context) {
+  GestureDetector _buildUserAvatar(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        await _controller.forward();
-        Navigator.pushNamed(context, '/user-profile');
-        _controller.reset();
-      },
+      onTap: _handleAvatarTap,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget? child) {
@@ -97,5 +101,11 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
         },
       ),
     );
+  }
+
+  void _handleAvatarTap() async {
+    await _controller.forward();
+    Navigator.pushNamed(context, '/user-profile');
+    _controller.reset();
   }
 }
