@@ -38,22 +38,44 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
     _trainingLogBloc.fetchTrainingLogs(widget.trainingSessionId);
   }
 
-  Widget _buildHeader() {
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(80, 207, 199, 0.612),
-          borderRadius: BorderRadius.circular(32),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      body: SafeArea(
+        child: Container(
+          decoration:
+              BoxDecoration(gradient: GlobalVariables().primaryGradient),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              _buildHeader(),
+              SizedBox(height: 16.0),
+              Expanded(child: _buildTrainingLogList()),
+              SizedBox(height: 14.0),
+              BackToHomeButton(),
+            ],
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-          child: Text(
-            widget.routineName,
-            style: TextStyle(
-              color: Color.fromARGB(255, 70, 69, 69),
-              fontSize: 42.0,
-              fontWeight: FontWeight.bold,
-            ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(8, 25, 255, 0.612),
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: Text(
+          widget.routineName,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: 38.0,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -73,30 +95,6 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
           return TrainingLogList(trainingLogs: trainingLogs);
         }
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SafeArea(
-        child: Container(
-          decoration:
-              BoxDecoration(gradient: GlobalVariables().primaryGradient),
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              SizedBox(height: 16.0),
-              Expanded(child: _buildTrainingLogList()),
-              SizedBox(height: 14.0),
-              BackToHomeButton(),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

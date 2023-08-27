@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import '../screens/main-dashboard.dart/home-page.dart';
+import '../screens/main-dashboard/home-page.dart';
 import '../screens/settings/settings-page.dart';
 import '../screens/training-routine/training-routine-creator/training-routine-creator-page.dart';
 import '../screens/training-routine/training-routine-page.dart';

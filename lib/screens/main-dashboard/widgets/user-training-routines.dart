@@ -45,7 +45,7 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
   }
 
   void _resetTapState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _isTapped = false;
       });

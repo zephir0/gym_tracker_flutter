@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
 import 'package:gym_tracker_flutter/api/training-session-bloc.dart';
 import 'package:gym_tracker_flutter/api/user-bloc.dart';
-import 'package:gym_tracker_flutter/screens/main-dashboard.dart/home-page.dart';
+import 'package:gym_tracker_flutter/screens/main-dashboard/home-page.dart';
 import 'package:gym_tracker_flutter/navi-bar/navigation-bottom-bar.dart';
 import 'package:gym_tracker_flutter/screens/settings/settings-page.dart';
 import 'package:gym_tracker_flutter/screens/user-profile-screen/user-profile-screen.dart';

@@ -27,7 +27,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
       children: [
         Text(
           "Your last workouts",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(70, 0, 10, 0),
@@ -54,7 +54,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
             "See all",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 18,
             ),
           ),
         ),

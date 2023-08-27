@@ -110,26 +110,74 @@ class _RecentTrainingSessionsDisplayState
 
   Widget _buildTrainingSessionContainer(TrainingSession trainingSession) {
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(80, 80, 80, 100),
+        color: Color.fromRGBO(80, 80, 80, 1),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisExtent: 50,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 0.0,
-        ),
-        itemCount: 3,
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return _buildTrainingInfo(trainingSession, index);
-        },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _buildFlexibleTrainingInfo(trainingSession, 0),
+          SizedBox(width: 10),
+          _buildFlexibleTrainingInfo(trainingSession, 1),
+          SizedBox(width: 10),
+          _buildFlexibleTrainingInfo(trainingSession, 2),
+        ],
       ),
+    );
+  }
+
+  Widget _buildFlexibleTrainingInfo(
+      TrainingSession trainingSession, int index) {
+    return Expanded(
+      child: Flex(
+        direction: Axis.vertical,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _buildTrainingInfo(trainingSession, index),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTrainingInfo(TrainingSession trainingSession, int index) {
+    String text = '';
+    TextStyle textStyle = TextStyle(
+      fontSize: 17,
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+    );
+
+    switch (index) {
+      case 0:
+        text = trainingSession.routineName;
+        textStyle = textStyle.copyWith(
+          fontWeight: FontWeight.bold,
+        );
+        break;
+      case 1:
+        text = _formatTrainingDate(trainingSession.trainingDate);
+        textStyle = textStyle.copyWith(
+          color: Color.fromARGB(255, 0, 155, 129),
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        );
+        break;
+      case 2:
+        text = '${trainingSession.totalWeight.toString()} kg';
+        textStyle = textStyle.copyWith(
+          fontSize: 28,
+        );
+        break;
+    }
+
+    return Text(
+      text,
+      style: textStyle,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
     );
   }
 
@@ -156,30 +204,5 @@ class _RecentTrainingSessionsDisplayState
     DateTime selectedDate = DateFormat("dd-MM-yyyy").parse(dateString);
     String formattedDate = DateFormat('EEEE, dd MMM yyyy').format(selectedDate);
     return formattedDate;
-  }
-
-  Widget _buildTrainingInfo(TrainingSession trainingSession, int index) {
-    String text = '';
-    switch (index) {
-      case 0:
-        text = trainingSession.routineName;
-        break;
-      case 1:
-        text = _formatTrainingDate(trainingSession.trainingDate);
-        break;
-      case 2:
-        text = '${trainingSession.totalWeight.toString()} kg';
-        break;
-    }
-    return Text(
-      text,
-      style: TextStyle(
-        color: Color.fromRGBO(80, 187, 180, 0.612),
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-      ),
-      overflow: TextOverflow.ellipsis,
-      maxLines: 2,
-    );
   }
 }
