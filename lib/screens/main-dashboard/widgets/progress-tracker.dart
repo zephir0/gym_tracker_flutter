@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/screens/progres-tracker/progress-tracker.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ProgressTracker extends StatefulWidget {
   @override
@@ -15,6 +17,15 @@ class _ProgressTrackerState extends State<ProgressTracker> {
       setState(() {
         _tapped = false;
       });
+
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          child: ProgressTrackerScreen(),
+          duration: Duration(milliseconds: 300),
+        ),
+      );
     });
   }
 
