@@ -18,12 +18,12 @@ class BackToHomeButton extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            backgroundColor: Color.fromRGBO(80, 207, 199, 0.612),
-            minimumSize: Size(double.infinity, 50),
-          ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              backgroundColor: Color.fromRGBO(80, 207, 199, 0.612),
+              minimumSize: Size(double.infinity, 50),
+              foregroundColor: Colors.white),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 '/navi-bar', (Route<dynamic> route) => false);

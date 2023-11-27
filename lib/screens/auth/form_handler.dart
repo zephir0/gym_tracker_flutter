@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/auth/widgets/error_dialog.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/error_dialog.dart';
 
-import '../api/auth-service.dart';
+import '../../api/auth-service.dart';
 
 class FormHandler {
   bool _validateEmail(String email) {

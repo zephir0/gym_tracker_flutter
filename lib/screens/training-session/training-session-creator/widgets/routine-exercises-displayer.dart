@@ -1,25 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/models/exercise.dart';
+import 'package:gym_tracker_flutter/api/models/training-routine.dart';
 import 'package:gym_tracker_flutter/api/models/training_log.dart';
-import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
+import 'package:gym_tracker_flutter/api/training-log-cubit.dart';
+import 'package:gym_tracker_flutter/api/training-session-cubit.dart';
+import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/exercise-controllers.dart';
+import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/exercise-card-builder.dart';
+import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/finish-workout-button.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/timer-display-widget.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/workout-summary.dart';
-
-import 'package:provider/provider.dart';
-
-import '../../../../api/models/exercise.dart';
-import '../../../../api/models/training-routine.dart';
-import '../../../../api/training-session-bloc.dart';
-import '../../../../utills/time-provider.dart';
-import '../exercise-controllers.dart';
-import 'exercise-card-builder.dart';
-import 'finish-workout-button.dart';
+import 'package:gym_tracker_flutter/utills/time-provider.dart';
 
 class RoutineExercisesDisplayer extends StatefulWidget {
   final TrainingRoutine routine;
 
-  const RoutineExercisesDisplayer({required this.routine});
+  const RoutineExercisesDisplayer({required this.routine, Key? key})
+      : super(key: key);
+
   @override
   _RoutineExercisesDisplayerState createState() =>
       _RoutineExercisesDisplayerState();
@@ -29,28 +29,15 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
   ExerciseControllers? controllers;
   var _formKey = GlobalKey<FormState>();
   bool isWorkoutFinished = false;
-  late TrainingLogBloc _trainingLogBloc;
-  Map<int, TrainingLog> previousTrainingLogs = {};
+  bool isDialogShown = false;
 
+  @override
   void initState() {
     super.initState();
     controllers = ExerciseControllers(
-        exercisesLength: widget.routine.exerciseList.length,
-        notifyParent: updateUI);
-    _trainingLogBloc = Provider.of<TrainingLogBloc>(context, listen: false);
-    _fetchPreviousTrainingLogs();
-  }
-
-  void _fetchPreviousTrainingLogs() async {
-    try {
-      Map<int, TrainingLog> logs =
-          await _trainingLogBloc.fetchPreviousTrainingLogs();
-      setState(() {
-        previousTrainingLogs = logs;
-      });
-    } catch (e) {
-      print('Error fetching previous training logs: $e');
-    }
+      exercisesLength: widget.routine.exerciseList.length,
+      notifyParent: updateUI,
+    );
   }
 
   void updateUI() {
@@ -65,66 +52,87 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Form(
-        key: _formKey,
-        child: Column(children: [
-          Expanded(
-            child: ListView(
-              children:
-                  widget.routine.exerciseList.asMap().entries.map((entry) {
-                int index = entry.key;
-                Exercise exercise = entry.value;
-                return ExerciseCardBuilder(
-                  hintWeights:
-                      extractLastEntryForExercise(exercise.id, 'weight'),
-                  hintReps: extractLastEntryForExercise(exercise.id, 'reps'),
-                  exercise: exercise,
-                  index: index,
-                  controllers: controllers!,
-                );
-              }).toList(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-            child: Container(
+    return BlocProvider<TrainingLogCubit>(
+      create: (_) =>
+          TrainingLogCubit()..fetchPreviousTrainingLogs(widget.routine.id),
+      child: BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
+        builder: (context, previousTrainingLogs) {
+          return Expanded(
+            child: Form(
+              key: _formKey,
               child: Column(
                 children: [
-                  TimerDisplayWidget(),
-                  FinishWorkoutButton(
-                    onFinishWorkout: (() => onButtonPress()),
-                    isWorkoutFinished: isWorkoutFinished,
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: widget.routine.exerciseList.length,
+                      itemBuilder: (context, index) {
+                        Exercise exercise = widget.routine.exerciseList[index];
+                        return ExerciseCardBuilder(
+                          hintWeights: extractLastEntryForExercise(
+                              exercise.id, 'weight', previousTrainingLogs),
+                          hintReps: extractLastEntryForExercise(
+                              exercise.id, 'reps', previousTrainingLogs),
+                          exercise: exercise,
+                          index: index,
+                          controllers: controllers!,
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 30, right: 30),
+                    child: Column(
+                      children: [
+                        TimerDisplayWidget(),
+                        FinishWorkoutButton(
+                          onFinishWorkout: () =>
+                              onButtonPress(previousTrainingLogs),
+                          isWorkoutFinished: isWorkoutFinished,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ]),
+          );
+        },
       ),
     );
   }
 
-  String extractLastEntryForExercise(int exerciseId, String type) {
-    if (previousTrainingLogs.containsKey(exerciseId)) {
-      if (type == 'weight') {
-        int weight = previousTrainingLogs[exerciseId]?.weight ?? 0;
-        return weight.toString();
-      } else if (type == 'reps') {
-        int reps = previousTrainingLogs[exerciseId]?.reps ?? 0;
-        return reps.toString();
-      }
+  String extractLastEntryForExercise(
+      int exerciseId, String type, List<TrainingLog> previousLogs) {
+    TrainingLog? log;
+    try {
+      log = previousLogs.firstWhere((log) => log.id == exerciseId);
+    } catch (e) {
+      log = null;
+    }
+
+    if (log != null) {
+      return type == 'weight' ? log.weight.toString() : log.reps.toString();
     }
     return '0';
   }
 
-  void onSubmit() {
+  void onButtonPress(List<TrainingLog> previousTrainingLogs) {
+    if (!isWorkoutFinished) {
+      onSubmit(previousTrainingLogs);
+    } else {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/navi-bar', (Route<dynamic> route) => false);
+    }
+  }
+
+  void onSubmit(List<TrainingLog> previousTrainingLogs) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      Provider.of<TimerProvider>(context, listen: false).stopTimer();
+      context.read<TimerProvider>().stopTimer();
 
-      WorkoutSummary.showSummary(context);
+      WorkoutSummary(trainingRoutine: widget.routine).showSummary(context);
 
       Map<String, dynamic> jsonData = controllers!.prepareJsonData(
         routine: widget.routine,
@@ -132,20 +140,12 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
 
       String jsonEncoded = jsonEncode(jsonData);
 
-      var bloc = TrainingSessionBloc();
-      bloc.createTrainingSession(jsonEncoded, context);
+      BlocProvider.of<TrainingSessionCubit>(context)
+          .createTrainingSession(jsonEncoded);
+
       setState(() {
         isWorkoutFinished = true;
       });
-    }
-  }
-
-  void onButtonPress() {
-    if (!isWorkoutFinished) {
-      onSubmit();
-    } else {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          '/navi-bar', (Route<dynamic> route) => false);
     }
   }
 }

@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-session-bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/training-session-cubit.dart';
 
-class WorkoutCount extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _WorkoutCountState();
-}
-
-class _WorkoutCountState extends State<WorkoutCount> {
-  late TrainingSessionBloc _trainingSessionBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeTrainingSessionBloc();
-  }
-
-  void _initializeTrainingSessionBloc() {
-    _trainingSessionBloc =
-        Provider.of<TrainingSessionBloc>(context, listen: false);
-  }
-
+class WorkoutCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +14,7 @@ class _WorkoutCountState extends State<WorkoutCount> {
             _buildColumnHeader(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: _buildWorkoutCountText(),
+              child: _buildWorkoutCountText(context),
             ),
           ],
         ),
@@ -67,17 +49,10 @@ class _WorkoutCountState extends State<WorkoutCount> {
     );
   }
 
-  Widget _buildWorkoutCountText() {
-    return StreamBuilder<String>(
-      stream: _trainingSessionBloc.workoutCounter,
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          return _buildCountText(snapshot.data.toString());
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else {
-          return _buildErrorText('No data');
-        }
+  Widget _buildWorkoutCountText(BuildContext context) {
+    return BlocBuilder<TrainingSessionCubit, TrainingSessionState>(
+      builder: (context, state) {
+        return _buildCountText(state.workoutCount.toString());
       },
     );
   }
@@ -88,17 +63,6 @@ class _WorkoutCountState extends State<WorkoutCount> {
       style: TextStyle(
         color: Color.fromRGBO(43, 238, 225, 1),
         fontSize: 32,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Text _buildErrorText(String error) {
-    return Text(
-      error,
-      style: TextStyle(
-        color: Colors.red,
-        fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
     );

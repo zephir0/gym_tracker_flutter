@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/training-session-cubit.dart';
 import 'package:gym_tracker_flutter/screens/main-dashboard/widgets/progress-tracker.dart';
 import 'package:gym_tracker_flutter/screens/main-dashboard/widgets/recent-training-sessions-display.dart';
 import 'package:gym_tracker_flutter/screens/main-dashboard/widgets/recent-workouts-header.dart';
@@ -62,11 +63,14 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _buildContent(context),
-        _buildLinearProgressIndicator() ?? SizedBox.shrink(),
-      ],
+    return BlocProvider(
+      create: (_) => TrainingSessionCubit()..fetchRecentTrainingSessions(),
+      child: Stack(
+        children: [
+          _buildContent(context),
+          _buildLinearProgressIndicator() ?? SizedBox.shrink(),
+        ],
+      ),
     );
   }
 

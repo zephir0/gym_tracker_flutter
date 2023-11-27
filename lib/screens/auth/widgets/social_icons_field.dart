@@ -14,12 +14,12 @@ class SocialIconsField extends StatelessWidget {
           'assets/images/google.png'
         ]
             .map((path) => Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                   child: GestureDetector(
                     onTap: () => print(path),
                     child: SizedBox(
-                      width: 80,
-                      height: 80,
+                      width: 60,
+                      height: 60,
                       child: Image.asset(path),
                     ),
                   ),

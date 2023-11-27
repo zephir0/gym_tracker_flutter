@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/models/exercise.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/training-routine-cubit.dart';
 import 'package:gym_tracker_flutter/screens/training-routine/training-routine-creator/widgets/dismissible-routine-form.dart';
 
 enum MuscleGroup {
@@ -53,19 +54,22 @@ class _TrainingRoutineCreatorPageState extends State<TrainingRoutineCreatorPage>
             Navigator.of(context).pop();
           }
         },
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: DismissibleRoutineForm(
-            exercises: exercises,
-            deleteAnimationCurve: _deleteAnimationCurve,
-            onAddExercise: () {
-              setState(() {
-                exercises.add({});
-              });
-            },
-            onBack: () {
-              Navigator.of(context).pop();
-            },
+        child: BlocProvider(
+          create: (_) => TrainingRoutineCubit(),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: DismissibleRoutineForm(
+              exercises: exercises,
+              deleteAnimationCurve: _deleteAnimationCurve,
+              onAddExercise: () {
+                setState(() {
+                  exercises.add({});
+                });
+              },
+              onBack: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       ),

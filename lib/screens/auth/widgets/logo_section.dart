@@ -7,7 +7,7 @@ class LogoSection extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Center(
         child: Text(
-          "GYM DIARY",
+          "GYM TRACKER",
           style: TextStyle(
             color: Colors.white,
             fontSize: 45,

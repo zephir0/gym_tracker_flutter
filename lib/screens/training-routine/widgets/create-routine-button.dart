@@ -20,12 +20,12 @@ class CreateRoutineButton extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            backgroundColor: Color.fromRGBO(21, 119, 184, 0.612),
-            minimumSize: Size(double.infinity, 50),
-          ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              backgroundColor: Color.fromRGBO(21, 119, 184, 0.612),
+              minimumSize: Size(double.infinity, 50),
+              foregroundColor: Colors.deepOrange),
           onPressed: () {
             Navigator.push(
               context,

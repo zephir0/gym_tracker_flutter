@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-log-bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/models/training_log.dart';
+import 'package:gym_tracker_flutter/api/training-log-cubit.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-details/widgets/back-button.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-details/widgets/training-log-list.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
-import 'package:gym_tracker_flutter/api/models/training_log.dart';
 
 class TrainingSessionLogsPage extends StatefulWidget {
   final trainingSessionId;
   final String routineName;
 
   const TrainingSessionLogsPage({
+    Key? key,
     required this.routineName,
     required this.trainingSessionId,
-  });
+  }) : super(key: key);
 
   @override
   _TrainingSessionLogsPageState createState() =>
@@ -20,41 +22,27 @@ class TrainingSessionLogsPage extends StatefulWidget {
 }
 
 class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
-  final _trainingLogBloc = TrainingLogBloc();
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchTrainingLogs();
-  }
-
-  @override
-  void dispose() {
-    _trainingLogBloc.dispose();
-    super.dispose();
-  }
-
-  void _fetchTrainingLogs() {
-    _trainingLogBloc.fetchTrainingLogs(widget.trainingSessionId);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SafeArea(
-        child: Container(
-          decoration:
-              BoxDecoration(gradient: GlobalVariables().primaryGradient),
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              _buildHeader(),
-              SizedBox(height: 16.0),
-              Expanded(child: _buildTrainingLogList()),
-              SizedBox(height: 14.0),
-              BackToHomeButton(),
-            ],
+    return BlocProvider(
+      create: (context) =>
+          TrainingLogCubit()..fetchTrainingLogs(widget.trainingSessionId),
+      child: Scaffold(
+        backgroundColor: Colors.grey[900],
+        body: SafeArea(
+          child: Container(
+            decoration:
+                BoxDecoration(gradient: GlobalVariables().primaryGradient),
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                _buildHeader(),
+                SizedBox(height: 16.0),
+                Expanded(child: _buildTrainingLogList()),
+                SizedBox(height: 14.0),
+                BackToHomeButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -83,15 +71,11 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   }
 
   Widget _buildTrainingLogList() {
-    return StreamBuilder<List<TrainingLog>>(
-      stream: _trainingLogBloc.trainingLogs,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
+      builder: (context, trainingLogs) {
+        if (trainingLogs.isEmpty) {
           return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
         } else {
-          final trainingLogs = snapshot.data!;
           return TrainingLogList(trainingLogs: trainingLogs);
         }
       },

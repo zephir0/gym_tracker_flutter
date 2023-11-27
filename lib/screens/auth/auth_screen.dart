@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/auth/form_handler.dart';
-import 'package:gym_tracker_flutter/auth/widgets/alternative_action.dart';
-import 'package:gym_tracker_flutter/auth/widgets/authentication_button.dart';
-import 'package:gym_tracker_flutter/auth/widgets/authentication_form.dart';
-import 'package:gym_tracker_flutter/auth/widgets/gym_diary_logo.dart';
-import 'package:gym_tracker_flutter/auth/widgets/logo_section.dart';
-import 'package:gym_tracker_flutter/auth/widgets/short_description.dart';
-import 'package:gym_tracker_flutter/auth/widgets/social_icons_field.dart';
+import 'package:gym_tracker_flutter/screens/auth/form_handler.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/alternative_action.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/authentication_button.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/authentication_form.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/gym_diary_logo.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/logo_section.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/short_description.dart';
+import 'package:gym_tracker_flutter/screens/auth/widgets/social_icons_field.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 enum FormType { login, forgotPassword, signUp }

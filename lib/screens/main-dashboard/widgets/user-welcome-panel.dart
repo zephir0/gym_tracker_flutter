@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/user-bloc.dart';
 
-import '../../../api/user-bloc.dart';
-
-class UserWelcomePanel extends StatefulWidget {
+class UserWelcomePanel extends StatelessWidget {
   @override
-  _UserWelcomePanelState createState() => _UserWelcomePanelState();
+  Widget build(BuildContext context) {
+    return BlocProvider<UserCubit>(
+      create: (context) => UserCubit(),
+      child: UserWelcomePanelBody(),
+    );
+  }
 }
 
-class _UserWelcomePanelState extends State<UserWelcomePanel>
+class UserWelcomePanelBody extends StatefulWidget {
+  @override
+  _UserWelcomePanelBodyState createState() => _UserWelcomePanelBodyState();
+}
+
+class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late UserBloc _userBloc;
 
   @override
   void initState() {
     super.initState();
-    _initController();
-    _initUserBloc();
-  }
-
-  void _initController() {
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
   }
 
-  void _initUserBloc() {
-    _userBloc = Provider.of<UserBloc>(context, listen: false);
-    _userBloc.fetchNameFromJson();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    BlocProvider.of<UserCubit>(context).fetchNameFromJson();
   }
 
   @override
@@ -52,7 +56,7 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
     );
   }
 
-  Column _buildWelcomeUserText() {
+  Widget _buildWelcomeUserText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -61,24 +65,19 @@ class _UserWelcomePanelState extends State<UserWelcomePanel>
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
         ),
-        StreamBuilder<String>(
-          stream: _userBloc.name,
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
+        BlocBuilder<UserCubit, String>(
+          builder: (context, name) {
+            if (name.isNotEmpty) {
               return Text(
-                snapshot.data!,
+                name,
                 style: TextStyle(
                     color: Color.fromRGBO(14, 233, 218, 1),
                     fontSize: 30,
                     fontWeight: FontWeight.w500),
               );
-            } else if (snapshot.hasError) {
-              return Text(
-                "${snapshot.error}",
-                style: TextStyle(color: Colors.red),
-              );
+            } else {
+              return CircularProgressIndicator();
             }
-            return CircularProgressIndicator();
           },
         ),
       ],

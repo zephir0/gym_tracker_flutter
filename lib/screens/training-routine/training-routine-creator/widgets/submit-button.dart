@@ -7,7 +7,7 @@ class AdvancedSubmitButton extends StatefulWidget {
   final bool isSaved;
 
   const AdvancedSubmitButton({
-    required this.onSubmit,
+    required this.onSubmit(),
     required this.shouldShake,
     required this.isFailed,
     required this.isSaved,

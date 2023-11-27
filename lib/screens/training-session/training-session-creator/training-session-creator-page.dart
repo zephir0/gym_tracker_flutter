@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/api/models/training-routine.dart';
+import 'package:gym_tracker_flutter/api/training-session-cubit.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/routine-exercises-displayer.dart';
 import 'package:gym_tracker_flutter/screens/training-session/training-session-creator/widgets/routine-name-displayer.dart';
-
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:provider/provider.dart';
 
@@ -35,15 +36,19 @@ class _TrainingSessionCreatorPageState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
-        child: Column(
-          children: [
-            RoutineNameDisplayer(widget: widget),
-            RoutineExercisesDisplayer(routine: widget.routine),
-          ],
+    return BlocProvider(
+      create: (_) => TrainingSessionCubit(),
+      child: WillPopScope(
+        onWillPop: _onWillPop,
+        child: Container(
+          decoration:
+              BoxDecoration(gradient: GlobalVariables().primaryGradient),
+          child: Column(
+            children: [
+              RoutineNameDisplayer(widget: widget),
+              RoutineExercisesDisplayer(routine: widget.routine),
+            ],
+          ),
         ),
       ),
     );

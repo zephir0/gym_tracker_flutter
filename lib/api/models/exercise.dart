@@ -1,5 +1,3 @@
-import '../../screens/training-routine/training-routine-creator/training-routine-creator-page.dart';
-
 class Exercise {
   final id;
   final String name;

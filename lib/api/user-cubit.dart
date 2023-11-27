@@ -1,16 +1,14 @@
-import 'dart:async';
 import 'dart:convert';
 
+import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:http/http.dart' as http;
 
 import '../token/token_storage.dart';
-import '../utills/global_variables.dart';
 
-class UserBloc {
-  final _nameController = StreamController<String>.broadcast();
-
-  Stream<String> get name => _nameController.stream;
+class UserCubit extends Cubit<String> {
+  UserCubit() : super('');
 
   void fetchNameFromJson() async {
     String? token =
@@ -25,14 +23,10 @@ class UserBloc {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      _nameController.sink.add(jsonResponse['login']);
+      final jsonResponse = jsonDecode(response.body);
+      emit(jsonResponse['login']);
     } else {
-      _nameController.sink.addError('Failed to load name from JSON');
+      emit('Failed to load name from JSON');
     }
-  }
-
-  void dispose() {
-    _nameController.close();
   }
 }

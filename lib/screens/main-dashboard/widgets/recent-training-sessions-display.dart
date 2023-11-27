@@ -1,76 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/api/training-session-bloc.dart';
-import 'package:provider/provider.dart';
-
-import '../../../api/models/training-session.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/api/training-session-cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../api/models/training-session.dart';
 import '../../training-session/training-session-details/training-session-logs-page.dart';
 
-class RecentTrainingSessionsDisplay extends StatefulWidget {
+class RecentTrainingSessionsDisplay extends StatelessWidget {
   final CurvedAnimation deleteAnimationCurve;
 
   const RecentTrainingSessionsDisplay({required this.deleteAnimationCurve});
 
   @override
-  _RecentTrainingSessionsDisplayState createState() =>
-      _RecentTrainingSessionsDisplayState();
-}
-
-class _RecentTrainingSessionsDisplayState
-    extends State<RecentTrainingSessionsDisplay> {
-  late TrainingSessionBloc _trainingSessionBloc;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _trainingSessionBloc = Provider.of<TrainingSessionBloc>(context);
-    _trainingSessionBloc.fetchRecentTrainingSessions();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: _buildRecentTrainingSessionsList(),
+      child: BlocBuilder<TrainingSessionCubit, TrainingSessionState>(
+        builder: (context, trainingSessions) {
+          if (trainingSessions.sessions.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          }
+          List<TrainingSession> reversedTrainingSessions =
+              trainingSessions.sessions.reversed.toList();
+          return SingleChildScrollView(
+            child: Column(
+              children: reversedTrainingSessions
+                  .map((trainingSession) => _buildDismissibleTrainingSession(
+                      context, trainingSession, reversedTrainingSessions))
+                  .toList(),
+            ),
+          );
+        },
+      ),
     );
   }
 
-  Widget _buildRecentTrainingSessionsList() {
-    return StreamBuilder<List<TrainingSession>>(
-      stream: _trainingSessionBloc.recentTrainingSessions,
-      builder: _buildTrainingSessionsColumn,
-    );
-  }
-
-  Widget _buildTrainingSessionsColumn(
-      BuildContext context, AsyncSnapshot<List<TrainingSession>> snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(child: CircularProgressIndicator());
-    } else if (snapshot.hasError) {
-      return Text('Error: ${snapshot.error}');
-    } else {
-      List<TrainingSession> trainingSessions = snapshot.data!.reversed.toList();
-      return SingleChildScrollView(
-        child: Column(
-          children: trainingSessions
-              .map((trainingSession) => _buildDismissibleTrainingSession(
-                  trainingSession, trainingSessions))
-              .toList(),
-        ),
-      );
-    }
-  }
-
-  Widget _buildDismissibleTrainingSession(
+  Widget _buildDismissibleTrainingSession(BuildContext context,
       TrainingSession trainingSession, List<TrainingSession> trainingSessions) {
     return Dismissible(
       key: UniqueKey(),
-      onDismissed: (_) => _deleteTrainingSession(trainingSession.id),
+      onDismissed: (_) {
+        BlocProvider.of<TrainingSessionCubit>(context)
+            .deleteTrainingSession(trainingSession.id);
+      },
       background: _buildDismissibleBackground(),
       child: GestureDetector(
         onTap: () => _navigateToTrainingSessionLogsPage(
-            trainingSession, trainingSessions),
+            context, trainingSession, trainingSessions),
         child: _buildTrainingSessionContainer(trainingSession),
       ),
     );
@@ -93,7 +69,7 @@ class _RecentTrainingSessionsDisplayState
             position: Tween<Offset>(
               begin: Offset(1.0, 0.0),
               end: Offset.zero,
-            ).animate(widget.deleteAnimationCurve),
+            ).animate(deleteAnimationCurve),
             child: Text(
               'Delete',
               style: TextStyle(
@@ -162,7 +138,7 @@ class _RecentTrainingSessionsDisplayState
         textStyle = textStyle.copyWith(
           color: Color.fromARGB(255, 0, 155, 129),
           fontWeight: FontWeight.bold,
-          fontSize: 20,
+          fontSize: 16,
         );
         break;
       case 2:
@@ -178,10 +154,11 @@ class _RecentTrainingSessionsDisplayState
       style: textStyle,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
+      textAlign: TextAlign.center,
     );
   }
 
-  void _navigateToTrainingSessionLogsPage(
+  void _navigateToTrainingSessionLogsPage(BuildContext context,
       TrainingSession trainingSession, List<TrainingSession> trainingSessions) {
     Navigator.push(
       context,
@@ -196,13 +173,16 @@ class _RecentTrainingSessionsDisplayState
     );
   }
 
-  void _deleteTrainingSession(int sessionId) {
-    _trainingSessionBloc.deleteTrainingSession(sessionId);
-  }
-
   String _formatTrainingDate(String dateString) {
     DateTime selectedDate = DateFormat("dd-MM-yyyy").parse(dateString);
     String formattedDate = DateFormat('EEEE, dd MMM yyyy').format(selectedDate);
-    return formattedDate;
+
+    final parts = formattedDate.split(' ');
+
+    if (parts.length >= 3) {
+      return '${parts[0]}\n${parts.sublist(1).join(' ')}';
+    } else {
+      return formattedDate;
+    }
   }
 }

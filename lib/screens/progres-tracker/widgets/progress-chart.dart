@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 
 import '../../../api/models/training_log.dart';
 
@@ -54,13 +54,13 @@ class _ProgressChartWidgetState extends State<ProgressChartWidget> {
             minY: 0,
             maxY: getMaxWeight(),
             lineBarsData: [
-              LineChartBarData(
-                spots: dataPoints,
-                isCurved: true,
-                colors: _animateChart ? getAnimatedColors() : [Colors.blue],
-                dotData: FlDotData(show: false),
-                barWidth: 4,
-              ),
+              // LineChartBarData(
+              //   spots: dataPoints,
+              //   isCurved: true,
+              //   color: _animateChart ? getAnimatedColors() : [Colors.blue],
+              //   dotData: FlDotData(show: false),
+              //   barWidth: 4,
+              // ),
             ],
           ),
         ),

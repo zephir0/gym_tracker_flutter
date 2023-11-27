@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../api/models/training-routine.dart';
-import '../../../api/training-routine-bloc.dart';
+import '../../../api/training-routine-cubit.dart';
 import '../../training-session/training-session-creator/training-session-creator-page.dart';
 
 class TrainingRoutineCard extends StatelessWidget {
@@ -12,15 +13,14 @@ class TrainingRoutineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<TrainingRoutineBloc>(context, listen: false);
     return GestureDetector(
       onTap: onTap,
-      onLongPressStart: (details) => _showLongPressMenu(context, details, bloc),
-      child: _buildCard(),
+      onLongPressStart: (details) => _showLongPressMenu(context, details),
+      child: _buildCard(context),
     );
   }
 
-  Widget _buildCard() {
+  Widget _buildCard(BuildContext context) {
     return Card(
       color: Color.fromRGBO(43, 138, 132, 1),
       shape: RoundedRectangleBorder(
@@ -48,8 +48,10 @@ class TrainingRoutineCard extends StatelessWidget {
   }
 
   Widget _buildExerciseTitle() {
-    return Text(trainingRoutine.routineName,
-        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold));
+    return Text(
+      trainingRoutine.routineName,
+      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+    );
   }
 
   Widget _buildExerciseDetails() {
@@ -62,43 +64,40 @@ class TrainingRoutineCard extends StatelessWidget {
     );
   }
 
-  void _showLongPressMenu(
-      BuildContext context, LongPressStartDetails details, bloc) {
+  void _showLongPressMenu(BuildContext context, LongPressStartDetails details) {
+    final bloc = BlocProvider.of<TrainingRoutineCubit>(context, listen: false);
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
-          details.globalPosition.dx,
-          details.globalPosition.dy,
-          details.globalPosition.dx,
-          details.globalPosition.dy),
+        details.globalPosition.dx,
+        details.globalPosition.dy,
+        details.globalPosition.dx,
+        details.globalPosition.dy,
+      ),
       items: <PopupMenuEntry>[
-        _buildPopupMenuItem(context, Icons.play_arrow, 'Start',
-            () => _startTrainingSession(context)),
-        _buildPopupMenuItem(context, Icons.delete, 'Delete',
-            () => _deleteRoutine(context, bloc)),
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.play_arrow),
+            title: Text('Start'),
+            onTap: () => _startTrainingSession(context),
+          ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.delete),
+            title: Text('Delete'),
+            onTap: () {
+              bloc.archiveTrainingRoutine(trainingRoutine.id);
+              Navigator.of(context).pop(); // Close the menu first
+            },
+          ),
+        ),
       ],
     );
   }
 
-  PopupMenuItem _buildPopupMenuItem(
-      BuildContext context, IconData icon, String text, VoidCallback? onTap) {
-    return PopupMenuItem(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(text),
-        onTap: onTap,
-      ),
-    );
-  }
-
-  void _deleteRoutine(BuildContext context, bloc) {
-    bloc.archiveTrainingRoutine(trainingRoutine.id);
-    bloc.getTrainingRoutines();
-    Navigator.of(context).pop();
-  }
-
   void _startTrainingSession(BuildContext context) {
-    Navigator.pop(context);
+    Navigator.pop(context); // Close the menu
     Navigator.push(
       context,
       MaterialPageRoute(
