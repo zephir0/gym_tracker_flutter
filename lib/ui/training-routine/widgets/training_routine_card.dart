@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
 
 import '../../../data/models/training_routine.dart';
-import '../../../data/bloc/training_routine_cubit.dart';
-import '../../training_session/training_session_creator/training-session_creator_page.dart';
+import '../../training_session/training_session_creator/training_session_creator_page.dart';
 
 class TrainingRoutineCard extends StatelessWidget {
   final TrainingRoutine trainingRoutine;
@@ -65,7 +66,6 @@ class TrainingRoutineCard extends StatelessWidget {
   }
 
   void _showLongPressMenu(BuildContext context, LongPressStartDetails details) {
-    final bloc = BlocProvider.of<TrainingRoutineCubit>(context, listen: false);
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
@@ -87,8 +87,9 @@ class TrainingRoutineCard extends StatelessWidget {
             leading: Icon(Icons.delete),
             title: Text('Delete'),
             onTap: () {
-              bloc.archiveTrainingRoutine(trainingRoutine.id);
-              Navigator.of(context).pop(); // Close the menu first
+              BlocProvider.of<TrainingRoutineBloc>(context, listen: false)
+                  .add(ArchiveTrainingRoutine(trainingRoutine.id));
+              Navigator.of(context).pop();
             },
           ),
         ),
@@ -97,7 +98,7 @@ class TrainingRoutineCard extends StatelessWidget {
   }
 
   void _startTrainingSession(BuildContext context) {
-    Navigator.pop(context); // Close the menu
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(

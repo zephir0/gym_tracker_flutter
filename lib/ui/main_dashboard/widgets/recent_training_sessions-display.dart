@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_session_cubit.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -15,21 +17,26 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<TrainingSessionCubit, TrainingSessionState>(
-        builder: (context, trainingSessions) {
-          if (trainingSessions.sessions.isEmpty) {
+      child: BlocBuilder<TrainingSessionBloc, TrainingSessionState>(
+        builder: (context, state) {
+          if (state is TrainingSessionInitial) {
             return Center(child: CircularProgressIndicator());
+          } else if (state is TrainingSessionLoaded) {
+            List<TrainingSession> reversedTrainingSessions =
+                state.sessions.reversed.toList();
+            return SingleChildScrollView(
+              child: Column(
+                children: reversedTrainingSessions
+                    .map((trainingSession) => _buildDismissibleTrainingSession(
+                        context, trainingSession, reversedTrainingSessions))
+                    .toList(),
+              ),
+            );
+          } else if (state is TrainingSessionError) {
+            return Center(child: Text('Error'));
           }
-          List<TrainingSession> reversedTrainingSessions =
-              trainingSessions.sessions.reversed.toList();
-          return SingleChildScrollView(
-            child: Column(
-              children: reversedTrainingSessions
-                  .map((trainingSession) => _buildDismissibleTrainingSession(
-                      context, trainingSession, reversedTrainingSessions))
-                  .toList(),
-            ),
-          );
+
+          return Center(child: Text('Unknown state'));
         },
       ),
     );
@@ -40,8 +47,8 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (_) {
-        BlocProvider.of<TrainingSessionCubit>(context)
-            .deleteTrainingSession(trainingSession.id);
+        BlocProvider.of<TrainingSessionBloc>(context)
+            .add(DeleteTrainingSession(trainingSession.id));
       },
       background: _buildDismissibleBackground(),
       child: GestureDetector(

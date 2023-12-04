@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_session_cubit.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
 
 class WorkoutCount extends StatelessWidget {
   @override
@@ -50,9 +51,16 @@ class WorkoutCount extends StatelessWidget {
   }
 
   Widget _buildWorkoutCountText(BuildContext context) {
-    return BlocBuilder<TrainingSessionCubit, TrainingSessionState>(
+    return BlocBuilder<TrainingSessionBloc, TrainingSessionState>(
       builder: (context, state) {
-        return _buildCountText(state.workoutCount.toString());
+        if (state is TrainingSessionInitial) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is TrainingSessionLoaded) {
+          return _buildCountText(state.workoutCount.toString());
+        } else if (state is TrainingSessionError) {
+          //TODO
+        }
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

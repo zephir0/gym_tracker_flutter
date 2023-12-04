@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
 import 'package:gym_tracker_flutter/data/models/exercise.dart';
-import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:gym_tracker_flutter/data/models/training_log.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_log_cubit.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_session_cubit.dart';
+import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/exercise_controllers.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/exercise_card_builder.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/finish_workout_button.dart';
@@ -52,11 +54,11 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TrainingLogCubit>(
-      create: (_) =>
-          TrainingLogCubit()..fetchPreviousTrainingLogs(widget.routine.id),
-      child: BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
-        builder: (context, previousTrainingLogs) {
+    return BlocBuilder<TrainingLogBloc, TrainingLogState>(
+      builder: (context, state) {
+        if (state is TrainingLogInitial) {
+          return CircularProgressIndicator();
+        } else if (state is TrainingLogsLoaded) {
           return Expanded(
             child: Form(
               key: _formKey,
@@ -69,9 +71,9 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
                         Exercise exercise = widget.routine.exerciseList[index];
                         return ExerciseCardBuilder(
                           hintWeights: extractLastEntryForExercise(
-                              exercise.id, 'weight', previousTrainingLogs),
+                              exercise.id, 'weight', state.logs),
                           hintReps: extractLastEntryForExercise(
-                              exercise.id, 'reps', previousTrainingLogs),
+                              exercise.id, 'reps', state.logs),
                           exercise: exercise,
                           index: index,
                           controllers: controllers!,
@@ -86,8 +88,7 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
                       children: [
                         TimerDisplayWidget(),
                         FinishWorkoutButton(
-                          onFinishWorkout: () =>
-                              onButtonPress(previousTrainingLogs),
+                          onFinishWorkout: () => onButtonPress(state.logs),
                           isWorkoutFinished: isWorkoutFinished,
                         ),
                       ],
@@ -97,8 +98,11 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
               ),
             ),
           );
-        },
-      ),
+        } else if (state is TrainingLogError) {
+          return CircularProgressIndicator();
+        } else
+          return Text("Unknown state");
+      },
     );
   }
 
@@ -140,8 +144,9 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
 
       String jsonEncoded = jsonEncode(jsonData);
 
-      BlocProvider.of<TrainingSessionCubit>(context)
-          .createTrainingSession(jsonEncoded);
+      context
+          .read<TrainingSessionBloc>()
+          .add(CreateTrainingSession(jsonEncoded));
 
       setState(() {
         isWorkoutFinished = true;

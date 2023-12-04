@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_routine_cubit.dart';
-import 'package:gym_tracker_flutter/ui/training-routine/training_routine_creator/widgets/submit-button.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_state.dart';
+import 'package:gym_tracker_flutter/ui/training-routine/training_routine_creator/widgets/submit_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_page.dart';
 
 import '../../../../utills/global_variables.dart';
@@ -54,43 +56,55 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: UniqueKey(),
-      direction: DismissDirection.down,
-      onDismissed: (direction) {
-        Navigator.of(context).pop();
+    return BlocListener<TrainingRoutineBloc, TrainingRoutineState>(
+      listener: (context, state) {
+        if (state is TrainingRoutineCreationSuccess) {
+          _handleSuccessRoutineCreation();
+        } else if (state is TrainingRoutineCreationFailure) {
+          _handleFailedRoutineCreation();
+        }
       },
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: GlobalVariables().primaryGradient,
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: ListView(
-                children: <Widget>[
-                  _buildNameFormField(),
-                  SizedBox(height: 16.0),
-                  ..._buildDismissibleExercises(),
-                  AdvancedAddExerciseButton(
-                      onAddExercise: widget.onAddExercise),
-                  Center(
-                    child: AdvancedSubmitButton(
-                      shouldShake: shouldShake,
-                      isFailed: isFailed,
-                      isSaved: isSaved, // pass the new state
-                      onSubmit: submit,
-                    ),
+      child: BlocBuilder<TrainingRoutineBloc, TrainingRoutineState>(
+          builder: (context, state) {
+        return Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.down,
+          onDismissed: (direction) {
+            Navigator.of(context).pop();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: GlobalVariables().primaryGradient,
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: <Widget>[
+                      _buildNameFormField(),
+                      SizedBox(height: 16.0),
+                      ..._buildDismissibleExercises(),
+                      AdvancedAddExerciseButton(
+                          onAddExercise: widget.onAddExercise),
+                      Center(
+                        child: AdvancedSubmitButton(
+                          shouldShake: shouldShake,
+                          isFailed: isFailed,
+                          isSaved: isSaved, // pass the new state
+                          onSubmit: submit,
+                        ),
+                      ),
+                      AdvancedBackButton(onBack: widget.onBack),
+                    ],
                   ),
-                  AdvancedBackButton(onBack: widget.onBack),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -161,22 +175,9 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
   void submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      _createRoutine();
-      setState(() {
-        isSaved = true;
-      });
-    } else {
-      _handleFailedRoutineCreation();
-    }
-  }
-
-  Future<void> _createRoutine() async {
-    final routine = _prepareRoutine();
-    bool isRoutineCreated = await BlocProvider.of<TrainingRoutineCubit>(context)
-        .createTrainingRoutine(routine);
-
-    if (isRoutineCreated) {
-      await _handleSuccessRoutineCreation();
+      final routineData = _prepareRoutine();
+      BlocProvider.of<TrainingRoutineBloc>(context)
+          .add(CreateTrainingRoutine(routineData));
     } else {
       _handleFailedRoutineCreation();
     }

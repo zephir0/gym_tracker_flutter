@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/models/training_log.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_log_cubit.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
+import 'package:gym_tracker_flutter/data/services/training_log_service.dart';
 import 'package:gym_tracker_flutter/ui/progres_tracker/widgets/action_buttons-row.dart';
 import 'package:gym_tracker_flutter/ui/progres_tracker/widgets/progress_chart.dart';
 import 'package:gym_tracker_flutter/ui/progres_tracker/widgets/progress_log_list.dart';
@@ -18,8 +21,9 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Progress Tracker')),
-      body: BlocProvider<TrainingLogCubit>(
-        create: (context) => TrainingLogCubit()..fetchTrainingLogs(161),
+      body: BlocProvider(
+        create: (_) => TrainingLogBloc(getIt<TrainingLogService>())
+          ..add(FetchTrainingLogs(161)),
         child: Center(
           child: Column(
             children: [
@@ -36,21 +40,31 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
   }
 
   Widget _buildProgressLogList() {
-    return BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
-      builder: (context, progressLogs) {
-        if (progressLogs.isEmpty) {
+    return BlocBuilder<TrainingLogBloc, TrainingLogState>(
+      builder: (context, state) {
+        if (state is TrainingLogInitial) {
           return CircularProgressIndicator();
-        } else {
-          return ProgressLogsListWidget(progressLogs: progressLogs);
-        }
+        } else if (state is TrainingLogsLoaded) {
+          return ProgressLogsListWidget(progressLogs: state.logs);
+        } else if (state is TrainingLogError) {
+          return CircularProgressIndicator();
+        } else
+          return Text("Unknown state");
       },
     );
   }
 
   Widget _buildProgressChart() {
-    return BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
-      builder: (context, progressLogs) {
-        return ProgressChartWidget(progressLogs: progressLogs);
+    return BlocBuilder<TrainingLogBloc, TrainingLogState>(
+      builder: (context, state) {
+        if (state is TrainingLogInitial) {
+          return CircularProgressIndicator();
+        } else if (state is TrainingLogsLoaded) {
+          return ProgressChartWidget(progressLogs: state.logs);
+        } else if (state is TrainingLogError) {
+          return CircularProgressIndicator();
+        } else
+          return Text("Unknown state");
       },
     );
   }

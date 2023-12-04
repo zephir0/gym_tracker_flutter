@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../training-session_creator_page.dart';
+import '../training_session_creator_page.dart';
 
 class RoutineNameDisplayer extends StatelessWidget {
   const RoutineNameDisplayer({

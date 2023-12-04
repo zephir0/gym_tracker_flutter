@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/models/training_log.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_log_cubit.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
+import 'package:gym_tracker_flutter/data/services/training_log_service.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/back_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/training_log_list.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
@@ -25,8 +28,8 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TrainingLogCubit()..fetchTrainingLogs(widget.trainingSessionId),
+      create: (context) => TrainingLogBloc(getIt<TrainingLogService>())
+        ..add(FetchTrainingLogs(int.parse(widget.trainingSessionId))),
       child: Scaffold(
         backgroundColor: Colors.grey[900],
         body: SafeArea(
@@ -71,13 +74,16 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   }
 
   Widget _buildTrainingLogList() {
-    return BlocBuilder<TrainingLogCubit, List<TrainingLog>>(
-      builder: (context, trainingLogs) {
-        if (trainingLogs.isEmpty) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return TrainingLogList(trainingLogs: trainingLogs);
-        }
+    return BlocBuilder<TrainingLogBloc, TrainingLogState>(
+      builder: (context, state) {
+        if (state is TrainingLogInitial) {
+          return new Center(child: CircularProgressIndicator());
+        } else if (state is TrainingLogsLoaded) {
+          return TrainingLogList(trainingLogs: state.logs);
+        } else if (state is TrainingLogError) {
+          return Text("Error");
+        } else
+          return Text("Unknown state");
       },
     );
   }

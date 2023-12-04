@@ -1,10 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_session_cubit.dart';
-import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine_exercises_displayer.dart';
+import 'package:gym_tracker_flutter/data/services/training_log_service.dart';
+import 'package:gym_tracker_flutter/data/services/training_session_service.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine-name-displayer.dart';
+import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine_exercises_displayer.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +41,17 @@ class _TrainingSessionCreatorPageState
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => TrainingSessionCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TrainingSessionBloc>(
+          create: (context) =>
+              TrainingSessionBloc(getIt<TrainingSessionService>()),
+        ),
+        BlocProvider<TrainingLogBloc>(
+          create: (context) => TrainingLogBloc(getIt<TrainingLogService>())
+            ..add(FetchPreviousTrainingLogs(widget.routine.id)),
+        ),
+      ],
       child: WillPopScope(
         onWillPop: _onWillPop,
         child: Container(

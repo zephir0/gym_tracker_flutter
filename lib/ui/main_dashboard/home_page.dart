@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/training_session_cubit.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
+import 'package:gym_tracker_flutter/data/services/training_session_service.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/progress_tracker.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_training_sessions-display.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_workouts_header.dart';
@@ -64,7 +67,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TrainingSessionCubit()..fetchRecentTrainingSessions(),
+      create: (_) => TrainingSessionBloc(getIt<TrainingSessionService>())
+        ..add(FetchTrainingSessions()),
       child: Stack(
         children: [
           _buildContent(context),
