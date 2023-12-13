@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
+import 'package:gym_tracker_flutter/data/services/auth_service.dart';
 
 class LogoutPage extends StatelessWidget {
   @override
@@ -36,6 +37,7 @@ class LogoutPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   shake();
+                  AuthService().attemptLogout(context);
                 },
                 child: Text(
                   'Logout',

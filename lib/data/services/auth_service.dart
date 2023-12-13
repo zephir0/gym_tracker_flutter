@@ -38,7 +38,7 @@ class AuthService {
 
   Future<void> attemptLogout(BuildContext context) async {
     String? token = await TokenReceiver().getToken();
-    var url = GlobalVariables().backendApiAddress + 'api/training-routines';
+    var url = GlobalVariables().backendApiAddress + 'api/auth/logout';
 
     final response = await http.post(
       Uri.parse(url),
