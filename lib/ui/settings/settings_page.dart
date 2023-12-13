@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
-import 'package:gym_tracker_flutter/ui/settings/widgets/account_menu/account_view.dart';
+import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/account_view.dart';
+import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/settings_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/custom_header.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/menu_switch.dart';
-import 'package:gym_tracker_flutter/ui/settings/widgets/settings_view.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

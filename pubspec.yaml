@@ -14,6 +14,7 @@ dependencies:
   # page_turn: ^1.0.1
 
   cupertino_icons: ^1.0.6
+  flutter_animator: ^3.2.2
   http: ^1.1.0
   flutter_secure_storage: ^9.0.0
   flutter_speed_dial: ^7.0.0

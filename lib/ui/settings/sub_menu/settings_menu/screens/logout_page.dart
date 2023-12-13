@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
+
+class LogoutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    GlobalKey<AnimatorWidgetState> shakeKey = GlobalKey<AnimatorWidgetState>();
+
+    void shake() {
+      shakeKey.currentState?.forward();
+    }
+
+    return Scaffold(
+      body: Container(
+        color: Color.fromARGB(255, 130, 153, 130),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.network(
+                'https://i.ibb.co/Hp1V3H3/a24b22ed-9b94-488e-9f55-2207ae94cd70-5.webp'),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Are you sure you want to log out?',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Shake(
+              key: shakeKey,
+              preferences: AnimationPreferences(
+                offset: Duration.zero,
+                autoPlay: AnimationPlayStates.None,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  shake();
+                },
+                child: Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromRGBO(138, 43, 64, 1),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Container(
+                color: Colors.grey,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Go Back',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
