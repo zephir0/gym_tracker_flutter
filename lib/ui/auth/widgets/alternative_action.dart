@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../auth_screen.dart';
+import '../auth_page.dart';
 
 class AlternativeAction extends StatelessWidget {
   final FormType formType;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/ui/progres_tracker/progress_tracker.dart';
+import 'package:gym_tracker_flutter/ui/settings/settings_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ProgressTracker extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
         context,
         PageTransition(
           type: PageTransitionType.rightToLeftWithFade,
-          child: ProgressTrackerScreen(),
+          child: SettingsPage(),
           duration: Duration(milliseconds: 300),
         ),
       );

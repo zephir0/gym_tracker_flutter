@@ -11,12 +11,12 @@ import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 enum FormType { login, forgotPassword, signUp }
 
-class LoginScreen extends StatefulWidget {
+class AuthPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _LoginScreenState();
+  State<StatefulWidget> createState() => _AuthPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

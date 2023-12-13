@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gym_tracker_flutter/token/token_receiver.dart';
+import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/error_dialog.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
-import 'package:gym_tracker_flutter/token/token_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -30,6 +33,24 @@ class AuthService {
       Navigator.popAndPushNamed(context, "/navi-bar");
     } else {
       ErrorDialog.showErrorDialog(context, "Failed to authenticate");
+    }
+  }
+
+  Future<void> attemptLogout(BuildContext context) async {
+    String? token = await TokenReceiver().getToken();
+    var url = GlobalVariables().backendApiAddress + 'api/training-routines';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + '$token',
+      },
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/login', (Route route) => false);
     }
   }
 
