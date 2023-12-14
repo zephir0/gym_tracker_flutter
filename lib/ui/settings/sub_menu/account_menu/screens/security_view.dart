@@ -1,41 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 class SecurityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Security Settings'),
+        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: Icon(Icons.lock_outline),
-            title: Text('Change Password'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.phonelink_lock),
-            title: Text('Two-Factor Authentication'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.fingerprint),
-            title: Text('Fingerprint Lock'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.history),
-            title: Text('Login History'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.security),
-            title: Text('Security Questions'),
-            onTap: () {},
-          ),
-        ],
+      body: Container(
+        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(
+                Icons.lock_outline,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Change Password',
+                style: _getTextStyle(),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.phonelink_lock,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Two-Factor Authentication',
+                style: _getTextStyle(),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.fingerprint,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Fingerprint Lock',
+                style: _getTextStyle(),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.history,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Login History',
+                style: _getTextStyle(),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.security,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Security Questions',
+                style: _getTextStyle(),
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  TextStyle _getTextStyle() {
+    return TextStyle(color: Colors.white);
   }
 }

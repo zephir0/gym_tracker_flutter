@@ -19,7 +19,7 @@ class CustomHeader extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                   child: Container(
                     alignment: Alignment.center,
                     color: Colors.transparent,
@@ -29,7 +29,7 @@ class CustomHeader extends StatelessWidget {
                         CircleAvatar(
                           backgroundImage:
                               NetworkImage('https://via.placeholder.com/150'),
-                          radius: 250,
+                          radius: 220,
                         ),
                         SizedBox(height: 20),
                         ElevatedButton(
@@ -59,7 +59,6 @@ class CustomHeader extends StatelessWidget {
     }
 
     return Container(
-      color: Color(0xFF20212C),
       padding: EdgeInsets.all(16.0),
       child: Row(
         children: <Widget>[
@@ -78,7 +77,7 @@ class CustomHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Jon Done",
+                      string,
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -86,7 +85,7 @@ class CustomHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      string,
+                      "jon@wp.pl",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white.withOpacity(0.7),

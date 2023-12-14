@@ -1,50 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 class HelpSupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-        title: Text('Help & Support', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
-        color: Colors.grey[200],
+        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: ListView(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.question_answer,
-                  color: Color.fromRGBO(43, 138, 132, 1)),
-              title: Text('FAQ'),
+              leading: Icon(Icons.question_answer, color: Colors.white),
+              title: Text(
+                'FAQ',
+                style: _getTextStyle(),
+              ),
               onTap: () => _navigateToFAQ(context),
             ),
             ListTile(
-              leading:
-                  Icon(Icons.email, color: Color.fromRGBO(43, 138, 132, 1)),
-              title: Text('Email Support'),
+              leading: Icon(Icons.email, color: Colors.white),
+              title: Text(
+                'Email Support',
+                style: _getTextStyle(),
+              ),
               onTap: () => _emailSupport(),
             ),
             ListTile(
-              leading:
-                  Icon(Icons.message, color: Color.fromRGBO(43, 138, 132, 1)),
-              title: Text('Live Chat Support'),
+              leading: Icon(Icons.message, color: Colors.white),
+              title: Text(
+                'Live Chat Support',
+                style: _getTextStyle(),
+              ),
               onTap: () => _liveChatSupport(context),
             ),
             ListTile(
-              leading: Icon(Icons.face, color: Color.fromRGBO(43, 138, 132, 1)),
-              title: Text('Facebook Support'),
+              leading: Icon(Icons.face, color: Colors.white),
+              title: Text(
+                'Facebook Support',
+                style: _getTextStyle(),
+              ),
               onTap: () => _openFacebook(),
             ),
             ListTile(
-              leading: Icon(Icons.support_agent,
-                  color: Color.fromRGBO(43, 138, 132, 1)),
-              title: Text('Submit a Ticket'),
+              leading: Icon(Icons.support_agent, color: Colors.white),
+              title: Text(
+                'Submit a Ticket',
+                style: _getTextStyle(),
+              ),
               onTap: () => _submitTicket(context),
             ),
           ],
         ),
       ),
     );
+  }
+
+  TextStyle _getTextStyle() {
+    return TextStyle(color: Colors.white);
   }
 
   void _navigateToFAQ(BuildContext context) {

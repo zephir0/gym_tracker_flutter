@@ -10,7 +10,6 @@ class MenuSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.0),
-      color: Color.fromARGB(255, 55, 56, 66),
       child: ValueListenableBuilder(
         valueListenable: tabController.animation!,
         builder: (context, _, __) => Row(

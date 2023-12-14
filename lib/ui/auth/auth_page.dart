@@ -63,9 +63,9 @@ class _AuthPageState extends State<AuthPage> {
       case FormType.login:
         return [
           AuthField(
-              hintText: "Enter your email",
-              controller: _emailController,
-              icon: Icons.email,
+              hintText: "Enter your username",
+              controller: _usernameController,
+              icon: Icons.person,
               isPasswordField: false),
           AuthField(
               hintText: "Enter your password",
@@ -126,7 +126,7 @@ class _AuthPageState extends State<AuthPage> {
     switch (_formType) {
       case FormType.login:
         FormHandler().handleLogin(
-            _emailController.text, _passwordController.text, context);
+            _usernameController.text, _passwordController.text, context);
         break;
       case FormType.forgotPassword:
         FormHandler().handleForgotPassword(_emailController.text, context);

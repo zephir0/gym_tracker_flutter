@@ -14,13 +14,14 @@ class ProfileOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color.fromRGBO(43, 138, 132, 1),
       child: InkWell(
         onTap: onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(icon, size: 50),
-            Text(title, style: TextStyle(fontSize: 16)),
+            Icon(icon, size: 57),
+            Text(title, style: TextStyle(fontSize: 18, color: Colors.white)),
           ],
         ),
       ),

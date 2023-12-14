@@ -5,6 +5,7 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/account_vi
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/settings_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/custom_header.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/menu_switch.dart';
+import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _SettingsPageState extends State<SettingsPage>
     return BlocProvider(
       create: (_) => UserCubit(),
       child: Container(
-        color: Color(0xFF2C2F3A),
+        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: SafeArea(
           child: Column(
             children: [

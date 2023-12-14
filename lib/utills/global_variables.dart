@@ -7,9 +7,15 @@ class GlobalVariables {
   var backendApiAddress = "http://192.168.0.5:8081/";
 
   var primaryGradient = LinearGradient(
-    colors: [Color.fromARGB(255, 48, 47, 47), Color(0xff000000)],
-    stops: [0, 1],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 18, 18, 18),
+      Color.fromARGB(255, 38, 38, 38),
+      Color.fromARGB(255, 58, 58, 58),
+      Color.fromARGB(255, 38, 38, 38),
+      Color.fromARGB(255, 18, 18, 18),
+    ],
+    stops: [0.0, 0.25, 0.5, 0.75, 1.0],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 }

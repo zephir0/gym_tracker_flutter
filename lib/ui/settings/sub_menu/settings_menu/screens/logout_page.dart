@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:gym_tracker_flutter/data/services/auth_service.dart';
+import 'package:gym_tracker_flutter/utills/global_variables.dart';
 
 class LogoutPage extends StatelessWidget {
   @override
@@ -13,7 +14,7 @@ class LogoutPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(255, 130, 153, 130),
+        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,7 +25,10 @@ class LogoutPage extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Are you sure you want to log out?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -12,11 +12,7 @@ class FormHandler {
 
   void handleLogin(String email, String password, BuildContext context) {
     print("Logging in with Email: $email, Password: $password");
-    if (!_validateEmail(email)) {
-      ErrorDialog.showErrorDialog(context, "Invalid email address");
-    } else {
-      AuthService().attemptLogin(email, password, context);
-    }
+    AuthService().attemptLogin(email, password, context);
   }
 
   void handleForgotPassword(String email, BuildContext context) {
