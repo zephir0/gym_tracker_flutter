@@ -1,55 +1,50 @@
 import 'package:bloc/bloc.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
-import 'package:gym_tracker_flutter/data/services/training_session_service.dart';
-
-import '../../models/training_session.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_session/create_training_session_use_case.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_session/delete_training_session_use_case.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_session/fetch_recent_training_sessions_use_case.dart';
+import 'package:gym_tracker_flutter/utills/no_parameters.dart';
 
 class TrainingSessionBloc
     extends Bloc<TrainingSessionEvent, TrainingSessionState> {
-  final TrainingSessionService service;
-
-  TrainingSessionBloc(this.service) : super(TrainingSessionInitial()) {
+  TrainingSessionBloc() : super(TrainingSessionInitial()) {
     on<FetchTrainingSessions>(_onFetchTrainingSessions);
     on<CreateTrainingSession>(_onCreateTrainingSession);
     on<DeleteTrainingSession>(_onDeleteTrainingSession);
   }
 
-  void _onFetchTrainingSessions(
+  Future<void> _onFetchTrainingSessions(
     FetchTrainingSessions event,
     Emitter<TrainingSessionState> emit,
   ) async {
-    try {
-      List<TrainingSession> sessions =
-          await service.fetchRecentTrainingSessions();
-      int count = await service.getWorkoutCount();
-      emit(TrainingSessionLoaded(sessions, count));
-    } catch (e) {
-      emit(TrainingSessionError());
-    }
+    final fetchRecentTrainingSessionsUseCase =
+        getIt<FetchRecentTrainingSessionsUseCase>();
+    final sessionsOrFailure =
+        await fetchRecentTrainingSessionsUseCase(NoParameters());
+
+    sessionsOrFailure.fold(
+      (failure) => emit(TrainingSessionError()),
+      (sessions) => emit(TrainingSessionLoaded(sessions)),
+    );
   }
 
-  void _onCreateTrainingSession(
+  Future<void> _onCreateTrainingSession(
     CreateTrainingSession event,
     Emitter<TrainingSessionState> emit,
   ) async {
-    try {
-      await service.createTrainingSession(event.jsonData);
-      add(FetchTrainingSessions());
-    } catch (e) {
-      emit(TrainingSessionError());
-    }
+    final createTrainingSessionUseCase = getIt<CreateTrainingSessionUseCase>();
+    await createTrainingSessionUseCase(event.jsonData);
+    add(FetchTrainingSessions());
   }
 
-  void _onDeleteTrainingSession(
+  Future<void> _onDeleteTrainingSession(
     DeleteTrainingSession event,
     Emitter<TrainingSessionState> emit,
   ) async {
-    try {
-      await service.deleteTrainingSession(event.sessionId);
-      add(FetchTrainingSessions());
-    } catch (e) {
-      emit(TrainingSessionError());
-    }
+    final deleteTrainingSessionUseCase = getIt<DeleteTrainingSessionUseCase>();
+    await deleteTrainingSessionUseCase(event.sessionId);
+    add(FetchTrainingSessions());
   }
 }

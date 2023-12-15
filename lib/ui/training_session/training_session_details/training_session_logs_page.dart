@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
-import 'package:gym_tracker_flutter/data/services/training_log_service.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/back_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/training_log_list.dart';
 import 'package:gym_tracker_flutter/utills/global_variables.dart';
@@ -28,7 +26,7 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TrainingLogBloc(getIt<TrainingLogService>())
+      create: (context) => TrainingLogBloc()
         ..add(FetchTrainingLogs(int.parse(widget.trainingSessionId))),
       child: Scaffold(
         backgroundColor: Colors.grey[900],
