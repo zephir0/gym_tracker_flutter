@@ -67,8 +67,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TrainingSessionBloc(getIt<TrainingSessionService>())
-        ..add(FetchTrainingSessions()),
+      create: (_) => TrainingSessionBloc()..add(FetchTrainingSessions()),
       child: Stack(
         children: [
           _buildContent(context),

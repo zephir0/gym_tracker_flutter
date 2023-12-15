@@ -56,7 +56,7 @@ class WorkoutCount extends StatelessWidget {
         if (state is TrainingSessionInitial) {
           return Center(child: CircularProgressIndicator());
         } else if (state is TrainingSessionLoaded) {
-          return _buildCountText(state.workoutCount.toString());
+          return _buildCountText(state.sessions.length.toString());
         } else if (state is TrainingSessionError) {
           //TODO
         }

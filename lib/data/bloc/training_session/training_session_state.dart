@@ -6,9 +6,8 @@ class TrainingSessionInitial extends TrainingSessionState {}
 
 class TrainingSessionLoaded extends TrainingSessionState {
   final List<TrainingSession> sessions;
-  final int workoutCount;
 
-  TrainingSessionLoaded(this.sessions, this.workoutCount);
+  TrainingSessionLoaded(this.sessions);
 }
 
 class TrainingSessionError extends TrainingSessionState {}

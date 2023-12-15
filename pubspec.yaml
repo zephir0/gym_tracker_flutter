@@ -13,6 +13,8 @@ dependencies:
 
   # page_turn: ^1.0.1
   json_annotation: ^4.8.1
+  dartz: ^0.10.1
+  failure_stack: ^0.1.3
   build_runner: ^2.4.7
   cupertino_icons: ^1.0.6
   flutter_animator: ^3.2.2
