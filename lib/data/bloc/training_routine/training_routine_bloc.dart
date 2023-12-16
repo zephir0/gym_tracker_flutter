@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_state.dart';
-import 'package:gym_tracker_flutter/data/services/training_routine_service.dart';
-
-import '../../models/training_routine.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_routine/archive_training_routine_use_case.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_routine/create_training_routine_use_case.dart';
+import 'package:gym_tracker_flutter/data/use_case/training_routine/get_training_routines_use_case.dart';
+import 'package:gym_tracker_flutter/utills/no_parameters.dart';
 
 class TrainingRoutineBloc
     extends Bloc<TrainingRoutineEvent, TrainingRoutineState> {
-  final TrainingRoutineService service;
-
-  TrainingRoutineBloc(this.service) : super(TrainingRoutineInitial()) {
+  TrainingRoutineBloc() : super(TrainingRoutineInitial()) {
     on<FetchTrainingRoutines>(_onFetchTrainingRoutines);
     on<CreateTrainingRoutine>(_onCreateTrainingRoutine);
     on<ArchiveTrainingRoutine>(_onArchiveTrainingRoutine);
@@ -17,29 +17,32 @@ class TrainingRoutineBloc
 
   void _onFetchTrainingRoutines(
       FetchTrainingRoutines event, Emitter<TrainingRoutineState> emit) async {
-    try {
-      List<TrainingRoutine> routines = await service.getTrainingRoutines();
-      emit(TrainingRoutinesLoaded(routines));
-    } catch (e) {
-      emit(TrainingRoutineError());
-    }
+    final getTrainingRoutinesUseCase =
+        await getIt<GetTrainingRoutinesUseCase>();
+    final routinesOrFailure = await getTrainingRoutinesUseCase(NoParameters());
+
+    routinesOrFailure.fold((failure) => emit(TrainingRoutineError()),
+        (routines) => emit(TrainingRoutinesLoaded(routines)));
   }
 
   void _onCreateTrainingRoutine(
       CreateTrainingRoutine event, Emitter<TrainingRoutineState> emit) async {
-    bool success = await service.createTrainingRoutine(event.routineData);
-    if (success) {
-      emit(TrainingRoutineCreationSuccess());
-      add(FetchTrainingRoutines());
-    } else {
-      emit(TrainingRoutineCreationFailure());
-    }
+    var createTrainingRoutineUseCase =
+        await getIt<CreateTrainingRoutineUseCase>();
+    var createdOrFailure =
+        await createTrainingRoutineUseCase(event.routineData);
+
+    createdOrFailure.fold((failure) => emit(TrainingRoutineCreationFailure()),
+        (routines) => emit(TrainingRoutineCreationSuccess()));
   }
 
   void _onArchiveTrainingRoutine(
       ArchiveTrainingRoutine event, Emitter<TrainingRoutineState> emit) async {
-    await service.archiveTrainingRoutine(event.routineId);
-
-    add(FetchTrainingRoutines());
+    var archiveTrainingRoutineUseCase =
+        await getIt<ArchiveTrainingRoutineUseCase>();
+    var archivedOrFailure =
+        await archiveTrainingRoutineUseCase(event.routineId);
+    archivedOrFailure.fold((failure) => TrainingRoutineError(),
+        (routines) => add(FetchTrainingRoutines()));
   }
 }

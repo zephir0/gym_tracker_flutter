@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
-import 'package:gym_tracker_flutter/data/services/training_routine_service.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_creator/widgets/dismissible_routine_form.dart';
 
 enum MuscleGroup {
@@ -57,7 +55,7 @@ class _TrainingRoutineCreatorPageState extends State<TrainingRoutineCreatorPage>
           }
         },
         child: BlocProvider(
-          create: (_) => TrainingRoutineBloc(getIt<TrainingRoutineService>()),
+          create: (_) => TrainingRoutineBloc(),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: DismissibleRoutineForm(

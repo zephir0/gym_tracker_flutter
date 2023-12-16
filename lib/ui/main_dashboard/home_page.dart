@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
-import 'package:gym_tracker_flutter/data/services/training_session_service.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/progress_tracker.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_training_sessions-display.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_workouts_header.dart';

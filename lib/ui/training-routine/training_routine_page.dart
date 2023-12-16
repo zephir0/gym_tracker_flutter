@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/config/get_it_config.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_state.dart';
-import 'package:gym_tracker_flutter/data/services/training_routine_service.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/back_to_home_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/create_routine_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/training_routine_card.dart';
@@ -23,8 +21,7 @@ class _TrainingRoutinePageState extends State<TrainingRoutinePage> {
       body: Container(
         decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: BlocProvider(
-          create: (_) => TrainingRoutineBloc(getIt<TrainingRoutineService>())
-            ..add(FetchTrainingRoutines()),
+          create: (_) => TrainingRoutineBloc()..add(FetchTrainingRoutines()),
           child: Stack(
             children: [
               _routineGridDisplayContainer(),
