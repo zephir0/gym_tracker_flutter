@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 class FinishWorkoutButton extends StatelessWidget {
   final Function() onFinishWorkout;
-  final bool isWorkoutFinished;
 
   const FinishWorkoutButton({
     required this.onFinishWorkout,
-    this.isWorkoutFinished = false,
   });
 
   @override
@@ -27,25 +25,20 @@ class FinishWorkoutButton extends StatelessWidget {
                 onPressed: onFinishWorkout,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: isWorkoutFinished
-                        ? Color.fromARGB(255, 39, 7, 6)
-                        : Color.fromRGBO(0, 45, 42, 1),
-                  ),
+                      borderRadius: BorderRadius.circular(12),
+                      color: Color.fromARGB(255, 39, 7, 6)),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          isWorkoutFinished ? Icons.home : Icons.fitness_center,
-                          color: isWorkoutFinished
-                              ? Color.fromRGBO(243, 234, 218, 1)
-                              : Color.fromRGBO(54, 150, 143, 1),
+                          Icons.fitness_center,
+                          color: Color.fromRGBO(243, 234, 218, 1),
                         ),
                         SizedBox(width: 8),
                         Text(
-                          isWorkoutFinished ? 'Back to Home' : 'Finish workout',
+                          'Finish workout',
                           style: TextStyle(
                             color: Color.fromRGBO(243, 234, 218, 1),
                             fontWeight: FontWeight.bold,

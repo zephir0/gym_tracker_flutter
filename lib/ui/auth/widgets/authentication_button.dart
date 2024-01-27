@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class AuthenticationButton extends StatelessWidget {
   final String buttonText;
@@ -30,12 +31,14 @@ class AuthenticationButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32),
                 ),
-                backgroundColor: Color.fromRGBO(43, 138, 132, 100),
+                backgroundColor: ColorPalette.authenticationButtonColor,
                 fixedSize: Size(width, height),
               ),
               child: Text(
                 buttonText,
-                style: TextStyle(color: Colors.black, fontSize: 24),
+                style: TextStyle(
+                    color: ColorPalette.authenticationButtonTextColor,
+                    fontSize: 24),
               )),
         ],
       ),

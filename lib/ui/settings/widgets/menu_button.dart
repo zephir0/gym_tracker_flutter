@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class MenuButton extends StatelessWidget {
   final String title;
@@ -22,8 +23,7 @@ class MenuButton extends StatelessWidget {
           duration: duration,
           curve: Curves.easeInOut,
           decoration: BoxDecoration(
-            color:
-                isActive ? Color.fromRGBO(43, 138, 132, 1) : Colors.transparent,
+            color: isActive ? ColorPalette.secondaryColor : Colors.transparent,
             borderRadius: BorderRadius.circular(20),
           ),
           alignment: Alignment.center,
@@ -33,7 +33,7 @@ class MenuButton extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 21,
-                color: Colors.white,
+                color: ColorPalette.textColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

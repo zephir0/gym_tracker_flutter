@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class BackToHomeButton extends StatelessWidget {
   const BackToHomeButton({
@@ -18,12 +19,13 @@ class BackToHomeButton extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-              ),
-              backgroundColor: Color.fromRGBO(80, 207, 199, 0.612),
-              minimumSize: Size(double.infinity, 50),
-              foregroundColor: Colors.white),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            backgroundColor: ColorPalette.backToHomeButtonColor,
+            minimumSize: Size(double.infinity, 50),
+            foregroundColor: ColorPalette.authenticationButtonTextColor,
+          ),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 '/navi-bar', (Route<dynamic> route) => false);

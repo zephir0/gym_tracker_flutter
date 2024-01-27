@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../main_dashboard/home_page.dart';
 import '../settings/settings_page.dart';
@@ -40,8 +41,8 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      unselectedItemColor: Colors.white,
-      selectedItemColor: Color.fromRGBO(8, 243, 227, 1),
+      unselectedItemColor: ColorPalette.naviBarUnselectedColor,
+      selectedItemColor: ColorPalette.naviBarSelectedColor,
       backgroundColor: Color.fromARGB(255, 17, 17, 17),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -62,7 +63,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
     return SpeedDial(
       animatedIcon: AnimatedIcons.add_event,
       animatedIconTheme: IconThemeData(size: 22.0),
-      backgroundColor: Color.fromRGBO(43, 138, 132, 1),
+      backgroundColor: ColorPalette.secondaryColor,
       curve: Curves.bounceIn,
       children: [
         _buildSpeedDialChild(
@@ -90,7 +91,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
   ) {
     return SpeedDialChild(
       child: Icon(icon, color: Colors.white),
-      backgroundColor: Color.fromRGBO(43, 138, 132, 1),
+      backgroundColor: ColorPalette.secondaryColor,
       onTap: onTap,
       label: label,
       labelStyle: TextStyle(fontWeight: FontWeight.w500),

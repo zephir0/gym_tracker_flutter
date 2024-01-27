@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class SecurityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: [
             ListTile(
               leading: Icon(
                 Icons.lock_outline,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Change Password',
@@ -30,7 +30,7 @@ class SecurityView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.phonelink_lock,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Two-Factor Authentication',
@@ -41,7 +41,7 @@ class SecurityView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.fingerprint,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Fingerprint Lock',
@@ -52,7 +52,7 @@ class SecurityView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.history,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Login History',
@@ -63,7 +63,7 @@ class SecurityView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.security,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Security Questions',
@@ -78,6 +78,6 @@ class SecurityView extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return TextStyle(color: ColorPalette.textColor);
   }
 }

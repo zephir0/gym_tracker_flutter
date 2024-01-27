@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../training_session_creator_page.dart';
 
@@ -25,7 +26,7 @@ class RoutineNameDisplayer extends StatelessWidget {
             widget.routine.routineName,
             textAlign: TextAlign.center,
             style: TextStyle(
-                color: Color.fromRGBO(243, 234, 218, 1),
+                color: ColorPalette.textColor,
                 decoration: TextDecoration.none,
                 fontSize: 32),
           ),

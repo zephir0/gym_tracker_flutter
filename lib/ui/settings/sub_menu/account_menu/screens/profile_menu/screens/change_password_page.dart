@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   final TextEditingController _oldPasswordController = TextEditingController();
@@ -10,11 +10,12 @@ class ChangePasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
-        title: Text('Change Password', style: TextStyle(color: Colors.white)),
+        backgroundColor: ColorPalette.settingAppBarColor,
+        title: Text('Change Password',
+            style: TextStyle(color: ColorPalette.textColor)),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -29,15 +30,15 @@ class ChangePasswordPage extends StatelessWidget {
                   controller: _oldPasswordController,
                   decoration: InputDecoration(
                     labelText: 'Old Password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: ColorPalette.textColor),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.textColor),
                   obscureText: true,
                 ),
                 SizedBox(height: 10),
@@ -45,22 +46,22 @@ class ChangePasswordPage extends StatelessWidget {
                   controller: _newPasswordController,
                   decoration: InputDecoration(
                     labelText: 'New Password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: ColorPalette.textColor),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.textColor),
                   obscureText: true,
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-                    foregroundColor: Colors.white,
+                    backgroundColor: ColorPalette.secondaryColor,
+                    foregroundColor: ColorPalette.textColor,
                   ),
                   onPressed: () {
                     UserService().attemptChangePassword(

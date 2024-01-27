@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:gym_tracker_flutter/data/services/auth_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class LogoutPage extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class LogoutPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,9 +26,10 @@ class LogoutPage extends StatelessWidget {
               child: Text(
                 'Are you sure you want to log out?',
                 style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -48,21 +49,23 @@ class LogoutPage extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromRGBO(138, 43, 64, 1),
+                  primary:
+                      ColorPalette.warningTextColor, // Use the warning color
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Container(
-                color: Colors.grey,
+                color: ColorPalette.secondaryColor, // Use the warning color
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text(
                     'Go Back',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style:
+                        TextStyle(color: ColorPalette.textColor, fontSize: 20),
                   ),
                 ),
               ),

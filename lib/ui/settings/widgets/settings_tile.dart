@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class SettingsTile extends StatelessWidget {
   final String title;
@@ -12,18 +13,19 @@ class SettingsTile extends StatelessWidget {
       onTap: onFunction,
       child: Container(
         decoration: BoxDecoration(
-          border:
-              Border(bottom: BorderSide(color: Colors.white.withOpacity(0.3))),
+          border: Border(
+              bottom:
+                  BorderSide(color: ColorPalette.textColor.withOpacity(0.3))),
         ),
         child: ListTile(
-          title:
-              Text(title, style: TextStyle(fontSize: 17, color: Colors.white)),
+          title: Text(title,
+              style: TextStyle(fontSize: 17, color: ColorPalette.textColor)),
           leading: Icon(
             icon,
-            color: Colors.white,
+            color: ColorPalette.textColor,
             size: 33,
           ),
-          trailing: Icon(Icons.chevron_right, color: Colors.white),
+          trailing: Icon(Icons.chevron_right, color: ColorPalette.textColor),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_
 import 'package:gym_tracker_flutter/data/models/exercise.dart';
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/training_session_creator_page.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class TrainingRoutineDetailDialog {
   static void showRoutineDetailDialog(
@@ -21,7 +22,7 @@ class TrainingRoutineDetailDialog {
               borderRadius: BorderRadius.circular(16),
             ),
             elevation: 1,
-            backgroundColor: Color.fromARGB(255, 63, 63, 63),
+            backgroundColor: ColorPalette.primaryColor,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.8,
               width: MediaQuery.of(context).size.width * 0.8,
@@ -36,12 +37,12 @@ class TrainingRoutineDetailDialog {
                           leading: Icon(Icons.fitness_center),
                           title: Text(
                             exercise.name,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: ColorPalette.textColor),
                           ),
                           subtitle: Text(
                             exercise.MuscleGroup,
                             style: TextStyle(
-                              color: Color.fromARGB(255, 138, 136, 136),
+                              color: ColorPalette.subtitleRowColor,
                             ),
                           ),
                         );
@@ -49,12 +50,12 @@ class TrainingRoutineDetailDialog {
                     ),
                   ),
                   Container(
-                    color: Color.fromRGBO(43, 138, 132, 1),
+                    color: ColorPalette.secondaryColor,
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
-                            color: Colors.blue,
+                            color: ColorPalette.primaryButtonColor,
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 primary: Colors.white,
@@ -87,7 +88,7 @@ class TrainingRoutineDetailDialog {
                     ),
                   ),
                   Container(
-                    color: Colors.red,
+                    color: ColorPalette.errorTextColor,
                     width: MediaQuery.of(context).size.width,
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -114,14 +115,16 @@ class TrainingRoutineDetailDialog {
       context: dialogContext,
       builder: (alertDialogContext) {
         return AlertDialog(
-          backgroundColor: Color.fromRGBO(80, 207, 199, 1),
+          backgroundColor: ColorPalette.primaryColor,
           title: Text('Archive Routine'),
           content: Text('Are you sure you want to archive this routine?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(alertDialogContext).pop(),
-              child: Text('No',
-                  style: TextStyle(color: Color.fromARGB(255, 8, 8, 8))),
+              child: Text(
+                'No',
+                style: TextStyle(color: ColorPalette.textFormFieldColor),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -131,8 +134,10 @@ class TrainingRoutineDetailDialog {
                 Navigator.of(alertDialogContext).pop();
                 Navigator.of(dialogContext).pop();
               },
-              child: Text('Yes',
-                  style: TextStyle(color: Color.fromARGB(255, 8, 8, 8))),
+              child: Text(
+                'Yes',
+                style: TextStyle(color: ColorPalette.textFormFieldColor),
+              ),
             ),
           ],
         );

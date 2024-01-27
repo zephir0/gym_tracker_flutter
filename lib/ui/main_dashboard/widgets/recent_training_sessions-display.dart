@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -61,14 +62,14 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
 
   Widget _buildDismissibleBackground() {
     return Container(
-      color: Colors.red,
+      color: ColorPalette.warningTextColor,
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.delete, color: Colors.white),
+              Icon(Icons.delete, color: ColorPalette.textColor),
               SizedBox(width: 8.0),
             ],
           ),
@@ -80,7 +81,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
             child: Text(
               'Delete',
               style: TextStyle(
-                color: Colors.white,
+                color: ColorPalette.textColor,
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -96,7 +97,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(80, 80, 80, 1),
+        color: ColorPalette.primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -129,7 +130,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
     String text = '';
     TextStyle textStyle = TextStyle(
       fontSize: 17,
-      color: Colors.white,
+      color: ColorPalette.textColor,
       fontWeight: FontWeight.normal,
     );
 
@@ -143,7 +144,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
       case 1:
         text = _formatTrainingDate(trainingSession.trainingDate);
         textStyle = textStyle.copyWith(
-          color: Color.fromARGB(255, 0, 155, 129),
+          color: ColorPalette.secondaryColor,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         );

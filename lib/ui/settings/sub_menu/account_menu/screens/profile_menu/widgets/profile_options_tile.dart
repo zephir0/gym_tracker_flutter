@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ProfileOptionTile extends StatelessWidget {
   final IconData icon;
@@ -14,14 +15,15 @@ class ProfileOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color.fromRGBO(43, 138, 132, 1),
+      color: ColorPalette.secondaryColor,
       child: InkWell(
         onTap: onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(icon, size: 57),
-            Text(title, style: TextStyle(fontSize: 18, color: Colors.white)),
+            Text(title,
+                style: TextStyle(fontSize: 18, color: ColorPalette.textColor)),
           ],
         ),
       ),

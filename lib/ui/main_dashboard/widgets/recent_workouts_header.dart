@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class RecentWorkoutsHeader extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
       children: [
         Text(
           "Your last workouts",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: ColorPalette.textColor, fontSize: 18),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(70, 0, 10, 0),
@@ -46,14 +47,14 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
           borderRadius: BorderRadius.circular(32),
           color: _isButtonTapped
               ? Color.fromARGB(255, 173, 171, 171)
-              : Color.fromRGBO(43, 138, 132, 1),
+              : ColorPalette.secondaryColor,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "See all",
             style: TextStyle(
-              color: Colors.white,
+              color: ColorPalette.textColor,
               fontSize: 18,
             ),
           ),
@@ -75,7 +76,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
 
   Widget _buildDivider() {
     return Divider(
-      color: Colors.white,
+      color: ColorPalette.textColor,
       indent: 15,
       endIndent: 15,
     );

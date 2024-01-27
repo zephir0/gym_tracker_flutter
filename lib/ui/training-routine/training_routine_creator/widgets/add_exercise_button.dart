@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class AdvancedAddExerciseButton extends StatefulWidget {
   final VoidCallback onAddExercise;
@@ -33,14 +34,14 @@ class _AdvancedAddExerciseButtonState extends State<AdvancedAddExerciseButton>
         TweenSequenceItem(
           weight: 1.0,
           tween: ColorTween(
-            begin: Color.fromRGBO(78, 180, 173, 0.612),
-            end: Colors.white,
+            begin: ColorPalette.secondaryColor,
+            end: ColorPalette.textColor,
           ),
         ),
         TweenSequenceItem(
           weight: 1.0,
           tween: ColorTween(
-            begin: Colors.white,
+            begin: ColorPalette.textColor,
             end: Colors.blue,
           ),
         ),
@@ -92,12 +93,12 @@ class _AdvancedAddExerciseButtonState extends State<AdvancedAddExerciseButton>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.add, color: Colors.white),
+          Icon(Icons.add, color: ColorPalette.textColor),
           SizedBox(width: 10),
           Text(
             'Add Exercise',
             style: TextStyle(
-              color: Colors.white,
+              color: ColorPalette.textColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

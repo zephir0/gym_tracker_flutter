@@ -1,52 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: <Widget>[
             SwitchListTile(
               title: Text('Location Tracking',
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: ColorPalette.textColor)),
               subtitle: Text('Allow apps to access your location',
-                  style: TextStyle(color: Colors.white60)),
+                  style: TextStyle(color: ColorPalette.textFormFieldHintColor)),
               value: true,
               onChanged: (bool value) {},
-              secondary: Icon(Icons.location_on, color: Colors.white),
+              secondary: Icon(Icons.location_on, color: ColorPalette.textColor),
             ),
             SwitchListTile(
-              title: Text('Usage Data', style: TextStyle(color: Colors.white)),
+              title: Text('Usage Data',
+                  style: TextStyle(color: ColorPalette.textColor)),
               subtitle: Text('Share usage data for analytics',
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: ColorPalette.textColor)),
               value: false,
               onChanged: (bool value) {},
-              secondary: Icon(Icons.analytics, color: Colors.white),
+              secondary: Icon(Icons.analytics, color: ColorPalette.textColor),
             ),
             ListTile(
               title: Text('Review Personal Data',
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: ColorPalette.textColor)),
               subtitle: Text('Review and manage your data',
-                  style: TextStyle(color: Colors.white60)),
+                  style: TextStyle(color: ColorPalette.textFormFieldHintColor)),
               onTap: () {},
-              trailing: Icon(Icons.arrow_forward_ios, color: Colors.white),
+              trailing:
+                  Icon(Icons.arrow_forward_ios, color: ColorPalette.textColor),
             ),
             ListTile(
-              title: Text('Data Export', style: TextStyle(color: Colors.white)),
+              title: Text('Data Export',
+                  style: TextStyle(color: ColorPalette.textColor)),
               subtitle: Text('Export your personal data',
-                  style: TextStyle(color: Colors.white60)),
+                  style: TextStyle(color: ColorPalette.textFormFieldHintColor)),
               onTap: () {},
-              trailing: Icon(Icons.cloud_download, color: Colors.white),
+              trailing:
+                  Icon(Icons.cloud_download, color: ColorPalette.textColor),
             ),
           ],
         ),

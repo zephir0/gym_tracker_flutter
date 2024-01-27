@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../../../../data/models/exercise.dart';
 
@@ -81,14 +82,14 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
 
   Widget _buildDeleteBackground() {
     return Container(
-      color: Colors.red,
+      color: ColorPalette.warningTextColor,
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.delete, color: Colors.white),
+              Icon(Icons.delete, color: ColorPalette.textColor),
               SizedBox(width: 8.0),
             ],
           ),
@@ -107,7 +108,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
       child: Text(
         'Delete',
         style: TextStyle(
-          color: Colors.white,
+          color: ColorPalette.textColor,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
         ),
@@ -121,17 +122,17 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
       validator: widget.validateDescription,
       style: TextStyle(
         fontSize: 17.0,
-        color: Colors.white,
+        color: ColorPalette.textColor,
       ),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color.fromARGB(255, 128, 125, 125)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(78, 180, 173, 0.612)),
+          borderSide: BorderSide(color: ColorPalette.secondaryColor),
         ),
         labelText: 'Description',
-        labelStyle: TextStyle(color: Color.fromRGBO(78, 180, 173, 0.612)),
+        labelStyle: TextStyle(color: ColorPalette.secondaryColor),
         border: OutlineInputBorder(),
       ),
       onChanged: _handleDescriptionSaved,
@@ -166,7 +167,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
     return TextFieldConfiguration(
       style: TextStyle(
         fontSize: 17.0,
-        color: Colors.white,
+        color: ColorPalette.textColor,
       ),
       controller: _typeAheadController,
       decoration: InputDecoration(
@@ -174,11 +175,11 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
           borderSide: BorderSide(color: Color.fromARGB(255, 128, 125, 125)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(96, 194, 187, 0.612)),
+          borderSide: BorderSide(color: ColorPalette.secondaryColor),
         ),
         labelText: 'Muscle Group',
         labelStyle: TextStyle(
-          color: Color.fromRGBO(78, 180, 173, 0.612),
+          color: ColorPalette.secondaryColor,
           fontSize: 17,
         ),
         border: OutlineInputBorder(),
@@ -200,11 +201,11 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
   ListTile _buildMuscleGroupListItem(
       BuildContext context, MuscleGroup muscleGroup) {
     return ListTile(
-      tileColor: Color.fromRGBO(34, 34, 34, 1),
+      tileColor: ColorPalette.primaryColor,
       title: Text(
         muscleGroup.toString().split('.').last.toUpperCase(),
         style: TextStyle(
-          color: Color.fromRGBO(96, 194, 187, 0.612),
+          color: ColorPalette.secondaryColor,
           fontSize: 16,
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/ui/settings/settings_page.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ProgressTracker extends StatefulWidget {
@@ -46,7 +47,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
 
   Decoration _buildContainerDecoration() {
     return BoxDecoration(
-      color: _tapped ? Colors.grey : Color.fromRGBO(43, 138, 132, 1),
+      color: _tapped ? Colors.grey : ColorPalette.secondaryColor,
       borderRadius: BorderRadius.circular(32),
       image: DecorationImage(
         opacity: 0.15,
@@ -64,7 +65,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: ColorPalette.textColor,
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../training-routine/training_routine_page.dart';
@@ -56,7 +57,7 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
     return BoxDecoration(
       color: _isTapped
           ? Color.fromARGB(255, 173, 171, 171)
-          : Color.fromRGBO(43, 138, 132, 1),
+          : ColorPalette.secondaryColor,
       borderRadius: BorderRadius.circular(30),
       image: DecorationImage(
         opacity: 0.15,
@@ -72,7 +73,7 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
       child: Text(
         "Your training\nroutines",
         style: TextStyle(
-          color: Colors.white,
+          color: ColorPalette.textColor,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

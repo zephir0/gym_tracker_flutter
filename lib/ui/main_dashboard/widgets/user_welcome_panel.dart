@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class UserWelcomePanel extends StatelessWidget {
   @override
@@ -63,7 +64,9 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
         Text(
           "Good to see you here,",
           style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
+              color: ColorPalette.textColor,
+              fontSize: 20,
+              fontWeight: FontWeight.w300),
         ),
         BlocBuilder<UserCubit, String>(
           builder: (context, name) {
@@ -71,7 +74,7 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
               return Text(
                 name,
                 style: TextStyle(
-                    color: Color.fromRGBO(14, 233, 218, 1),
+                    color: ColorPalette.dashboardUsernameTextColor,
                     fontSize: 30,
                     fontWeight: FontWeight.w500),
               );

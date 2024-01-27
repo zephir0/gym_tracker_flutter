@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/models/training_log.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class TrainingLogCard extends StatelessWidget {
   final TrainingLog currentLog;
@@ -24,7 +25,7 @@ class TrainingLogCard extends StatelessWidget {
 
   Widget _buildLogEntryCard() {
     return Card(
-      color: Colors.grey[800],
+      color: ColorPalette.settingAppBarColor,
       elevation: 2.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -41,11 +42,11 @@ class TrainingLogCard extends StatelessWidget {
   Widget _buildLogCounterAvatar() {
     return CircleAvatar(
       radius: 22.0,
-      backgroundColor: Color.fromRGBO(80, 187, 180, 0.612),
+      backgroundColor: ColorPalette.secondaryColor,
       child: Text(
         logCounter.toString(),
         style: TextStyle(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: ColorPalette.textColor,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
         ),
@@ -57,7 +58,7 @@ class TrainingLogCard extends StatelessWidget {
     return Text(
       currentLog.name!,
       style: TextStyle(
-        color: Color.fromRGBO(80, 187, 180, 0.612),
+        color: ColorPalette.secondaryColor,
         fontSize: 19.0,
         fontWeight: FontWeight.bold,
       ),
@@ -89,14 +90,14 @@ class TrainingLogCard extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: Colors.white70,
+          color: ColorPalette.subtitleRowColor,
           size: 14.0,
         ),
         SizedBox(width: 4.0),
         Text(
           text,
           style: TextStyle(
-            color: Colors.white70,
+            color: ColorPalette.subtitleRowColor,
             fontSize: fontSize,
           ),
         ),
@@ -106,7 +107,7 @@ class TrainingLogCard extends StatelessWidget {
 
   Widget _buildDivider() {
     return Divider(
-      color: Color.fromARGB(255, 80, 78, 78),
+      color: ColorPalette.subtitleRowColor,
       thickness: 1,
       indent: 21,
       endIndent: 21,

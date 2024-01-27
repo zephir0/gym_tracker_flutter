@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class AdvancedBackButton extends StatelessWidget {
   final VoidCallback onBack;
@@ -17,7 +18,7 @@ class AdvancedBackButton extends StatelessWidget {
         onPressed: onBack,
         child: Icon(
           Icons.arrow_back,
-          color: Colors.white,
+          color: ColorPalette.textColor,
           size: 28,
         ),
       ),

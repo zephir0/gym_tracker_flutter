@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
 class DeleteAccountPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text('Delete Account'),
       ),
       body: Center(
@@ -28,8 +30,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
               child: SlideAction(
                 key: _key,
                 text: 'Slide to delete',
-                innerColor: Colors.red,
-                outerColor: Color.fromARGB(255, 90, 11, 11),
+                innerColor: ColorPalette.accountDeleteSliderInnerColor,
+                outerColor: ColorPalette.accountDeleteSliderOuterColor,
                 sliderButtonIcon: Icon(Icons.delete_forever),
                 onSubmit: () {
                   UserService().attemptDeleteAccount(context);
@@ -40,7 +42,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             SizedBox(height: 20),
             Text(
               'Warning: Deleting your account will result in the loss of all your workout routines, progress data, and account history. This action is irreversible.',
-              style: TextStyle(fontSize: 16, color: Colors.red),
+              style:
+                  TextStyle(fontSize: 16, color: ColorPalette.warningTextColor),
               textAlign: TextAlign.center,
             ),
           ],

@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.da
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/back_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/training_log_list.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class TrainingSessionLogsPage extends StatefulWidget {
   final trainingSessionId;
@@ -29,11 +29,11 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
       create: (context) => TrainingLogBloc()
         ..add(FetchTrainingLogs(int.parse(widget.trainingSessionId))),
       child: Scaffold(
-        backgroundColor: Colors.grey[900],
+        backgroundColor: ColorPalette.settingAppBarColor,
         body: SafeArea(
           child: Container(
             decoration:
-                BoxDecoration(gradient: GlobalVariables().primaryGradient),
+                BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
@@ -53,7 +53,7 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
   Widget _buildHeader() {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(8, 25, 255, 0.612),
+        color: ColorPalette.secondaryColor,
         borderRadius: BorderRadius.circular(32),
       ),
       child: Padding(
@@ -62,7 +62,7 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
           widget.routineName,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: ColorPalette.textColor,
             fontSize: 38.0,
             fontWeight: FontWeight.bold,
           ),

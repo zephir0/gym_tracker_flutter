@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -28,7 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         textAlign: TextAlign.left,
         style: TextStyle(
-          color: Color.fromRGBO(207, 209, 209, 0.612),
+          color: ColorPalette.textFormFieldTextColor,
         ),
         obscureText: widget.isPasswordField ? _obscureText : false,
         validator: _validate,
@@ -44,7 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         child: Icon(
           widget.icon,
           size: 32,
-          color: GlobalVariables().iconAndHintColor,
+          color: ColorPalette.textFormFieldHintColor,
         ),
       ),
       suffixIcon: widget.isPasswordField
@@ -54,16 +54,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 onPressed: _toggleObscureText,
                 icon: Icon(
                   _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: GlobalVariables().iconAndHintColor,
+                  color: ColorPalette.textFormFieldHintColor,
                 ),
               ),
             )
           : null,
-      fillColor: GlobalVariables().inputFillColor,
+      fillColor: ColorPalette.textFormFieldColor,
       filled: true,
       hintText: widget.hintText,
       hintStyle: TextStyle(
-        color: GlobalVariables().iconAndHintColor,
+        color: ColorPalette.textFormFieldColor,
       ),
       labelStyle: TextStyle(
         color: Colors.white,

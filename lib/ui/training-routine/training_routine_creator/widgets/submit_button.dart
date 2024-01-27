@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class AdvancedSubmitButton extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -7,7 +8,7 @@ class AdvancedSubmitButton extends StatefulWidget {
   final bool isSaved;
 
   const AdvancedSubmitButton({
-    required this.onSubmit(),
+    required this.onSubmit,
     required this.shouldShake,
     required this.isFailed,
     required this.isSaved,
@@ -96,21 +97,33 @@ class _AdvancedSubmitButtonState extends State<AdvancedSubmitButton>
       return LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Colors.red.shade800, Colors.red.shade400],
+        colors: [
+          ColorPalette.errorTextColor,
+          ColorPalette.errorTextColor.withOpacity(0.8)
+        ],
       );
     } else if (widget.isSaved) {
       return LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Colors.blue.shade800, Colors.blue.shade400],
+        colors: [
+          ColorPalette.primaryButtonColor,
+          ColorPalette.primaryButtonColor.withOpacity(0.8)
+        ],
       );
     } else {
       return LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: isPressed
-            ? [Colors.green.shade800, Colors.green.shade400]
-            : [Colors.green, Colors.green.shade600],
+            ? [
+                ColorPalette.authenticationButtonColor,
+                ColorPalette.authenticationButtonColor.withOpacity(0.8)
+              ]
+            : [
+                ColorPalette.authenticationButtonColor,
+                ColorPalette.authenticationButtonColor.withOpacity(0.6)
+              ],
       );
     }
   }
@@ -120,7 +133,7 @@ class _AdvancedSubmitButtonState extends State<AdvancedSubmitButton>
         ? null
         : [
             BoxShadow(
-              color: Colors.green.shade200.withOpacity(0.5),
+              color: ColorPalette.authenticationButtonColor.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 10,
               offset: Offset(0, 3),
@@ -130,11 +143,14 @@ class _AdvancedSubmitButtonState extends State<AdvancedSubmitButton>
 
   Icon _buildIcon() {
     if (widget.isFailed) {
-      return Icon(Icons.clear, color: Colors.white);
+      return Icon(Icons.clear,
+          color: ColorPalette.authenticationButtonTextColor);
     } else if (widget.isSaved) {
-      return Icon(Icons.check_circle, color: Colors.white);
+      return Icon(Icons.check_circle,
+          color: ColorPalette.authenticationButtonTextColor);
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      return Icon(Icons.check,
+          color: ColorPalette.authenticationButtonTextColor);
     }
   }
 
@@ -144,7 +160,7 @@ class _AdvancedSubmitButtonState extends State<AdvancedSubmitButton>
       child: Text(
         _getButtonText(),
         style: TextStyle(
-          color: Colors.white,
+          color: ColorPalette.authenticationButtonTextColor,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),

@@ -4,27 +4,27 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/pr
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_password_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_username_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/delete_account_page.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: <Widget>[
             ListTile(
               leading: Icon(
                 Icons.person,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Change Avatar',
@@ -35,7 +35,7 @@ class ProfileView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.edit,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Change Username',
@@ -46,7 +46,7 @@ class ProfileView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.email,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Change Email',
@@ -57,7 +57,7 @@ class ProfileView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.lock,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Change Password',
@@ -68,11 +68,11 @@ class ProfileView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.delete_forever,
-                color: Colors.red,
+                color: ColorPalette.warningTextColor,
               ),
               title: Text(
                 'Delete Account',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: ColorPalette.warningTextColor),
               ),
               onTap: () => _navigateToScreen(context, DeleteAccountPage()),
             ),
@@ -90,6 +90,6 @@ class ProfileView extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return TextStyle(color: ColorPalette.textColor);
   }
 }

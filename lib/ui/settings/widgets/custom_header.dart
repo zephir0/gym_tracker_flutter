@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_avatar_page.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class CustomHeader extends StatelessWidget {
   @override
@@ -41,10 +42,11 @@ class CustomHeader extends StatelessWidget {
                           },
                           child: Text(
                             'Edit',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(
+                                color: ColorPalette.textColor, fontSize: 20),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Color.fromRGBO(43, 138, 132, 1),
+                            primary: ColorPalette.secondaryColor,
                           ),
                         ),
                       ],
@@ -81,14 +83,14 @@ class CustomHeader extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: ColorPalette.textColor,
                       ),
                     ),
                     Text(
                       "jon@wp.pl",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.white.withOpacity(0.7),
+                        color: ColorPalette.textColor.withOpacity(0.7),
                       ),
                     ),
                   ],

@@ -13,8 +13,9 @@ import 'package:gym_tracker_flutter/ui/training_session/training_session_creator
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/exercise_card_builder.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/finish_workout_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/timer_displayer.dart';
-import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/workout_summary.dart';
+import 'package:gym_tracker_flutter/ui/training_session/training_session_summary/training_session_summary_page.dart';
 import 'package:gym_tracker_flutter/utills/time_provider.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RoutineExercisesDisplayer extends StatefulWidget {
   final TrainingRoutine routine;
@@ -30,8 +31,6 @@ class RoutineExercisesDisplayer extends StatefulWidget {
 class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
   ExerciseControllers? controllers;
   var _formKey = GlobalKey<FormState>();
-  bool isWorkoutFinished = false;
-  bool isDialogShown = false;
 
   @override
   void initState() {
@@ -88,8 +87,7 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
                       children: [
                         TimerDisplayWidget(),
                         FinishWorkoutButton(
-                          onFinishWorkout: () => onButtonPress(state.logs),
-                          isWorkoutFinished: isWorkoutFinished,
+                          onFinishWorkout: () => onSubmit(state.logs),
                         ),
                       ],
                     ),
@@ -121,36 +119,27 @@ class _RoutineExercisesDisplayerState extends State<RoutineExercisesDisplayer> {
     return '0';
   }
 
-  void onButtonPress(List<TrainingLog> previousTrainingLogs) {
-    if (!isWorkoutFinished) {
-      onSubmit(previousTrainingLogs);
-    } else {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          '/navi-bar', (Route<dynamic> route) => false);
-    }
-  }
-
   void onSubmit(List<TrainingLog> previousTrainingLogs) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       context.read<TimerProvider>().stopTimer();
 
-      WorkoutSummary(trainingRoutine: widget.routine).showSummary(context);
-
       Map<String, dynamic> jsonData = controllers!.prepareJsonData(
         routine: widget.routine,
       );
 
-      String jsonEncoded = jsonEncode(jsonData);
-
       context
           .read<TrainingSessionBloc>()
-          .add(CreateTrainingSession(jsonEncoded));
-
-      setState(() {
-        isWorkoutFinished = true;
-      });
+          .add(CreateTrainingSession(jsonEncode(jsonData)));
     }
+    Navigator.push(
+      context,
+      PageTransition(
+        type: PageTransitionType.rightToLeftWithFade,
+        child: TrainingSessionSummaryPage(),
+        duration: Duration(milliseconds: 300),
+      ),
+    );
   }
 }

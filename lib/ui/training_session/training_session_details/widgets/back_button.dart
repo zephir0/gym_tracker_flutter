@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class BackToHomeButton extends StatelessWidget {
   @override
@@ -10,16 +11,8 @@ class BackToHomeButton extends StatelessWidget {
           height: 50.0,
           width: 180,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(51, 231, 219, 0.612),
-                Color.fromRGBO(9, 209, 196, 0.612),
-                Color.fromRGBO(9, 209, 196, 0.612),
-                Color.fromRGBO(51, 231, 219, 0.612)
-              ],
-            ),
-          ),
+              borderRadius: BorderRadius.circular(30),
+              color: ColorPalette.secondaryColor),
           child: MaterialButton(
             onPressed: () {
               Navigator.pop(context);
@@ -31,7 +24,7 @@ class BackToHomeButton extends StatelessWidget {
               child: Text(
                 'Back to Home',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: ColorPalette.textColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                 ),

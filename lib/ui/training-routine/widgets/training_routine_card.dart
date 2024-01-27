@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../../../data/models/training_routine.dart';
 import '../../training_session/training_session_creator/training_session_creator_page.dart';
@@ -23,7 +24,7 @@ class TrainingRoutineCard extends StatelessWidget {
 
   Widget _buildCard(BuildContext context) {
     return Card(
-      color: Color.fromRGBO(43, 138, 132, 1),
+      color: ColorPalette.secondaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -43,7 +44,7 @@ class TrainingRoutineCard extends StatelessWidget {
       child: Icon(
         Icons.fitness_center,
         size: 48,
-        color: Color.fromARGB(255, 71, 67, 67),
+        color: ColorPalette.textColor,
       ),
     );
   }
@@ -51,7 +52,10 @@ class TrainingRoutineCard extends StatelessWidget {
   Widget _buildExerciseTitle() {
     return Text(
       trainingRoutine.routineName,
-      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+          color: ColorPalette.textColor),
     );
   }
 
@@ -60,7 +64,7 @@ class TrainingRoutineCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 3.0),
       child: Text(
         '${trainingRoutine.exerciseList.length} exercises',
-        style: TextStyle(fontSize: 14, color: Colors.white),
+        style: TextStyle(fontSize: 14, color: ColorPalette.textColor),
       ),
     );
   }

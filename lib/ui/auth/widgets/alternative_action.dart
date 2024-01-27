@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../auth_page.dart';
 
@@ -34,7 +35,7 @@ class AlternativeAction extends StatelessWidget {
         child: Text(
           "Forgot password?",
           style: TextStyle(
-            color: Color.fromRGBO(43, 138, 132, 100),
+            color: ColorPalette.secondaryColor,
             fontSize: 22,
             fontFamily: 'Roboto',
           ),
@@ -61,7 +62,7 @@ class AlternativeAction extends StatelessWidget {
               onPressed: () => onFormTypeChange(FormType.signUp),
               child: Text("Sign up",
                   style: TextStyle(
-                      color: Color.fromRGBO(43, 138, 132, 100),
+                      color: ColorPalette.secondaryColor,
                       fontSize: 17,
                       fontFamily: 'Roboto'))),
         ],
@@ -78,7 +79,7 @@ class AlternativeAction extends StatelessWidget {
             onPressed: () => onFormTypeChange(FormType.login),
             child: Text("Back to Login",
                 style: TextStyle(
-                    color: Color.fromRGBO(43, 138, 132, 100),
+                    color: ColorPalette.secondaryColor,
                     fontSize: 17,
                     fontFamily: 'Roboto'))),
       ),

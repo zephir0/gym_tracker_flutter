@@ -8,7 +8,7 @@ import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_workouts_he
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_training_routines.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_welcome_panel.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/workout_count.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage>
   Container _buildContainer(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: GlobalVariables().primaryGradient,
+        gradient: ColorPalette.primaryThemeGradient,
       ),
       child: Column(
         children: [
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage>
   LinearProgressIndicator? _buildLinearProgressIndicator() {
     if (_isRefreshing) {
       return LinearProgressIndicator(
-        color: Color.fromRGBO(24, 218, 205, 0.612),
+        color: ColorPalette.dashboardUsernameTextColor,
         minHeight: 8,
         backgroundColor: Colors.transparent,
       );

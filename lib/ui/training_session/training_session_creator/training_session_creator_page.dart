@@ -7,7 +7,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine-name-displayer.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine_exercises_displayer.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utills/time_provider.dart';
@@ -52,7 +52,7 @@ class _TrainingSessionCreatorPageState
         onWillPop: _onWillPop,
         child: Container(
           decoration:
-              BoxDecoration(gradient: GlobalVariables().primaryGradient),
+              BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
           child: Column(
             children: [
               RoutineNameDisplayer(widget: widget),
@@ -75,19 +75,20 @@ class _TrainingSessionCreatorPageState
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
         ),
-        backgroundColor: Colors.grey[850],
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Are you sure?',
-          style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+          style: TextStyle(color: ColorPalette.secondaryColor),
         ),
         content: Text(
           'Do you really want to cancel the training session?',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No', style: TextStyle(color: Colors.redAccent)),
+            child: Text('No',
+                style: TextStyle(color: ColorPalette.warningTextColor)),
           ),
           TextButton(
             onPressed: () {
@@ -95,7 +96,7 @@ class _TrainingSessionCreatorPageState
             },
             child: Text(
               'Yes',
-              style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+              style: TextStyle(color: ColorPalette.secondaryColor),
             ),
           ),
         ],

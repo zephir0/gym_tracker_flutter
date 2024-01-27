@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: <Widget>[
             ListTile(
@@ -39,6 +39,6 @@ class AboutPage extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return TextStyle(color: ColorPalette.textColor);
   }
 }

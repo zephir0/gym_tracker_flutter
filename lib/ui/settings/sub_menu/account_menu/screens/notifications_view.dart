@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: <Widget>[
             SwitchListTile(
@@ -34,7 +34,7 @@ class NotificationsView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.notifications_active,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text('Notification Tone', style: _getTextStyle()),
               subtitle:
@@ -44,7 +44,7 @@ class NotificationsView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.do_not_disturb_on,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text('Do Not Disturb', style: _getTextStyle()),
               onTap: () {},
@@ -52,7 +52,7 @@ class NotificationsView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.history,
-                color: Colors.white,
+                color: ColorPalette.textColor,
               ),
               title: Text(
                 'Notification History',
@@ -67,6 +67,6 @@ class NotificationsView extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return TextStyle(color: ColorPalette.textColor);
   }
 }

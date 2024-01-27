@@ -5,6 +5,7 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/h
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/logout_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/privacy_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/settings_tile.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:gym_tracker_flutter/utills/page_route_animator.dart';
 
 class SettingsView extends StatelessWidget {
@@ -45,7 +46,7 @@ class SettingsView extends StatelessWidget {
                 .push(PageRouteAnimator.createRoute(LogoutPage())),
           ),
         ],
-        color: Colors.white.withOpacity(0.3),
+        color: ColorPalette.textColor.withOpacity(0.3),
       ).toList(),
     );
   }

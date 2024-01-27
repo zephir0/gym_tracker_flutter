@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class HelpSupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorPalette.textColor),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: ListView(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.question_answer, color: Colors.white),
+              leading:
+                  Icon(Icons.question_answer, color: ColorPalette.textColor),
               title: Text(
                 'FAQ',
                 style: _getTextStyle(),
@@ -25,7 +26,7 @@ class HelpSupportPage extends StatelessWidget {
               onTap: () => _navigateToFAQ(context),
             ),
             ListTile(
-              leading: Icon(Icons.email, color: Colors.white),
+              leading: Icon(Icons.email, color: ColorPalette.textColor),
               title: Text(
                 'Email Support',
                 style: _getTextStyle(),
@@ -33,7 +34,7 @@ class HelpSupportPage extends StatelessWidget {
               onTap: () => _emailSupport(),
             ),
             ListTile(
-              leading: Icon(Icons.message, color: Colors.white),
+              leading: Icon(Icons.message, color: ColorPalette.textColor),
               title: Text(
                 'Live Chat Support',
                 style: _getTextStyle(),
@@ -41,7 +42,7 @@ class HelpSupportPage extends StatelessWidget {
               onTap: () => _liveChatSupport(context),
             ),
             ListTile(
-              leading: Icon(Icons.face, color: Colors.white),
+              leading: Icon(Icons.face, color: ColorPalette.textColor),
               title: Text(
                 'Facebook Support',
                 style: _getTextStyle(),
@@ -49,7 +50,7 @@ class HelpSupportPage extends StatelessWidget {
               onTap: () => _openFacebook(),
             ),
             ListTile(
-              leading: Icon(Icons.support_agent, color: Colors.white),
+              leading: Icon(Icons.support_agent, color: ColorPalette.textColor),
               title: Text(
                 'Submit a Ticket',
                 style: _getTextStyle(),
@@ -63,7 +64,7 @@ class HelpSupportPage extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return TextStyle(color: ColorPalette.textColor);
   }
 
   void _navigateToFAQ(BuildContext context) {
@@ -114,7 +115,7 @@ class _FAQPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('FAQ'),
-        backgroundColor: Color.fromRGBO(43, 138, 132, 1),
+        backgroundColor: ColorPalette.secondaryColor,
       ),
       body: ListView(
         children: <Widget>[

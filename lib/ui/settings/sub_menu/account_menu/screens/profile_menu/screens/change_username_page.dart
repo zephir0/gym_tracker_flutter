@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ChangeUsernamePage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -9,11 +9,12 @@ class ChangeUsernamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
-        title: Text('Edit Username', style: TextStyle(color: Colors.white)),
+        backgroundColor: ColorPalette.settingAppBarColor,
+        title: Text('Edit Username',
+            style: TextStyle(color: ColorPalette.textColor)),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -26,21 +27,21 @@ class ChangeUsernamePage extends StatelessWidget {
                   controller: _usernameController,
                   decoration: InputDecoration(
                     labelText: 'New Username',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: ColorPalette.textColor),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: ColorPalette.textColor),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.textColor),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-                    foregroundColor: Colors.white,
+                    backgroundColor: ColorPalette.secondaryColor,
+                    foregroundColor: ColorPalette.textColor,
                   ),
                   onPressed: () {
                     UserService().attemptChangeUsername(

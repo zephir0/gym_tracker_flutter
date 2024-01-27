@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 import '../training_routine_creator/training_routine_creator_page.dart';
 
@@ -20,12 +21,13 @@ class CreateRoutineButton extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-              ),
-              backgroundColor: Color.fromRGBO(21, 119, 184, 0.612),
-              minimumSize: Size(double.infinity, 50),
-              foregroundColor: Colors.deepOrange),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            backgroundColor: ColorPalette.createRoutineButtonColor,
+            minimumSize: Size(double.infinity, 50),
+            foregroundColor: ColorPalette.authenticationButtonTextColor,
+          ),
           onPressed: () {
             Navigator.push(
               context,

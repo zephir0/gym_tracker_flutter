@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class LogoSection extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class LogoSection extends StatelessWidget {
         child: Text(
           "GYM TRACKER",
           style: TextStyle(
-            color: Colors.white,
+            color: ColorPalette.logoTextColor,
             fontSize: 45,
             fontFamily: 'Roboto',
           ),

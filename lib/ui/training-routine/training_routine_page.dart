@@ -7,7 +7,7 @@ import 'package:gym_tracker_flutter/ui/training-routine/widgets/back_to_home_but
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/create_routine_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/training_routine_card.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/training_routine_detail_dialog.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class TrainingRoutinePage extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _TrainingRoutinePageState extends State<TrainingRoutinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: BlocProvider(
           create: (_) => TrainingRoutineBloc()..add(FetchTrainingRoutines()),
           child: Stack(

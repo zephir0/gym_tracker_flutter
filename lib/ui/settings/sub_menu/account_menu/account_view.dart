@@ -4,6 +4,7 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/pa
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/profile_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/security_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/settings_tile.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 import 'package:gym_tracker_flutter/utills/page_route_animator.dart';
 
 class AccountView extends StatelessWidget {
@@ -38,7 +39,7 @@ class AccountView extends StatelessWidget {
                 .push(PageRouteAnimator.createRoute(NotificationsView())),
           ),
         ],
-        color: Colors.white.withOpacity(0.3),
+        color: ColorPalette.textColor.withOpacity(0.3),
       ).toList(),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ExerciseSetRow extends StatelessWidget {
   final int exerciseIndex;
@@ -30,12 +31,12 @@ class ExerciseSetRow extends StatelessWidget {
         key: UniqueKey(),
         direction: DismissDirection.endToStart,
         background: Container(
-          color: Colors.red,
+          color: ColorPalette.warningTextColor,
           alignment: Alignment.centerRight,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Icon(
             Icons.delete,
-            color: Colors.white,
+            color: ColorPalette.textColor,
           ),
         ),
         onDismissed: (_) => onDelete(exerciseIndex, setIndex),
@@ -67,7 +68,7 @@ class ExerciseSetRow extends StatelessWidget {
             child: Text(
               (setIndex + 1).toString(),
               style: TextStyle(
-                color: Colors.white,
+                color: ColorPalette.textColor,
                 fontSize: 14,
               ),
             ),
@@ -90,7 +91,7 @@ class ExerciseSetRow extends StatelessWidget {
           textAlign: TextAlign.center,
           controller: controller,
           style: TextStyle(
-            color: Colors.white,
+            color: ColorPalette.textColor,
             fontSize: 12,
           ),
           decoration: InputDecoration(

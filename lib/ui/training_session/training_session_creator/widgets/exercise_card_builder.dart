@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
+
 import '../../../../data/models/exercise.dart';
 import '../exercise_controllers.dart';
 import 'exercise_set_row.dart';
@@ -35,7 +37,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide.none,
         ),
-        color: Color.fromARGB(255, 48, 49, 48),
+        color: ColorPalette.primaryColor,
         child: Column(
           children: [
             buildTitleTile(widget.exercise),
@@ -54,7 +56,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
         exercise.name,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Color.fromRGBO(43, 138, 132, 1),
+          color: ColorPalette.secondaryColor,
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
@@ -84,7 +86,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.white,
+            color: ColorPalette.textColor,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
@@ -116,7 +118,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
   OutlinedButton buildAddSetButton() {
     return OutlinedButton.icon(
       onPressed: () => widget.controllers.addNewSet(widget.index),
-      icon: Icon(Icons.add, size: 19, color: Colors.white),
+      icon: Icon(Icons.add, size: 19, color: ColorPalette.textColor),
       label: Text(
         'ADD SET',
         style:

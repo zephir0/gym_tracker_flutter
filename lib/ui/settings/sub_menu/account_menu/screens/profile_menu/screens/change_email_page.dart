@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class ChangeEmailPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -9,11 +9,11 @@ class ChangeEmailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
+        backgroundColor: ColorPalette.settingAppBarColor,
         title: Text('Change Email', style: TextStyle(color: Colors.white)),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+        decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -36,13 +36,13 @@ class ChangeEmailPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.textColor),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(43, 138, 132, 1),
-                    foregroundColor: Colors.white,
+                    backgroundColor: ColorPalette.secondaryColor,
+                    foregroundColor: ColorPalette.textColor,
                   ),
                   onPressed: () {
                     UserService()

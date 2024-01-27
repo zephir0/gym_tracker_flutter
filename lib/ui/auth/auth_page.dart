@@ -7,7 +7,7 @@ import 'package:gym_tracker_flutter/ui/auth/widgets/gym_diary_logo.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/logo_section.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/short_description.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/social_icons_field.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 enum FormType { login, forgotPassword, signUp }
 
@@ -36,7 +36,7 @@ class _AuthPageState extends State<AuthPage> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
+      decoration: BoxDecoration(gradient: ColorPalette.primaryThemeGradient),
       child: ListView(
         children: [
           LogoSection(),

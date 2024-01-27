@@ -5,8 +5,8 @@ import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_state.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_creator/widgets/submit_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_page.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
-import '../../../../utills/global_variables.dart';
 import 'add_exercise_button.dart';
 import 'back_button.dart';
 import 'dismissible_exercise.dart';
@@ -74,7 +74,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
           },
           child: Container(
             decoration: BoxDecoration(
-              gradient: GlobalVariables().primaryGradient,
+              gradient: ColorPalette.primaryThemeGradient,
             ),
             child: Center(
               child: Padding(
@@ -147,7 +147,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
       style: TextStyle(
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: ColorPalette.textColor,
       ),
       textAlign: TextAlign.center,
       decoration: InputDecoration(
@@ -155,7 +155,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
         hintStyle: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.bold,
-          color: Color.fromRGBO(189, 193, 194, 0.612),
+          color: ColorPalette.textFormFieldHintColor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

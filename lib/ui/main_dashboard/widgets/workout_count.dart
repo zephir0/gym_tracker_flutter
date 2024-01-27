@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
+import 'package:gym_tracker_flutter/utills/color_pallete.dart';
 
 class WorkoutCount extends StatelessWidget {
   @override
@@ -25,7 +26,7 @@ class WorkoutCount extends StatelessWidget {
 
   BoxDecoration _buildContainerDecoration() {
     return BoxDecoration(
-      color: Color.fromRGBO(43, 138, 132, 1),
+      color: ColorPalette.secondaryColor,
       borderRadius: BorderRadius.circular(30),
     );
   }
@@ -43,7 +44,7 @@ class WorkoutCount extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        color: Colors.white,
+        color: ColorPalette.textColor,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
@@ -69,7 +70,7 @@ class WorkoutCount extends StatelessWidget {
     return Text(
       count,
       style: TextStyle(
-        color: Color.fromRGBO(43, 238, 225, 1),
+        color: ColorPalette.workoutCounterText,
         fontSize: 32,
         fontWeight: FontWeight.bold,
       ),
