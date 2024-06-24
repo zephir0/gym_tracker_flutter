@@ -11,12 +11,13 @@
 import 'package:dio/dio.dart' as _i11;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:logger/logger.dart' as _i12;
 
-import '../../data/services/auth_service.dart' as _i12;
-import '../../data/services/training_log_service.dart' as _i13;
-import '../../data/services/training_routine_service.dart' as _i14;
-import '../../data/services/training_session_service.dart' as _i15;
-import '../../data/services/user_service.dart' as _i16;
+import '../../data/services/auth_service.dart' as _i13;
+import '../../data/services/training_log_service.dart' as _i14;
+import '../../data/services/training_routine_service.dart' as _i15;
+import '../../data/services/training_session_service.dart' as _i16;
+import '../../data/services/user_service.dart' as _i17;
 import '../../data/use_case/training_log/fetch_previous_training_logs_use_case.dart'
     as _i3;
 import '../../data/use_case/training_log/fetch_training_logs_use_case.dart'
@@ -33,7 +34,7 @@ import '../../data/use_case/training_session/delete_training_session_use_case.da
     as _i9;
 import '../../data/use_case/training_session/fetch_recent_training_sessions_use_case.dart'
     as _i10;
-import 'injection.dart' as _i17;
+import 'injection.dart' as _i18;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -64,15 +65,16 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i10.FetchRecentTrainingSessionsUseCase>(
         () => _i10.FetchRecentTrainingSessionsUseCase());
     gh.singleton<_i11.Dio>(() => injectableModule.provideDio());
-    gh.singleton<_i12.AuthService>(() => _i12.AuthService());
-    gh.singleton<_i13.TrainingLogService>(() => _i13.TrainingLogService());
-    gh.singleton<_i14.TrainingRoutineService>(
-        () => _i14.TrainingRoutineService());
-    gh.singleton<_i15.TrainingSessionService>(
-        () => _i15.TrainingSessionService());
-    gh.singleton<_i16.UserService>(() => _i16.UserService());
+    gh.singleton<_i12.Logger>(() => injectableModule.provideLogger());
+    gh.singleton<_i13.AuthService>(() => _i13.AuthService());
+    gh.singleton<_i14.TrainingLogService>(() => _i14.TrainingLogService());
+    gh.singleton<_i15.TrainingRoutineService>(
+        () => _i15.TrainingRoutineService());
+    gh.singleton<_i16.TrainingSessionService>(
+        () => _i16.TrainingSessionService());
+    gh.singleton<_i17.UserService>(() => _i17.UserService());
     return this;
   }
 }
 
-class _$InjectableModule extends _i17.InjectableModule {}
+class _$InjectableModule extends _i18.InjectableModule {}

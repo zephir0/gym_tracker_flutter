@@ -7,9 +7,12 @@ import 'package:gym_tracker_flutter/core/token/token_receiver.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/error_dialog.dart';
 import 'package:gym_tracker_flutter/core/configs/api_endpoints.dart'; 
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+
 @singleton
 class UserService {
   final Dio _dio = getIt<Dio>();
+  final Logger _logger = getIt<Logger>();
 
   Future<void> attemptDeleteAccount(BuildContext context) async {
     try {
@@ -24,10 +27,13 @@ class UserService {
         ),
       );
 
+      _logger.d('Attempting to delete user account');
+
       if (response.statusCode == 200) {
         Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route route) => false);
       }
     } catch (e) {
+      _logger.e('Failed to delete account: $e');
       ErrorDialog.showErrorDialog(context, "Failed to delete account: $e");
     }
   }
@@ -50,6 +56,8 @@ class UserService {
         ),
       );
 
+      _logger.d('Attempting to change password');
+
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -71,6 +79,7 @@ class UserService {
         ErrorDialog.showErrorDialog(context, "Failed to change password");
       }
     } catch (e) {
+      _logger.e('Failed to change password: $e');
       ErrorDialog.showErrorDialog(context, "Failed to change password: $e");
     }
   }
@@ -91,6 +100,8 @@ class UserService {
           },
         ),
       );
+
+      _logger.d('Attempting to change email');
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,6 +124,7 @@ class UserService {
         ErrorDialog.showErrorDialog(context, "Failed to change email");
       }
     } catch (e) {
+      _logger.e('Failed to change email: $e');
       ErrorDialog.showErrorDialog(context, "Failed to change email: $e");
     }
   }
@@ -133,6 +145,8 @@ class UserService {
           },
         ),
       );
+
+      _logger.d('Attempting to change username');
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -155,6 +169,7 @@ class UserService {
         ErrorDialog.showErrorDialog(context, "Failed to change username");
       }
     } catch (e) {
+      _logger.e('Failed to change username: $e');
       ErrorDialog.showErrorDialog(context, "Failed to change username: $e");
     }
   }

@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:gym_tracker_flutter/core/configs/api_endpoints.dart';
 import 'package:gym_tracker_flutter/core/configs/injection.dart';
-import 'package:gym_tracker_flutter/data/models/training_session.dart';
 import 'package:gym_tracker_flutter/core/token/token_receiver.dart';
+import 'package:gym_tracker_flutter/data/models/training_session.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+
 @singleton
 class TrainingSessionService {
   final Dio _dio = getIt<Dio>();
+  final Logger _logger = getIt<Logger>();
 
   Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
     try {
@@ -21,6 +24,8 @@ class TrainingSessionService {
         ),
       );
 
+      _logger.d('Fetching recent training sessions');
+
       if (response.statusCode == 200) {
         List<dynamic> responseBody = response.data;
         List<TrainingSession> sessions = responseBody
@@ -31,6 +36,7 @@ class TrainingSessionService {
         throw Exception('Failed to load training sessions');
       }
     } catch (e) {
+      _logger.e('Failed to load training sessions: $e');
       throw Exception('Failed to load training sessions: $e');
     }
   }
@@ -50,10 +56,13 @@ class TrainingSessionService {
         ),
       );
 
+      _logger.d('Creating training session');
+
       if (response.statusCode != 201) {
         throw Exception('Failed to create training session');
       }
     } catch (e) {
+      _logger.e('Failed to create training session: $e');
       throw Exception('Failed to create training session: $e');
     }
   }
@@ -72,10 +81,13 @@ class TrainingSessionService {
         ),
       );
 
+      _logger.d('Deleting training session with ID: $sessionId');
+
       if (response.statusCode != 200) {
         throw Exception('Failed to delete training session');
       }
     } catch (e) {
+      _logger.e('Failed to delete training session: $e');
       throw Exception('Failed to delete training session: $e');
     }
   }
@@ -93,12 +105,15 @@ class TrainingSessionService {
         ),
       );
 
+      _logger.d('Fetching workouts count');
+
       if (response.statusCode == 200) {
         return int.parse(response.data.toString());
       } else {
         throw Exception('Failed to load workouts count');
       }
     } catch (e) {
+      _logger.e('Failed to load workouts count: $e');
       throw Exception('Failed to load workouts count: $e');
     }
   }

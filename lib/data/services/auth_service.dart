@@ -1,15 +1,18 @@
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gym_tracker_flutter/core/configs/api_endpoints.dart';
-import 'package:gym_tracker_flutter/core/token/token_receiver.dart';
+import 'package:gym_tracker_flutter/core/configs/injection.dart';
 import 'package:gym_tracker_flutter/core/token/token_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 @singleton
 class AuthService {
-  final Dio _dio = Dio();
+  final Dio _dio = getIt<Dio>();
+  final Logger _logger = getIt<Logger>();
 
   Future<bool> attemptLogin(String username, String password) async {
     try {
@@ -26,6 +29,9 @@ class AuthService {
         ),
       );
 
+      // Logging login attempt
+      _logger.d('Attempting login for username: $username');
+
       if (response.statusCode == 200) {
         await TokenStorage(secureStorage: FlutterSecureStorage()).saveToken(response.data);
         return true; 
@@ -33,31 +39,32 @@ class AuthService {
         return false; 
       }
     } catch (e) {
-      print("Error during login: $e");
+      _logger.e('Error during login: $e');
       return false; 
     }
   }
 
   Future<void> attemptLogout() async {
     try {
-      String? token = await TokenReceiver().getToken();
       final response = await _dio.post(
         '${ApiEndpoints.authentication}/logout',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),
       );
 
+      // Logging logout attempt
+      _logger.d('Attempting logout');
+
       if (response.statusCode == HttpStatus.ok) {
-        
+        // Handle successful logout
       } else {
         throw Exception("Failed to logout");
       }
     } catch (e) {
-      print("Error during logout: $e");
+      _logger.e('Error during logout: $e');
       throw Exception("Failed to logout");
     }
   }
@@ -78,13 +85,16 @@ class AuthService {
         ),
       );
 
+      // Logging registration attempt
+      _logger.d('Attempting registration for username: $username');
+
       if (response.statusCode == 201) {
-        
+        // Handle successful registration
       } else {
         throw Exception("Failed to register");
       }
     } catch (e) {
-      print("Error during registration: $e");
+      _logger.e('Error during registration: $e');
       throw Exception("Failed to register");
     }
   }
