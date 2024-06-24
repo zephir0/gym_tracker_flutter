@@ -16,13 +16,10 @@ class UserService {
 
   Future<void> attemptDeleteAccount(BuildContext context) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.delete(
         '${ApiEndpoints.users}/delete-account', 
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -40,8 +37,6 @@ class UserService {
 
   Future<void> attemptChangePassword(String oldPassword, String newPassword, BuildContext context) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.put(
         '${ApiEndpoints.users}/change-password', 
         data: jsonEncode({
@@ -50,7 +45,6 @@ class UserService {
         }),
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),
@@ -86,8 +80,6 @@ class UserService {
 
   Future<void> attemptChangeEmail(String newEmail, BuildContext context) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.put(
         '${ApiEndpoints.users}/change-email', 
         data: jsonEncode({
@@ -95,7 +87,6 @@ class UserService {
         }),
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),
@@ -131,8 +122,6 @@ class UserService {
 
   Future<void> attemptChangeUsername(String newUsername, BuildContext context) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.put(
         '${ApiEndpoints.users}/change-username', 
         data: jsonEncode({
@@ -140,7 +129,6 @@ class UserService {
         }),
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),

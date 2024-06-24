@@ -8,16 +8,8 @@ import 'package:logger/logger.dart';
 
 class TrainingLogBloc extends Bloc<TrainingLogEvent, TrainingLogState> {
   
-  final Logger logger = Logger(
-    printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 8,
-      lineLength: 120,
-      colors: true,
-      printEmojis: true,
-      printTime: true,
-    ),
-  );
+  final Logger logger = getIt<Logger>();
+
 
   TrainingLogBloc() : super(TrainingLogInitial()) {
     on<FetchTrainingLogs>(_onFetchTrainingLogs);

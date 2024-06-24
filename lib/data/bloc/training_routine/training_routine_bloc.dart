@@ -11,16 +11,8 @@ import 'package:logger/logger.dart';
 class TrainingRoutineBloc
     extends Bloc<TrainingRoutineEvent, TrainingRoutineState> {
   
-  final Logger logger = Logger(
-    printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 8,
-      lineLength: 120,
-      colors: true,
-      printEmojis: true,
-      printTime: true,
-    ),
-  );
+    final Logger logger = getIt<Logger>();
+
 
   TrainingRoutineBloc() : super(TrainingRoutineInitial()) {
     on<FetchTrainingRoutines>(_onFetchTrainingRoutines);

@@ -9,17 +9,7 @@ import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService = getIt<AuthService>();
-
-  final Logger logger = Logger(
-    printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 8,
-      lineLength: 120,
-      colors: true,
-      printEmojis: true,
-      printTime: true,
-    ),
-  );
+  final Logger logger = getIt<Logger>();
 
   AuthBloc() : super(AuthInitial()) {
     on<LoginAttempt>(_onLoginAttempt);

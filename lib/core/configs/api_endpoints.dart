@@ -1,7 +1,6 @@
 class ApiEndpoints {
   static const String baseUrl = 'http://192.168.0.5:8081/api';
 
-  // Endpoint URLs
   static const String trainingLogs = '/training-logs';
   static const String exercises = '/exercises';
   static const String trainingSessions = '/training-sessions';

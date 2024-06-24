@@ -17,12 +17,10 @@ class TrainingRoutineService {
       final response = await _dio.get(
         '${ApiEndpoints.trainingRoutines}/user',
         options: Options(
-          // Empty headers to avoid duplicate Authorization header
           headers: {},
         ),
       );
 
-      // Logging
       _logger.d('Fetching training routines');
 
       if (response.statusCode == 200) {
@@ -44,12 +42,10 @@ class TrainingRoutineService {
         '${ApiEndpoints.trainingRoutines}',
         data: jsonEncode(routineData),
         options: Options(
-          // Empty headers to avoid duplicate Authorization header
           headers: {},
         ),
       );
 
-      // Logging
       _logger.d('Creating training routine with data: $routineData');
 
       return response.statusCode == 201;
@@ -64,12 +60,10 @@ class TrainingRoutineService {
       final response = await _dio.put(
         '${ApiEndpoints.trainingRoutines}/$routineId',
         options: Options(
-          // Empty headers to avoid duplicate Authorization header
           headers: {},
         ),
       );
 
-      // Logging
       _logger.d('Archiving training routine with ID: $routineId');
 
       if (response.statusCode != 200) {

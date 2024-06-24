@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:gym_tracker_flutter/core/configs/api_endpoints.dart';
 import 'package:gym_tracker_flutter/core/configs/injection.dart';
-import 'package:gym_tracker_flutter/core/token/token_receiver.dart';
 import 'package:gym_tracker_flutter/data/models/training_log.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -13,13 +12,10 @@ class TrainingLogService {
 
   Future<List<TrainingLog>> fetchTrainingLogs(int sessionId) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.get(
         '${ApiEndpoints.trainingLogs}/session/$sessionId',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -41,13 +37,10 @@ class TrainingLogService {
 
   Future<List<TrainingLog>> fetchPreviousTrainingLogs(int routineId) async {
     try {
-      String? token = await TokenReceiver().getToken();
-
       Response response = await _dio.get(
         '${ApiEndpoints.trainingRoutines}/previous-logs/$routineId',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
           },
         ),
       );

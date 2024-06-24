@@ -56,13 +56,19 @@ abstract class InjectableModule {
           logger.d('Response data: ${response.data}');
           return handler.next(response);
         },
-        onError: (DioError e, handler) {
-          logger.e('Request failed with error: ${e.message}');
+       onError: (DioException e, handler) {
+          if (e.response != null) {
+            logger.e('Request failed with error: ${e.message}');
+            logger.e('Request status code : ${e.response?.statusCode}');
+            logger.e('Request status message: ${e.response?.statusMessage}');
+          } else {
+            logger.e('Request failed with error: ${e.message}');
+            logger.e('Response is null');
+          }
           return handler.next(e);
         },
-      ),
+        ),
     );
-
     return dio;
   }
 

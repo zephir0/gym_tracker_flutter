@@ -29,7 +29,6 @@ class AuthService {
         ),
       );
 
-      // Logging login attempt
       _logger.d('Attempting login for username: $username');
 
       if (response.statusCode == 200) {
@@ -55,11 +54,9 @@ class AuthService {
         ),
       );
 
-      // Logging logout attempt
       _logger.d('Attempting logout');
 
       if (response.statusCode == HttpStatus.ok) {
-        // Handle successful logout
       } else {
         throw Exception("Failed to logout");
       }
@@ -85,11 +82,9 @@ class AuthService {
         ),
       );
 
-      // Logging registration attempt
       _logger.d('Attempting registration for username: $username');
 
       if (response.statusCode == 201) {
-        // Handle successful registration
       } else {
         throw Exception("Failed to register");
       }

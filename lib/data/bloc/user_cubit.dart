@@ -6,18 +6,8 @@ import 'package:logger/logger.dart';
 
 class UserCubit extends Cubit<String> {
   final Dio _dio = getIt<Dio>();
+  final Logger logger = getIt<Logger>();
 
-  
-  final Logger logger = Logger(
-    printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 8,
-      lineLength: 120,
-      colors: true,
-      printEmojis: true,
-      printTime: true,
-    ),
-  );
 
   UserCubit() : super('');
 
