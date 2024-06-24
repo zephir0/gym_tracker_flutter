@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../../data/models/exercise.dart';
 
@@ -31,7 +30,6 @@ class DismissibleExercise extends StatefulWidget {
 class _DismissibleExerciseState extends State<DismissibleExercise> {
   late TextEditingController descriptionController;
   late ValueNotifier<MuscleGroup?> muscleGroupController;
-  final TextEditingController _typeAheadController = TextEditingController();
 
   @override
   void initState() {
@@ -121,66 +119,48 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
       validator: widget.validateDescription,
       style: TextStyle(
         fontSize: 17.0,
-        color: Colors.white,
+        color: Colors.black87, 
       ),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 128, 125, 125)),
+          borderSide: BorderSide(color: Colors.black54), 
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(78, 180, 173, 0.612)),
+          borderSide: BorderSide(color: Colors.blue), 
         ),
         labelText: 'Description',
-        labelStyle: TextStyle(color: Color.fromRGBO(78, 180, 173, 0.612)),
+        labelStyle: TextStyle(color: Colors.black54), 
         border: OutlineInputBorder(),
       ),
       onChanged: _handleDescriptionSaved,
     );
   }
 
-  ValueListenableBuilder<MuscleGroup?> _buildMuscleGroupField() {
-    return ValueListenableBuilder<MuscleGroup?>(
-      valueListenable: muscleGroupController,
-      builder: (context, value, child) {
-        return TypeAheadFormField<MuscleGroup>(
-          validator: (value) {
-            if (value == null) {
-              return 'Muscle group is required';
-            } else if (!MuscleGroup.values
-                .map((e) => e.toString().split('.').last.toUpperCase())
-                .contains(value)) {
-              return 'Invalid muscle group';
-            }
-            return null;
-          },
-          textFieldConfiguration: _buildTypeAheadFieldConfiguration(),
-          onSuggestionSelected: _handleMuscleGroupSelected,
-          itemBuilder: _buildMuscleGroupListItem,
-          suggestionsCallback: _getFilteredMuscleGroups,
-        );
+  Widget _buildMuscleGroupField() {
+    return DropdownButtonFormField<MuscleGroup>(
+      value: muscleGroupController.value,
+      items: MuscleGroup.values
+          .map((muscleGroup) => DropdownMenuItem<MuscleGroup>(
+                value: muscleGroup,
+                child: Text(muscleGroup.toString().split('.').last.toUpperCase()),
+              ))
+          .toList(),
+      onChanged: (newValue) {
+        setState(() {
+          muscleGroupController.value = newValue;
+          widget.onMuscleGroupChanged(newValue);
+        });
       },
-    );
-  }
-
-  TextFieldConfiguration _buildTypeAheadFieldConfiguration() {
-    return TextFieldConfiguration(
-      style: TextStyle(
-        fontSize: 17.0,
-        color: Colors.white,
-      ),
-      controller: _typeAheadController,
+      validator: widget.validateMuscleGroup,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 128, 125, 125)),
+          borderSide: BorderSide(color: Colors.black54), 
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(96, 194, 187, 0.612)),
+          borderSide: BorderSide(color: Colors.blue), 
         ),
         labelText: 'Muscle Group',
-        labelStyle: TextStyle(
-          color: Color.fromRGBO(78, 180, 173, 0.612),
-          fontSize: 17,
-        ),
+        labelStyle: TextStyle(color: Colors.black54), 
         border: OutlineInputBorder(),
       ),
     );
@@ -188,37 +168,5 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
 
   void _handleDescriptionSaved(String newValue) {
     widget.onDescriptionSaved(newValue);
-  }
-
-  void _handleMuscleGroupSelected(MuscleGroup suggestion) {
-    muscleGroupController.value = suggestion;
-    widget.onMuscleGroupChanged(suggestion);
-    _typeAheadController.text =
-        suggestion.toString().split('.').last.toUpperCase();
-  }
-
-  ListTile _buildMuscleGroupListItem(
-      BuildContext context, MuscleGroup muscleGroup) {
-    return ListTile(
-      tileColor: Color.fromRGBO(34, 34, 34, 1),
-      title: Text(
-        muscleGroup.toString().split('.').last.toUpperCase(),
-        style: TextStyle(
-          color: Color.fromRGBO(96, 194, 187, 0.612),
-          fontSize: 16,
-        ),
-      ),
-    );
-  }
-
-  List<MuscleGroup> _getFilteredMuscleGroups(String pattern) {
-    return MuscleGroup.values
-        .where((MuscleGroup muscleGroup) => muscleGroup
-            .toString()
-            .split('.')
-            .last
-            .toUpperCase()
-            .contains(pattern.toUpperCase()))
-        .toList();
   }
 }

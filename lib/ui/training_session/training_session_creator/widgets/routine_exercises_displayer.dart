@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
@@ -14,7 +15,6 @@ import 'package:gym_tracker_flutter/ui/training_session/training_session_creator
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/finish_workout_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/timer_displayer.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/workout_summary.dart';
-import 'package:gym_tracker_flutter/utills/time_provider.dart';
 
 class RoutineExercisesDisplayer extends StatefulWidget {
   final TrainingRoutine routine;

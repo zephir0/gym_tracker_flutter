@@ -57,7 +57,7 @@ class TrainingRoutineDetailDialog {
                             color: Colors.blue,
                             child: TextButton(
                               style: TextButton.styleFrom(
-                                primary: Colors.white,
+                                foregroundColor: Colors.white,
                               ),
                               onPressed: () {},
                               child: Text('Edit Routine'),
@@ -67,7 +67,7 @@ class TrainingRoutineDetailDialog {
                         Expanded(
                           child: TextButton(
                             style: TextButton.styleFrom(
-                              primary: Colors.white,
+                              foregroundColor: Colors.white,
                             ),
                             onPressed: () {
                               Navigator.push(
@@ -91,7 +91,7 @@ class TrainingRoutineDetailDialog {
                     width: MediaQuery.of(context).size.width,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        primary: Colors.white,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () {
                         _archiveConfirmation(context, routine.id);

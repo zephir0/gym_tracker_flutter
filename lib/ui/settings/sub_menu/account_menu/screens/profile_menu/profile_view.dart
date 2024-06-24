@@ -4,7 +4,7 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/pr
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_password_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_username_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/delete_account_page.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class ProfileView extends StatelessWidget {
   @override

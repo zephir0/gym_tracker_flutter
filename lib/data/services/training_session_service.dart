@@ -1,71 +1,105 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
+import 'package:gym_tracker_flutter/core/configs/api_endpoints.dart';
+import 'package:gym_tracker_flutter/core/configs/injection.dart';
 import 'package:gym_tracker_flutter/data/models/training_session.dart';
-import 'package:gym_tracker_flutter/token/token_receiver.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:gym_tracker_flutter/core/token/token_receiver.dart';
+import 'package:injectable/injectable.dart';
+@singleton
 class TrainingSessionService {
-  Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
-    String? token = await TokenReceiver().getToken();
-    var url = Uri.parse(
-        GlobalVariables().backendApiAddress + 'api/training-sessions/user');
-    final request = await http.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+  final Dio _dio = getIt<Dio>();
 
-    if (request.statusCode == 200) {
-      List<dynamic> responseBody = json.decode(request.body);
-      return responseBody
-          .map((data) => TrainingSession.fromJson(data))
-          .toList();
-    } else {
-      throw Exception('Failed to load training sessions');
+  Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
+    try {
+      String? token = await TokenReceiver().getToken();
+
+      Response response = await _dio.get(
+        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/user',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseBody = response.data;
+        List<TrainingSession> sessions = responseBody
+            .map((data) => TrainingSession.fromJson(data))
+            .toList();
+        return sessions;
+      } else {
+        throw Exception('Failed to load training sessions');
+      }
+    } catch (e) {
+      throw Exception('Failed to load training sessions: $e');
     }
   }
 
   Future<void> createTrainingSession(String jsonData) async {
-    String? token = await TokenReceiver().getToken();
-    final response = await http.post(
-      Uri.parse(GlobalVariables().backendApiAddress + 'api/training-sessions/'),
-      body: jsonData,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (response.statusCode != 201) {
-      throw Exception('Failed to create training session');
+    try {
+      String? token = await TokenReceiver().getToken();
+
+      Response response = await _dio.post(
+        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}',
+        data: jsonData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+        ),
+      );
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to create training session');
+      }
+    } catch (e) {
+      throw Exception('Failed to create training session: $e');
     }
   }
 
   Future<void> deleteTrainingSession(int sessionId) async {
-    String? token = await TokenReceiver().getToken();
-    final response = await http.delete(
-      Uri.parse(GlobalVariables().backendApiAddress +
-          'api/training-sessions/$sessionId'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete training session');
+    try {
+      String? token = await TokenReceiver().getToken();
+
+      Response response = await _dio.delete(
+        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/$sessionId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+        ),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete training session');
+      }
+    } catch (e) {
+      throw Exception('Failed to delete training session: $e');
     }
   }
 
   Future<int> getWorkoutCount() async {
-    String? token = await TokenReceiver().getToken();
-    var url = Uri.parse(GlobalVariables().backendApiAddress +
-        'api/progress-tracker/training-sessions/workouts-count');
-    final request = await http.get(url, headers: {
-      'Authorization': 'Bearer ' + '$token',
-    });
+    try {
+      String? token = await TokenReceiver().getToken();
 
-    if (request.statusCode == 200) {
-      return int.parse(request.body);
-    } else {
-      throw Exception('Failed to load workouts count');
+      Response response = await _dio.get(
+        '${ApiEndpoints.baseUrl}/progress-tracker/training-sessions/workouts-count',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return int.parse(response.data.toString());
+      } else {
+        throw Exception('Failed to load workouts count');
+      }
+    } catch (e) {
+      throw Exception('Failed to load workouts count: $e');
     }
   }
 }

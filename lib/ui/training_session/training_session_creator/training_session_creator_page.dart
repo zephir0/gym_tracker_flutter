@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine-name-displayer.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_creator/widgets/routine_exercises_displayer.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utills/time_provider.dart';
 
 class TrainingSessionCreatorPage extends StatefulWidget {
   final TrainingRoutine routine;

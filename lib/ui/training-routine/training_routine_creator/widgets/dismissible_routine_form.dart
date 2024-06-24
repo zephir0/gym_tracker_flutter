@@ -6,7 +6,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_creator/widgets/submit_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/training_routine_page.dart';
 
-import '../../../../utills/global_variables.dart';
+import '../../../../core/constants/global_variables.dart';
 import 'add_exercise_button.dart';
 import 'back_button.dart';
 import 'dismissible_exercise.dart';

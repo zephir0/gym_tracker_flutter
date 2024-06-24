@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/account_vi
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/settings_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/custom_header.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/menu_switch.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

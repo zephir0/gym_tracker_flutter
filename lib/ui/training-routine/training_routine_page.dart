@@ -7,7 +7,7 @@ import 'package:gym_tracker_flutter/ui/training-routine/widgets/back_to_home_but
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/create_routine_button.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/training_routine_card.dart';
 import 'package:gym_tracker_flutter/ui/training-routine/widgets/training_routine_detail_dialog.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class TrainingRoutinePage extends StatefulWidget {
   @override

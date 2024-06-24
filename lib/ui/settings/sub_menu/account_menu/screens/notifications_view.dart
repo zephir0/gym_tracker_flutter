@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class NotificationsView extends StatelessWidget {
   @override

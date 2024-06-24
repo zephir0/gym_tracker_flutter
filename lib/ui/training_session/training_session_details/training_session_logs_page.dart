@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_event.da
 import 'package:gym_tracker_flutter/data/bloc/training_log/training_log_state.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/back_button.dart';
 import 'package:gym_tracker_flutter/ui/training_session/training_session_details/widgets/training_log_list.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class TrainingSessionLogsPage extends StatefulWidget {
   final trainingSessionId;

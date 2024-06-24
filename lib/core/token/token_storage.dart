@@ -5,7 +5,7 @@ class TokenStorage {
 
   TokenStorage({required this.secureStorage});
 
-  Future<void> saveToken(String token) async {
+  Future<void> saveToken(var token) async {
     await secureStorage.write(key: 'jwt_token', value: token);
   }
 

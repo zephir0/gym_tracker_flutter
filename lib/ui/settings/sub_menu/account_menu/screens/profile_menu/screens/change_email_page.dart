@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class ChangeEmailPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();

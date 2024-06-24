@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
-import 'package:gym_tracker_flutter/data/services/auth_service.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/authorization/auth_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/authorization/auth_event.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class LogoutPage extends StatelessWidget {
   @override
@@ -20,15 +22,15 @@ class LogoutPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.network(
-                'https://i.ibb.co/Hp1V3H3/a24b22ed-9b94-488e-9f55-2207ae94cd70-5.webp'),
+              'https://i.ibb.co/Hp1V3H3/a24b22ed-9b94-488e-9f55-2207ae94cd70-5.webp'),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Are you sure you want to log out?',
                 style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -41,14 +43,14 @@ class LogoutPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   shake();
-                  AuthService().attemptLogout(context);
+                  BlocProvider.of<AuthBloc>(context).add(LogoutAttempt());
                 },
                 child: Text(
                   'Logout',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromRGBO(138, 43, 64, 1),
+                  foregroundColor: Color.fromRGBO(138, 43, 64, 1),
                 ),
               ),
             ),

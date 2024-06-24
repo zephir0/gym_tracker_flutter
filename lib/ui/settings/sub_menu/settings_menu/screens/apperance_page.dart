@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class AppearancePage extends StatelessWidget {
   @override
@@ -39,8 +39,8 @@ class AppearancePage extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromRGBO(43, 138, 132, 1),
-                  onPrimary: Colors.white,
+                  foregroundColor: Color.fromRGBO(43, 138, 132, 1),
+                  shadowColor: Colors.white,
                 ),
                 onPressed: () {},
                 child: Text('Apply Changes'),

@@ -67,7 +67,7 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
         ),
         BlocBuilder<UserCubit, String>(
           builder: (context, name) {
-            if (name.isNotEmpty) {
+            if (name.isNotEmpty && name.length < 15) {
               return Text(
                 name,
                 style: TextStyle(

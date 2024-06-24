@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/page_route_animator.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/about_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/apperance_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/help_support_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/logout_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/screens/privacy_page.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/settings_tile.dart';
-import 'package:gym_tracker_flutter/utills/page_route_animator.dart';
 
 class SettingsView extends StatelessWidget {
   @override

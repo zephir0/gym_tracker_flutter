@@ -44,7 +44,7 @@ class CustomHeader extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Color.fromRGBO(43, 138, 132, 1),
+                            foregroundColor: Color.fromRGBO(43, 138, 132, 1),
                           ),
                         ),
                       ],

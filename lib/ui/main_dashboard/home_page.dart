@@ -8,7 +8,7 @@ import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_workouts_he
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_training_routines.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_welcome_panel.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/workout_count.dart';
-import 'package:gym_tracker_flutter/utills/global_variables.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class HomePage extends StatefulWidget {
   @override

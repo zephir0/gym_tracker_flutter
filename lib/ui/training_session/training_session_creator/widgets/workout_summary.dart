@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../utills/time_provider.dart';
 
 class WorkoutSummary {
   final TrainingRoutine trainingRoutine;

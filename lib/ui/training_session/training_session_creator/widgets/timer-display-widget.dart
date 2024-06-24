@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../utills/time_provider.dart';
 
 class TimerDisplayWidget extends StatefulWidget {
   @override
