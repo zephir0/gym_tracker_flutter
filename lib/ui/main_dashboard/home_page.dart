@@ -5,7 +5,7 @@ import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/progress_tracker.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_training_sessions-display.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/recent_workouts_header.dart';
-import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_training_routines.dart';
+import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user-training-routines.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/user_welcome_panel.dart';
 import 'package:gym_tracker_flutter/ui/main_dashboard/widgets/workout_count.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';

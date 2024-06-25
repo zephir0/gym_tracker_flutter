@@ -12,6 +12,7 @@ import 'package:gym_tracker_flutter/ui/auth/widgets/logo_section.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/short_description.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/social_icons_field.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
+import 'package:gym_tracker_flutter/ui/main_dashboard/home_page.dart';
 
 import 'form_handler.dart';
 
@@ -35,12 +36,13 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+          print("first method context: $context");
     return Scaffold(
-      body: _buildBody(),
+      body: _buildBody(context),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -51,7 +53,7 @@ class _AuthPageState extends State<AuthPage> {
           listener: (context, state) {
             if (state is AuthLoading) {
             } else if (state is AuthSuccess) {
-              _handleAuthSuccess(context);
+               Navigator.pushNamed(context, '/navi-bar');
             } else if (state is AuthFailure) {
               _handleAuthFailure(state.error);
             }
@@ -177,10 +179,6 @@ class _AuthPageState extends State<AuthPage> {
       default:
         break;
     }
-  }
-
-  void _handleAuthSuccess(BuildContext context) {
-    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _handleAuthFailure(String error) {
