@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/data/services/user_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_event.dart';
+
 
 class ChangePasswordPage extends StatelessWidget {
   final TextEditingController _oldPasswordController = TextEditingController();
@@ -20,11 +23,8 @@ class ChangePasswordPage extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: ListView(
               children: <Widget>[
-                Image.network(
-                    'https://i.ibb.co/kH0PWRL/3f9a0405-03ff-45fc-b4a9-6bd3d49307b2.webp'),
-                SizedBox(
-                  height: 15,
-                ),
+                Image.network('https://i.ibb.co/kH0PWRL/3f9a0405-03ff-45fc-b4a9-6bd3d49307b2.webp'),
+                SizedBox(height: 15),
                 TextField(
                   controller: _oldPasswordController,
                   decoration: InputDecoration(
@@ -63,10 +63,10 @@ class ChangePasswordPage extends StatelessWidget {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    UserService().attemptChangePassword(
-                        _oldPasswordController.text,
-                        _newPasswordController.text,
-                        context);
+                    context.read<UserBloc>().add(UpdatePassword(
+                     oldPassword:  _oldPasswordController.text,
+                    newPassword: _newPasswordController.text,
+                    ));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

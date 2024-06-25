@@ -14,12 +14,7 @@ class TrainingRoutineService {
 
   Future<List<TrainingRoutine>> getTrainingRoutines() async {
     try {
-      final response = await _dio.get(
-        '${ApiEndpoints.trainingRoutines}/user',
-        options: Options(
-          headers: {},
-        ),
-      );
+      final response = await _dio.get('${ApiEndpoints.trainingRoutines}/user');
 
       _logger.d('Fetching training routines');
 
@@ -41,9 +36,6 @@ class TrainingRoutineService {
       final response = await _dio.post(
         '${ApiEndpoints.trainingRoutines}',
         data: jsonEncode(routineData),
-        options: Options(
-          headers: {},
-        ),
       );
 
       _logger.d('Creating training routine with data: $routineData');
@@ -57,12 +49,7 @@ class TrainingRoutineService {
 
   Future<void> archiveTrainingRoutine(int routineId) async {
     try {
-      final response = await _dio.put(
-        '${ApiEndpoints.trainingRoutines}/$routineId',
-        options: Options(
-          headers: {},
-        ),
-      );
+      final response = await _dio.put('${ApiEndpoints.trainingRoutines}/$routineId');
 
       _logger.d('Archiving training routine with ID: $routineId');
 

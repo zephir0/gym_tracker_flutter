@@ -3,14 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
-import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_state.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/screens/profile_menu/screens/change_avatar_page.dart';
 
 class CustomHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).fetchNameFromJson();
-
     void _showAvatarDialog() {
       showDialog(
         context: context,
@@ -28,8 +27,7 @@ class CustomHeader extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage:
-                              NetworkImage('https://via.placeholder.com/150'),
+                          backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                           radius: 220,
                         ),
                         SizedBox(height: 20),
@@ -72,28 +70,46 @@ class CustomHeader extends StatelessWidget {
           ),
           SizedBox(width: 16.0),
           Expanded(
-            child: BlocBuilder<UserCubit, String>(
-              builder: (context, string) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      string,
-                      style: GlobalVariables.fontStyle.copyWith(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            child: BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserLoaded) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        state.username,
+                        style: GlobalVariables.fontStyle.copyWith(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "jon@wp.pl",
-                      style: GlobalVariables.fontStyle.copyWith(
-                        fontSize: 18,
-                        color: Colors.white.withOpacity(0.7),
+                      Text(
+                        "jon@wp.pl",
+                        style: GlobalVariables.fontStyle.copyWith(
+                          fontSize: 18,
+                          color: Colors.white.withOpacity(0.7),
+                        ),
                       ),
-                    ),
-                  ],
-                );
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Loading...",
+                        style: GlobalVariables.fontStyle.copyWith(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      CircularProgressIndicator(),
+                    ],
+                  );
+                }
               },
             ),
           ),

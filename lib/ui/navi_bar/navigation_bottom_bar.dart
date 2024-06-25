@@ -46,11 +46,12 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
       backgroundColor: Color.fromARGB(255, 17, 17, 17),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home, 
+          size: 35,),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
+          icon: Icon(Icons.settings, size : 35),
           label: 'Settings',
         ),
       ],
@@ -61,8 +62,9 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
 
   SpeedDial _buildSpeedDial() {
     return SpeedDial(
+      buttonSize: Size(60, 60),
       animatedIcon: AnimatedIcons.add_event,
-      animatedIconTheme: IconThemeData(size: 22.0),
+      animatedIconTheme: IconThemeData(size: 27.0),
       backgroundColor: Color.fromRGBO(43, 138, 132, 1),
       curve: Curves.bounceIn,
       children: [

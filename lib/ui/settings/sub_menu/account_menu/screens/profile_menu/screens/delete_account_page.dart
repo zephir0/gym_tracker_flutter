@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
-import 'package:gym_tracker_flutter/data/services/user_service.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+
 import 'package:slide_to_act/slide_to_act.dart';
 
-class DeleteAccountPage extends StatefulWidget {
-  @override
-  _DeleteAccountPageState createState() => _DeleteAccountPageState();
-}
-
-class _DeleteAccountPageState extends State<DeleteAccountPage> {
+class DeleteAccountPage extends StatelessWidget {
   final GlobalKey<SlideActionState> _key = GlobalKey();
 
   @override
@@ -21,8 +18,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network(
-                'https://i.ibb.co/B49tfbz/e4dc6b29-8280-4104-93cb-4cbd3ea66382.webp'),
+            Image.network('https://i.ibb.co/B49tfbz/e4dc6b29-8280-4104-93cb-4cbd3ea66382.webp'),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -33,7 +29,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                 outerColor: Color.fromARGB(255, 90, 11, 11),
                 sliderButtonIcon: Icon(Icons.delete_forever),
                 onSubmit: () {
-                  UserService().attemptDeleteAccount(context);
+                  // context.read<UserBloc>().add(De());
                   _key.currentState?.reset();
                 },
               ),

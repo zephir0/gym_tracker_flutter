@@ -21,12 +21,7 @@ class AuthService {
         data: {
           'login': username,
           'password': password,
-        },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
+        }
       );
 
       _logger.d('Attempting login for username: $username');
@@ -45,14 +40,7 @@ class AuthService {
 
   Future<void> attemptLogout() async {
     try {
-      final response = await _dio.post(
-        '${ApiEndpoints.authentication}/logout',
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
+      final response = await _dio.post('${ApiEndpoints.authentication}/logout');
 
       _logger.d('Attempting logout');
 
@@ -74,12 +62,7 @@ class AuthService {
           'login': username,
           'emailAddress': email,
           'password': password,
-        },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
+        }
       );
 
       _logger.d('Attempting registration for username: $username');

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/data/services/user_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_event.dart';
+
 
 class ChangeEmailPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -19,11 +22,8 @@ class ChangeEmailPage extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: ListView(
               children: <Widget>[
-                Image.network(
-                    'https://i.ibb.co/ct9sPQ1/89501b22-7bbc-4549-a68c-6894405512f2.webp'),
-                SizedBox(
-                  height: 15,
-                ),
+                Image.network('https://i.ibb.co/ct9sPQ1/89501b22-7bbc-4549-a68c-6894405512f2.webp'),
+                SizedBox(height: 15),
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -45,8 +45,7 @@ class ChangeEmailPage extends StatelessWidget {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    UserService()
-                        .attemptChangeEmail(_emailController.text, context);
+                    context.read<UserBloc>().add(UpdateEmail(newEmail: _emailController.text));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

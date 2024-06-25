@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
-import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_state.dart';
 class UserWelcomePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserCubit>(
-      create: (context) => UserCubit(),
+    return BlocProvider<UserBloc>(
+      create: (context) => UserBloc(),
       child: UserWelcomePanelBody(),
     );
   }
@@ -30,12 +29,6 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    BlocProvider.of<UserCubit>(context).fetchNameFromJson();
   }
 
   @override
@@ -65,20 +58,33 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
         Text(
           "Good to see you here,",
           style: GlobalVariables.fontStyle.copyWith(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300,),
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w300,
+          ),
         ),
-        BlocBuilder<UserCubit, String>(
-          builder: (context, name) {
-            if (name.isNotEmpty && name.length < 15) {
+        BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state is UserLoading) {
+              return CircularProgressIndicator();
+            } else if (state is UserLoaded) {
               return Text(
-                name,
+                state.username,
                 style: GlobalVariables.fontStyle.copyWith(
-                    color: Color.fromRGBO(14, 233, 218, 1),
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500),
+                  color: Color.fromRGBO(14, 233, 218, 1),
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                ),
               );
             } else {
-              return CircularProgressIndicator();
+              return Text(
+                "Unknown User",
+                style: GlobalVariables.fontStyle.copyWith(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                ),
+              );
             }
           },
         ),
@@ -94,9 +100,21 @@ class _UserWelcomePanelBodyState extends State<UserWelcomePanelBody>
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: _controller.value * 2 * 3.14,
-            child: CircleAvatar(
-              minRadius: 40,
-              backgroundImage: AssetImage('assets/images/avatar.png'),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: CircleAvatar(
+                minRadius: 40,
+                backgroundImage: AssetImage('assets/images/avatar.png'),
+              ),
             ),
           );
         },

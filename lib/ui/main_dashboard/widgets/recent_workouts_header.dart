@@ -28,7 +28,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
       children: [
         Text(
           "Your last workouts",
-          style: GlobalVariables.fontStyle.copyWith(color: Colors.white, fontSize: 18),
+          style: GlobalVariables.fontStyle.copyWith(color: Colors.white, fontSize: 20),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(70, 0, 10, 0),
@@ -43,23 +43,46 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
       onTap: _handleSeeAllButtonTap,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
-          color: _isButtonTapped
-              ? Color.fromARGB(255, 173, 171, 171)
-              : Color.fromRGBO(43, 138, 132, 1),
-        ),
+        decoration: _buildContainerDecoration(),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Text(
-            "See all",
+            "Show all",
             style: GlobalVariables.fontStyle.copyWith(
               color: Colors.white,
-              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
         ),
       ),
+    );
+  }
+
+  BoxDecoration _buildContainerDecoration() {
+    return BoxDecoration(
+      borderRadius: BorderRadius.circular(32),
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: _isButtonTapped
+            ? [
+                Color.fromRGBO(136, 136, 136, 1),
+                Color.fromRGBO(109, 109, 109, 1),
+              ]
+            : [
+                Color.fromRGBO(43, 138, 132, 1),
+                Color.fromRGBO(29, 92, 88, 1),
+              ],
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.3),
+          offset: Offset(4, 4),
+          blurRadius: 10,
+          spreadRadius: 2,
+        ),
+      ],
     );
   }
 

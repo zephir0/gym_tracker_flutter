@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/data/services/user_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_bloc.dart';
+import 'package:gym_tracker_flutter/data/bloc/user/user_event.dart';
 
 class ChangeUsernamePage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -19,8 +21,7 @@ class ChangeUsernamePage extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: ListView(
               children: <Widget>[
-                Image.network(
-                    'https://i.ibb.co/mbMcFv0/1282e020-795e-4d9c-b4b4-d16db236a516.webp'),
+                Image.network('https://i.ibb.co/mbMcFv0/1282e020-795e-4d9c-b4b4-d16db236a516.webp'),
                 SizedBox(height: 15),
                 TextField(
                   controller: _usernameController,
@@ -43,8 +44,7 @@ class ChangeUsernamePage extends StatelessWidget {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    UserService().attemptChangeUsername(
-                        _usernameController.text, context);
+                    context.read<UserBloc>().add(UpdateUsername(newUsername: _usernameController.text));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

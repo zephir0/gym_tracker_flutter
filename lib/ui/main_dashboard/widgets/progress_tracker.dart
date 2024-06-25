@@ -45,10 +45,18 @@ class _ProgressTrackerState extends State<ProgressTracker> {
     );
   }
 
-  Decoration _buildContainerDecoration() {
+  BoxDecoration _buildContainerDecoration() {
     return BoxDecoration(
       color: _tapped ? Colors.grey : Color.fromRGBO(43, 138, 132, 1),
       borderRadius: BorderRadius.circular(32),
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(29, 72, 69, 1), // kolor cienia
+          offset: Offset(4, 4), // przesunięcie cienia w prawo i w dół
+          blurRadius: 10, // rozmycie cienia
+          spreadRadius: 2, // rozciągnięcie cienia
+        ),
+      ],
       image: DecorationImage(
         opacity: 0.15,
         image: AssetImage('assets/images/your-training-routines.png'),

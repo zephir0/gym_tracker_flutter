@@ -28,6 +28,14 @@ class WorkoutCount extends StatelessWidget {
     return BoxDecoration(
       color: Color.fromRGBO(43, 138, 132, 1),
       borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(29, 72, 69, 1), 
+          offset: Offset(4, 4), 
+          blurRadius: 10, 
+          spreadRadius: 2, 
+        ),
+      ],
     );
   }
 
@@ -45,7 +53,7 @@ class WorkoutCount extends StatelessWidget {
       text,
       style: GlobalVariables.fontStyle.copyWith(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -59,6 +67,10 @@ class WorkoutCount extends StatelessWidget {
         } else if (state is TrainingSessionLoaded) {
           return _buildCountText(state.sessions.length.toString());
         } else if (state is TrainingSessionError) {
+          return Text(
+            "Error loading sessions",
+            style: TextStyle(color: Colors.red),
+          );
         }
         return Center(child: CircularProgressIndicator());
       },

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/user_cubit.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/account_menu/account_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/sub_menu/settings_menu/settings_view.dart';
 import 'package:gym_tracker_flutter/ui/settings/widgets/custom_header.dart';
@@ -30,9 +28,7 @@ class _SettingsPageState extends State<SettingsPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => UserCubit(),
-      child: Container(
+    return  Container(
         decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
         child: SafeArea(
           child: Column(
@@ -54,8 +50,7 @@ class _SettingsPageState extends State<SettingsPage>
               ),
             ],
           ),
-        ),
-      ),
+        )
     );
   }
 }

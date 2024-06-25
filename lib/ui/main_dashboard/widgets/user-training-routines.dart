@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import '../../training-routine/training_routine_page.dart';
 
 class UserTrainingRoutines extends StatefulWidget {
@@ -59,6 +58,14 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
           ? Color.fromARGB(255, 173, 171, 171)
           : Color.fromRGBO(43, 138, 132, 1),
       borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(29, 72, 69, 1), 
+          offset: Offset(4, 4), 
+          blurRadius: 10, 
+          spreadRadius: 2, 
+        ),
+      ],
       image: DecorationImage(
         opacity: 0.15,
         image: AssetImage('assets/images/photo1.png'),
@@ -74,7 +81,7 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
         "Your training\nroutines",
         style: GlobalVariables.fontStyle.copyWith(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
         textAlign: TextAlign.center,

@@ -12,13 +12,7 @@ class TrainingSessionService {
 
 Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
   try {
-    Response response = await _dio.get(
-      '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/user',
-      options: Options(
-        headers: {
-        },
-      ),
-    );
+    Response response = await _dio.get('${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/user');
 
     _logger.d('Fetching recent training sessions');
 
@@ -47,14 +41,8 @@ Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
 
   Future<void> createTrainingSession(String jsonData) async {
     try {
-      Response response = await _dio.post(
-        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}',
+      Response response = await _dio.post('${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}',
         data: jsonData,
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
       );
 
       _logger.d('Creating training session');
@@ -70,14 +58,7 @@ Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
 
   Future<void> deleteTrainingSession(int sessionId) async {
     try {
-      Response response = await _dio.delete(
-        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/$sessionId',
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
-      );
+      Response response = await _dio.delete('${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/$sessionId');
 
       _logger.d('Deleting training session with ID: $sessionId');
 
@@ -92,13 +73,7 @@ Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
 
   Future<int> getWorkoutCount() async {
     try {
-      Response response = await _dio.get(
-        '${ApiEndpoints.baseUrl}/progress-tracker/training-sessions/workouts-count',
-        options: Options(
-          headers: {
-          },
-        ),
-      );
+      Response response = await _dio.get('${ApiEndpoints.baseUrl}/progress-tracker/training-sessions/workouts-count');
 
       _logger.d('Fetching workouts count');
 

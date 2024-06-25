@@ -97,6 +97,14 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
+         boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            offset: Offset(4, 4),
+            blurRadius: 25,
+            spreadRadius: 5,
+          ),
+        ],
         color: Color.fromRGBO(80, 80, 80, 1),
         borderRadius: BorderRadius.circular(10),
       ),

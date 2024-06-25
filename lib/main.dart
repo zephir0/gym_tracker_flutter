@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
           '/user-profile': (context) => UserProfilePage(),
         },
         initialRoute: "/login",
-        home: HomePage(),
       ),
     );
   }

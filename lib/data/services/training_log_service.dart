@@ -12,13 +12,7 @@ class TrainingLogService {
 
   Future<List<TrainingLog>> fetchTrainingLogs(int sessionId) async {
     try {
-      Response response = await _dio.get(
-        '${ApiEndpoints.trainingLogs}/session/$sessionId',
-        options: Options(
-          headers: {
-          },
-        ),
-      );
+      Response response = await _dio.get('${ApiEndpoints.trainingLogs}/session/$sessionId');
 
       _logger.d('Fetching training logs for session ID: $sessionId');
 
@@ -37,13 +31,7 @@ class TrainingLogService {
 
   Future<List<TrainingLog>> fetchPreviousTrainingLogs(int routineId) async {
     try {
-      Response response = await _dio.get(
-        '${ApiEndpoints.trainingRoutines}/previous-logs/$routineId',
-        options: Options(
-          headers: {
-          },
-        ),
-      );
+      Response response = await _dio.get('${ApiEndpoints.trainingRoutines}/previous-logs/$routineId');
 
       _logger.d('Fetching previous training logs for routine ID: $routineId');
 
