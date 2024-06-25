@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class RecentWorkoutsHeader extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
       children: [
         Text(
           "Your last workouts",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: GlobalVariables.fontStyle.copyWith(color: Colors.white, fontSize: 18),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(70, 0, 10, 0),
@@ -52,7 +53,7 @@ class _RecentWorkoutsHeaderState extends State<RecentWorkoutsHeader> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "See all",
-            style: TextStyle(
+            style: GlobalVariables.fontStyle.copyWith(
               color: Colors.white,
               fontSize: 18,
             ),

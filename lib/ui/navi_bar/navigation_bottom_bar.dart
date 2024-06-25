@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../main_dashboard/home_page.dart';
 import '../settings/settings_page.dart';
@@ -93,7 +94,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
       backgroundColor: Color.fromRGBO(43, 138, 132, 1),
       onTap: onTap,
       label: label,
-      labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      labelStyle: GlobalVariables.fontStyle.copyWith(fontWeight: FontWeight.w500),
       labelBackgroundColor: Colors.white,
     );
   }

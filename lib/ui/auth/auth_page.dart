@@ -12,7 +12,6 @@ import 'package:gym_tracker_flutter/ui/auth/widgets/logo_section.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/short_description.dart';
 import 'package:gym_tracker_flutter/ui/auth/widgets/social_icons_field.dart';
 import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
-import 'package:gym_tracker_flutter/ui/main_dashboard/home_page.dart';
 
 import 'form_handler.dart';
 

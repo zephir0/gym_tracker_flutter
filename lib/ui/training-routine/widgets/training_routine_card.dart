@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
 
@@ -51,7 +52,7 @@ class TrainingRoutineCard extends StatelessWidget {
   Widget _buildExerciseTitle() {
     return Text(
       trainingRoutine.routineName,
-      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      style: GlobalVariables.fontStyle.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
     );
   }
 
@@ -60,7 +61,7 @@ class TrainingRoutineCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 3.0),
       child: Text(
         '${trainingRoutine.exerciseList.length} exercises',
-        style: TextStyle(fontSize: 14, color: Colors.white),
+        style: GlobalVariables.fontStyle.copyWith(fontSize: 14, color: Colors.white),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../auth_page.dart';
 
@@ -33,7 +34,7 @@ class AlternativeAction extends StatelessWidget {
         onPressed: () => onFormTypeChange(FormType.forgotPassword),
         child: Text(
           "Forgot password?",
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Color.fromRGBO(43, 138, 132, 100),
             fontSize: 22,
             fontFamily: 'Roboto',
@@ -51,7 +52,7 @@ class AlternativeAction extends StatelessWidget {
         children: [
           Text(
             "Don't you have an account? ",
-            style: TextStyle(
+            style: GlobalVariables.fontStyle.copyWith(
               color: Colors.white,
               fontSize: 17,
               fontFamily: 'Roboto',
@@ -60,7 +61,7 @@ class AlternativeAction extends StatelessWidget {
           TextButton(
               onPressed: () => onFormTypeChange(FormType.signUp),
               child: Text("Sign up",
-                  style: TextStyle(
+                  style: GlobalVariables.fontStyle.copyWith(
                       color: Color.fromRGBO(43, 138, 132, 100),
                       fontSize: 17,
                       fontFamily: 'Roboto'))),
@@ -77,7 +78,7 @@ class AlternativeAction extends StatelessWidget {
         child: TextButton(
             onPressed: () => onFormTypeChange(FormType.login),
             child: Text("Back to Login",
-                style: TextStyle(
+                style: GlobalVariables.fontStyle.copyWith(
                     color: Color.fromRGBO(43, 138, 132, 100),
                     fontSize: 17,
                     fontFamily: 'Roboto'))),

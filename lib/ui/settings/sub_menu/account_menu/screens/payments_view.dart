@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class PaymentsView extends StatelessWidget {
   @override
@@ -10,12 +11,12 @@ class PaymentsView extends StatelessWidget {
           Icon(Icons.build, size: 100, color: Colors.grey),
           Text(
             'Page Under Construction',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: GlobalVariables.fontStyle.copyWith(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20),
           Text(
             'We are working hard to bring you this feature soon!',
-            style: TextStyle(fontSize: 18),
+            style: GlobalVariables.fontStyle.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),

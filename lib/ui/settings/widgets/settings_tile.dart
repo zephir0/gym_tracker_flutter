@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class SettingsTile extends StatelessWidget {
   final String title;
@@ -17,7 +18,7 @@ class SettingsTile extends StatelessWidget {
         ),
         child: ListTile(
           title:
-              Text(title, style: TextStyle(fontSize: 17, color: Colors.white)),
+              Text(title, style: GlobalVariables.fontStyle.copyWith(fontSize: 17, color: Colors.white)),
           leading: Icon(
             icon,
             color: Colors.white,

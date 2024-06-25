@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_event.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
@@ -79,7 +80,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
             ).animate(deleteAnimationCurve),
             child: Text(
               'Delete',
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 color: Colors.white,
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
@@ -127,7 +128,7 @@ class RecentTrainingSessionsDisplay extends StatelessWidget {
 
   Widget _buildTrainingInfo(TrainingSession trainingSession, int index) {
     String text = '';
-    TextStyle textStyle = TextStyle(
+    TextStyle textStyle = GlobalVariables.fontStyle.copyWith(
       fontSize: 17,
       color: Colors.white,
       fontWeight: FontWeight.normal,

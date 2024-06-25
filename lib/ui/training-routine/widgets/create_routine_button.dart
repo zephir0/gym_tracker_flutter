@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../training_routine_creator/training_routine_creator_page.dart';
 
@@ -57,7 +58,7 @@ class CreateRoutineButton extends StatelessWidget {
               SizedBox(width: 8),
               Text(
                 'Create Routine',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: GlobalVariables.fontStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               SizedBox(width: 8),
               Icon(Icons.fitness_center),

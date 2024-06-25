@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class ErrorDialog {
   static void showErrorDialog(BuildContext context, String message) {
@@ -18,7 +19,7 @@ class ErrorDialog {
           title: Center(
               child: Text(
             message,
-            style: TextStyle(color: Colors.white),
+            style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
           )),
           actionsAlignment: MainAxisAlignment.center,
           actions: <Widget>[

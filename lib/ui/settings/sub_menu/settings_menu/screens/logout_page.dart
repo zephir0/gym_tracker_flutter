@@ -27,7 +27,7 @@ class LogoutPage extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Are you sure you want to log out?',
-                style: TextStyle(
+                style: GlobalVariables.fontStyle.copyWith(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
@@ -47,7 +47,7 @@ class LogoutPage extends StatelessWidget {
                 },
                 child: Text(
                   'Logout',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white, fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Color.fromRGBO(138, 43, 64, 1),
@@ -64,7 +64,7 @@ class LogoutPage extends StatelessWidget {
                   },
                   child: Text(
                     'Go Back',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: GlobalVariables.fontStyle.copyWith(color: Colors.black, fontSize: 20),
                   ),
                 ),
               ),

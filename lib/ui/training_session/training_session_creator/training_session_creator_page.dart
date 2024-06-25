@@ -78,16 +78,16 @@ class _TrainingSessionCreatorPageState
         backgroundColor: Colors.grey[850],
         title: Text(
           'Are you sure?',
-          style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+          style: GlobalVariables.fontStyle.copyWith(color: Color.fromRGBO(54, 150, 143, 1)),
         ),
         content: Text(
           'Do you really want to cancel the training session?',
-          style: TextStyle(color: Colors.white),
+          style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No', style: TextStyle(color: Colors.redAccent)),
+            child: Text('No', style: GlobalVariables.fontStyle.copyWith(color: Colors.redAccent)),
           ),
           TextButton(
             onPressed: () {
@@ -95,7 +95,7 @@ class _TrainingSessionCreatorPageState
             },
             child: Text(
               'Yes',
-              style: TextStyle(color: Color.fromRGBO(54, 150, 143, 1)),
+              style: GlobalVariables.fontStyle.copyWith(color: Color.fromRGBO(54, 150, 143, 1)),
             ),
           ),
         ],

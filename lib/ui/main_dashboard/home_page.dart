@@ -87,22 +87,25 @@ class _HomePageState extends State<HomePage>
       decoration: BoxDecoration(
         gradient: GlobalVariables().primaryGradient,
       ),
-      child: Column(
-        children: [
-          UserWelcomePanel(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              WorkoutCount(),
-              UserTrainingRoutines(),
-            ],
-          ),
-          ProgressTracker(),
-          RecentWorkoutsHeader(),
-          RecentTrainingSessionsDisplay(
-            deleteAnimationCurve: _deleteAnimationCurve,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25.0),
+        child: Column(
+          children: [
+            UserWelcomePanel(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                WorkoutCount(),
+                UserTrainingRoutines(),
+              ],
+            ),
+            ProgressTracker(),
+            RecentWorkoutsHeader(),
+            RecentTrainingSessionsDisplay(
+              deleteAnimationCurve: _deleteAnimationCurve,
+            ),
+          ],
+        ),
       ),
     );
   }

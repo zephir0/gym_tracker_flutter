@@ -10,32 +10,40 @@ class TrainingSessionService {
   final Dio _dio = getIt<Dio>();
   final Logger _logger = getIt<Logger>();
 
-  Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
-    try {
-      Response response = await _dio.get(
-        '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/user',
-        options: Options(
-          headers: {
-          },
-        ),
-      );
+Future<List<TrainingSession>> fetchRecentTrainingSessions() async {
+  try {
+    Response response = await _dio.get(
+      '${ApiEndpoints.baseUrl}${ApiEndpoints.trainingSessions}/user',
+      options: Options(
+        headers: {
+        },
+      ),
+    );
 
-      _logger.d('Fetching recent training sessions');
+    _logger.d('Fetching recent training sessions');
 
-      if (response.statusCode == 200) {
-        List<dynamic> responseBody = response.data;
-        List<TrainingSession> sessions = responseBody
-            .map((data) => TrainingSession.fromJson(data))
-            .toList();
-        return sessions;
-      } else {
-        throw Exception('Failed to load training sessions');
-      }
-    } catch (e) {
-      _logger.e('Failed to load training sessions: $e');
-      throw Exception('Failed to load training sessions: $e');
+    if (response.statusCode == 200) {
+      List<dynamic> responseBody = response.data;
+      List<TrainingSession> sessions = responseBody
+          .map((data) => TrainingSession.fromJson(data))
+          .toList();
+      return sessions;
+    } else {
+      throw Exception('Failed to load training sessions, status code: ${response.statusCode}');
     }
+  } catch (e) {
+    if (e is DioException) {
+      if (e.response?.statusCode == 404) {
+        _logger.d('No training sessions found (404), returning empty list');
+        return List.empty();
+      }
+      _logger.e('DioError occurred: ${e.message}');
+    } else {
+      _logger.e('Unexpected error occurred: $e');
+    }
+    throw Exception('Failed to load training sessions: $e');
   }
+}
 
   Future<void> createTrainingSession(String jsonData) async {
     try {

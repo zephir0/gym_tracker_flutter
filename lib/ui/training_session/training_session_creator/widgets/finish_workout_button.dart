@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class FinishWorkoutButton extends StatelessWidget {
   final Function() onFinishWorkout;
@@ -46,7 +47,7 @@ class FinishWorkoutButton extends StatelessWidget {
                         SizedBox(width: 8),
                         Text(
                           isWorkoutFinished ? 'Back to Home' : 'Finish workout',
-                          style: TextStyle(
+                          style: GlobalVariables.fontStyle.copyWith(
                             color: Color.fromRGBO(243, 234, 218, 1),
                             fontWeight: FontWeight.bold,
                             fontSize: 22,

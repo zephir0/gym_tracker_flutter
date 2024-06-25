@@ -144,7 +144,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
   Widget _buildNameFormField() {
     return TextFormField(
       controller: routineNameController,
-      style: TextStyle(
+      style: GlobalVariables.fontStyle.copyWith(
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
         color: Colors.white,
@@ -152,7 +152,7 @@ class _DismissibleRoutineFormState extends State<DismissibleRoutineForm> {
       textAlign: TextAlign.center,
       decoration: InputDecoration(
         hintText: 'Name your routine',
-        hintStyle: TextStyle(
+        hintStyle: GlobalVariables.fontStyle.copyWith(
           fontSize: 22.0,
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(189, 193, 194, 0.612),

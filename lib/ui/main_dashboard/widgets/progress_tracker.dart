@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/ui/settings/settings_page.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -61,7 +62,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
       padding: const EdgeInsets.fromLTRB(70, 40, 70, 40),
       child: Text(
         "Progress Tracker",
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.white,

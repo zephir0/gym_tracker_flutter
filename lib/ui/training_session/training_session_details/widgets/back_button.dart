@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class BackToHomeButton extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class BackToHomeButton extends StatelessWidget {
             child: Center(
               child: Text(
                 'Back to Home',
-                style: TextStyle(
+                style: GlobalVariables.fontStyle.copyWith(
                   color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,

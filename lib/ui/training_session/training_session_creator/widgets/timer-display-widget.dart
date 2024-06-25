@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,7 @@ class _TimerDisplayWidgetState extends State<TimerDisplayWidget> {
                   twoDigits(duration.inSeconds.remainder(60));
               return Text(
                 "TIMER: ${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds",
-                style: TextStyle(
+                style: GlobalVariables.fontStyle.copyWith(
                     fontSize: 14,
                     color: Color.fromRGBO(243, 234, 218, 1),
                     decoration: TextDecoration.none),

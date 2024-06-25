@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../auth_page.dart';
 
@@ -30,7 +31,7 @@ class ShortDescription extends StatelessWidget {
           children: [
             Text(
               text,
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 color: Colors.white,
                 fontSize: 30,
                 fontFamily: 'Roboto',
@@ -38,7 +39,7 @@ class ShortDescription extends StatelessWidget {
             ),
             Text(
               "Please enter your details to continue.",
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 color: Color.fromRGBO(126, 120, 120, 100),
                 fontSize: 16,
                 fontFamily: 'Roboto',

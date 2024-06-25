@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class MenuButton extends StatelessWidget {
   final String title;
@@ -31,7 +32,7 @@ class MenuButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title,
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 fontSize: 21,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

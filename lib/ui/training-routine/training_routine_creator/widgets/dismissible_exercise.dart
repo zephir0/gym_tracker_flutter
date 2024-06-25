@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../../../../data/models/exercise.dart';
 
@@ -104,7 +105,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
       ).animate(widget.deleteAnimationCurve),
       child: Text(
         'Delete',
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Colors.white,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
@@ -117,7 +118,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
     return TextFormField(
       controller: descriptionController,
       validator: widget.validateDescription,
-      style: TextStyle(
+      style: GlobalVariables.fontStyle.copyWith(
         fontSize: 17.0,
         color: Colors.black87, 
       ),
@@ -129,7 +130,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
           borderSide: BorderSide(color: Colors.blue), 
         ),
         labelText: 'Description',
-        labelStyle: TextStyle(color: Colors.black54), 
+        labelStyle: GlobalVariables.fontStyle.copyWith(color: Colors.black54), 
         border: OutlineInputBorder(),
       ),
       onChanged: _handleDescriptionSaved,
@@ -160,7 +161,7 @@ class _DismissibleExerciseState extends State<DismissibleExercise> {
           borderSide: BorderSide(color: Colors.blue), 
         ),
         labelText: 'Muscle Group',
-        labelStyle: TextStyle(color: Colors.black54), 
+        labelStyle: GlobalVariables.fontStyle.copyWith(color: Colors.black54), 
         border: OutlineInputBorder(),
       ),
     );

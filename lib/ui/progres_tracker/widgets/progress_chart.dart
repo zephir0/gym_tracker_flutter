@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../../../data/models/training_log.dart';
 
@@ -118,7 +119,7 @@ class _ProgressChartWidgetState extends State<ProgressChartWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
               '${widget.progressLogs[index].weight.toStringAsFixed(2)} kg',
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 color: Colors.blue,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,

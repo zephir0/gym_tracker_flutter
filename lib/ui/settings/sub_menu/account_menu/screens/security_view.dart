@@ -9,7 +9,7 @@ class SecurityView extends StatelessWidget {
         backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
         ),
       ),
       body: Container(
@@ -78,6 +78,6 @@ class SecurityView extends StatelessWidget {
   }
 
   TextStyle _getTextStyle() {
-    return TextStyle(color: Colors.white);
+    return GlobalVariables.fontStyle.copyWith(color: Colors.white);
   }
 }

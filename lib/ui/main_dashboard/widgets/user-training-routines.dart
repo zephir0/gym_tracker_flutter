@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../training-routine/training_routine_page.dart';
@@ -71,7 +72,7 @@ class _UserTrainingRoutinesState extends State<UserTrainingRoutines> {
       padding: const EdgeInsets.fromLTRB(50, 38, 50, 38),
       child: Text(
         "Your training\nroutines",
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,

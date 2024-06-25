@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 import '../training_session_creator_page.dart';
 
@@ -24,7 +25,7 @@ class RoutineNameDisplayer extends StatelessWidget {
           child: Text(
             widget.routine.routineName,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: GlobalVariables.fontStyle.copyWith(
                 color: Color.fromRGBO(243, 234, 218, 1),
                 decoration: TextDecoration.none,
                 fontSize: 32),

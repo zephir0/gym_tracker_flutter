@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_routine/training_routine_event.dart';
 import 'package:gym_tracker_flutter/data/models/exercise.dart';
@@ -36,11 +37,11 @@ class TrainingRoutineDetailDialog {
                           leading: Icon(Icons.fitness_center),
                           title: Text(
                             exercise.name,
-                            style: TextStyle(color: Colors.white),
+                            style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                           ),
                           subtitle: Text(
                             exercise.MuscleGroup,
-                            style: TextStyle(
+                            style: GlobalVariables.fontStyle.copyWith(
                               color: Color.fromARGB(255, 138, 136, 136),
                             ),
                           ),
@@ -121,7 +122,7 @@ class TrainingRoutineDetailDialog {
             TextButton(
               onPressed: () => Navigator.of(alertDialogContext).pop(),
               child: Text('No',
-                  style: TextStyle(color: Color.fromARGB(255, 8, 8, 8))),
+                  style: GlobalVariables.fontStyle.copyWith(color: Color.fromARGB(255, 8, 8, 8))),
             ),
             TextButton(
               onPressed: () {
@@ -132,7 +133,7 @@ class TrainingRoutineDetailDialog {
                 Navigator.of(dialogContext).pop();
               },
               child: Text('Yes',
-                  style: TextStyle(color: Color.fromARGB(255, 8, 8, 8))),
+                  style: GlobalVariables.fontStyle.copyWith(color: Color.fromARGB(255, 8, 8, 8))),
             ),
           ],
         );

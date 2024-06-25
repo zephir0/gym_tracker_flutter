@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/core/constants/time_provider.dart';
 import 'package:gym_tracker_flutter/data/models/training_routine.dart';
 import 'package:provider/provider.dart';
@@ -87,10 +88,10 @@ class WorkoutSummary {
           children: <Widget>[
             Text(title,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20)),
+                style: GlobalVariables.fontStyle.copyWith(color: Colors.white, fontSize: 20)),
             SizedBox(height: 5),
             Text(value,
-                style: TextStyle(
+                style: GlobalVariables.fontStyle.copyWith(
                     color: Colors.green,
                     fontSize: 30,
                     fontWeight: FontWeight.bold)),
@@ -110,7 +111,7 @@ class WorkoutSummary {
 
   Widget _buildExerciseItem(String exerciseName, bool progress) {
     return ListTile(
-      title: Text(exerciseName, style: TextStyle(color: Colors.white)),
+      title: Text(exerciseName, style: GlobalVariables.fontStyle.copyWith(color: Colors.white)),
       trailing: Icon(
         progress ? Icons.arrow_upward : Icons.arrow_downward,
         color: progress ? Colors.green : Colors.red,

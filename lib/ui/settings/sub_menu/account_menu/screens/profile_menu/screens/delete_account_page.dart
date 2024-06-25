@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/services/user_service.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -40,7 +41,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             SizedBox(height: 20),
             Text(
               'Warning: Deleting your account will result in the loss of all your workout routines, progress data, and account history. This action is irreversible.',
-              style: TextStyle(fontSize: 16, color: Colors.red),
+              style: GlobalVariables.fontStyle.copyWith(fontSize: 16, color: Colors.red),
               textAlign: TextAlign.center,
             ),
           ],

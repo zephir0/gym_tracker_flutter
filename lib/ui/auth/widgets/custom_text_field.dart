@@ -27,7 +27,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextFormField(
         controller: widget.controller,
         textAlign: TextAlign.left,
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Color.fromRGBO(207, 209, 209, 0.612),
         ),
         obscureText: widget.isPasswordField ? _obscureText : false,
@@ -62,10 +62,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       fillColor: GlobalVariables().inputFillColor,
       filled: true,
       hintText: widget.hintText,
-      hintStyle: TextStyle(
+      hintStyle: GlobalVariables.fontStyle.copyWith(
         color: GlobalVariables().iconAndHintColor,
       ),
-      labelStyle: TextStyle(
+      labelStyle: GlobalVariables.fontStyle.copyWith(
         color: Colors.white,
       ),
       border: OutlineInputBorder(

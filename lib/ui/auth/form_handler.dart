@@ -1,9 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/authorization/auth_bloc.dart';
-import 'package:gym_tracker_flutter/data/bloc/authorization/auth_event.dart';
-import 'package:gym_tracker_flutter/ui/auth/widgets/error_dialog.dart';
-
 
 class FormHandler {
   bool _validateEmail(String email) {

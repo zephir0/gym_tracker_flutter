@@ -10,7 +10,7 @@ class ChangeEmailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
-        title: Text('Change Email', style: TextStyle(color: Colors.white)),
+        title: Text('Change Email', style: GlobalVariables.fontStyle.copyWith(color: Colors.white)),
       ),
       body: Container(
         decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
@@ -28,7 +28,7 @@ class ChangeEmailPage extends StatelessWidget {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'New Email',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -36,7 +36,7 @@ class ChangeEmailPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
@@ -52,7 +52,7 @@ class ChangeEmailPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Update Email',
-                      style: TextStyle(fontSize: 20),
+                      style: GlobalVariables.fontStyle.copyWith(fontSize: 20),
                     ),
                   ),
                 ),

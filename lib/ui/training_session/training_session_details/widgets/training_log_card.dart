@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/models/training_log.dart';
 
 class TrainingLogCard extends StatelessWidget {
@@ -44,7 +45,7 @@ class TrainingLogCard extends StatelessWidget {
       backgroundColor: Color.fromRGBO(80, 187, 180, 0.612),
       child: Text(
         logCounter.toString(),
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Color.fromARGB(255, 255, 255, 255),
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
@@ -56,7 +57,7 @@ class TrainingLogCard extends StatelessWidget {
   Widget _buildLogTitle() {
     return Text(
       currentLog.name!,
-      style: TextStyle(
+      style: GlobalVariables.fontStyle.copyWith(
         color: Color.fromRGBO(80, 187, 180, 0.612),
         fontSize: 19.0,
         fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class TrainingLogCard extends StatelessWidget {
         SizedBox(width: 4.0),
         Text(
           text,
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Colors.white70,
             fontSize: fontSize,
           ),

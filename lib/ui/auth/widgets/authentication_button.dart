@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class AuthenticationButton extends StatelessWidget {
   final String buttonText;
@@ -35,7 +36,7 @@ class AuthenticationButton extends StatelessWidget {
               ),
               child: Text(
                 buttonText,
-                style: TextStyle(color: Colors.black, fontSize: 24),
+                style: GlobalVariables.fontStyle.copyWith(color: Colors.black, fontSize: 24),
               )),
         ],
       ),

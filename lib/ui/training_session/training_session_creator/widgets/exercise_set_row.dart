@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class ExerciseSetRow extends StatelessWidget {
   final int exerciseIndex;
@@ -66,7 +67,7 @@ class ExerciseSetRow extends StatelessWidget {
           child: Center(
             child: Text(
               (setIndex + 1).toString(),
-              style: TextStyle(
+              style: GlobalVariables.fontStyle.copyWith(
                 color: Colors.white,
                 fontSize: 14,
               ),
@@ -89,7 +90,7 @@ class ExerciseSetRow extends StatelessWidget {
               : TextInputType.numberWithOptions(decimal: true),
           textAlign: TextAlign.center,
           controller: controller,
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Colors.white,
             fontSize: 12,
           ),
@@ -99,7 +100,7 @@ class ExerciseSetRow extends StatelessWidget {
             contentPadding: EdgeInsets.all(8),
             border: OutlineInputBorder(),
             hintText: hint,
-            hintStyle: TextStyle(
+            hintStyle: GlobalVariables.fontStyle.copyWith(
               color: Color.fromRGBO(193, 207, 59, 0.612),
             ),
           ),

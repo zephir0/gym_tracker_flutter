@@ -61,7 +61,7 @@ class _TrainingSessionLogsPageState extends State<TrainingSessionLogsPage> {
         child: Text(
           widget.routineName,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Color.fromARGB(255, 255, 255, 255),
             fontSize: 38.0,
             fontWeight: FontWeight.bold,

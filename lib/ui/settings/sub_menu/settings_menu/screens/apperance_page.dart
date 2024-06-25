@@ -12,7 +12,7 @@ class AppearancePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.white),
+          style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
         ),
       ),
       body: Container(
@@ -20,17 +20,17 @@ class AppearancePage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             SwitchListTile(
-              title: Text('Dark Theme', style: TextStyle(color: Colors.white)),
+              title: Text('Dark Theme', style: GlobalVariables.fontStyle.copyWith(color: Colors.white)),
               subtitle: Text('Enable dark mode',
-                  style: TextStyle(color: Colors.white54)),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white54)),
               value: isDarkTheme,
               onChanged: (bool value) {},
               secondary: Icon(Icons.brightness_6, color: Colors.white),
             ),
             SwitchListTile(
-              title: Text('Large Text', style: TextStyle(color: Colors.white)),
+              title: Text('Large Text', style: GlobalVariables.fontStyle.copyWith(color: Colors.white)),
               subtitle: Text('Enable larger text for better readability',
-                  style: TextStyle(color: Colors.white54)),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white54)),
               value: isLargeText,
               onChanged: (bool value) {},
               secondary: Icon(Icons.text_fields, color: Colors.white),
@@ -43,7 +43,7 @@ class AppearancePage extends StatelessWidget {
                   shadowColor: Colors.white,
                 ),
                 onPressed: () {},
-                child: Text('Apply Changes'),
+                child: Text('Apply Changes', style: GlobalVariables.fontStyle.copyWith()),
               ),
             ),
           ],

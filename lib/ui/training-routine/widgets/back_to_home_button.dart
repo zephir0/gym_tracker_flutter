@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class BackToHomeButton extends StatelessWidget {
   const BackToHomeButton({
@@ -35,7 +36,7 @@ class BackToHomeButton extends StatelessWidget {
               SizedBox(width: 8),
               Text(
                 'Back to Home',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: GlobalVariables.fontStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ],
           ),

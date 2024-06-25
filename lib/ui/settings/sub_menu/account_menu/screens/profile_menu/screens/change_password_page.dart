@@ -11,7 +11,7 @@ class ChangePasswordPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(26, 25, 25, 0.612),
-        title: Text('Change Password', style: TextStyle(color: Colors.white)),
+        title: Text('Change Password', style: GlobalVariables.fontStyle.copyWith(color: Colors.white)),
       ),
       body: Container(
         decoration: BoxDecoration(gradient: GlobalVariables().primaryGradient),
@@ -29,7 +29,7 @@ class ChangePasswordPage extends StatelessWidget {
                   controller: _oldPasswordController,
                   decoration: InputDecoration(
                     labelText: 'Old Password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -37,7 +37,7 @@ class ChangePasswordPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                   obscureText: true,
                 ),
                 SizedBox(height: 10),
@@ -45,7 +45,7 @@ class ChangePasswordPage extends StatelessWidget {
                   controller: _newPasswordController,
                   decoration: InputDecoration(
                     labelText: 'New Password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -53,7 +53,7 @@ class ChangePasswordPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: GlobalVariables.fontStyle.copyWith(color: Colors.white),
                   obscureText: true,
                 ),
                 SizedBox(height: 20),
@@ -72,7 +72,7 @@ class ChangePasswordPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Update Password',
-                      style: TextStyle(fontSize: 20),
+                      style: GlobalVariables.fontStyle.copyWith(fontSize: 20),
                     ),
                   ),
                 ),

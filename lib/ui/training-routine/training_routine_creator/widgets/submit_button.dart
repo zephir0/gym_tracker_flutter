@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class AdvancedSubmitButton extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -143,7 +144,7 @@ class _AdvancedSubmitButtonState extends State<AdvancedSubmitButton>
       padding: const EdgeInsets.all(10.0),
       child: Text(
         _getButtonText(),
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,

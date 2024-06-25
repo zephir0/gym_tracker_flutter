@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class LogoSection extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class LogoSection extends StatelessWidget {
       child: Center(
         child: Text(
           "GYM TRACKER",
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Colors.white,
             fontSize: 45,
             fontFamily: 'Roboto',

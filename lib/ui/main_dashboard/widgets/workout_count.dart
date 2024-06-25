@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_bloc.dart';
 import 'package:gym_tracker_flutter/data/bloc/training_session/training_session_state.dart';
 
@@ -42,7 +43,7 @@ class WorkoutCount extends StatelessWidget {
   Text _buildHeaderText(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: GlobalVariables.fontStyle.copyWith(
         color: Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.bold,
@@ -58,7 +59,6 @@ class WorkoutCount extends StatelessWidget {
         } else if (state is TrainingSessionLoaded) {
           return _buildCountText(state.sessions.length.toString());
         } else if (state is TrainingSessionError) {
-          //TODO
         }
         return Center(child: CircularProgressIndicator());
       },
@@ -68,7 +68,7 @@ class WorkoutCount extends StatelessWidget {
   Text _buildCountText(String count) {
     return Text(
       count,
-      style: TextStyle(
+      style: GlobalVariables.fontStyle.copyWith(
         color: Color.fromRGBO(43, 238, 225, 1),
         fontSize: 32,
         fontWeight: FontWeight.bold,

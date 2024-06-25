@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class AdvancedAddExerciseButton extends StatefulWidget {
   final VoidCallback onAddExercise;
@@ -96,7 +97,7 @@ class _AdvancedAddExerciseButtonState extends State<AdvancedAddExerciseButton>
           SizedBox(width: 10),
           Text(
             'Add Exercise',
-            style: TextStyle(
+            style: GlobalVariables.fontStyle.copyWith(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,

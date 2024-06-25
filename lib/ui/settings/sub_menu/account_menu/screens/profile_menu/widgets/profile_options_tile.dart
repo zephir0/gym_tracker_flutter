@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 
 class ProfileOptionTile extends StatelessWidget {
   final IconData icon;
@@ -21,7 +22,7 @@ class ProfileOptionTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(icon, size: 57),
-            Text(title, style: TextStyle(fontSize: 18, color: Colors.white)),
+            Text(title, style: GlobalVariables.fontStyle.copyWith(fontSize: 18, color: Colors.white)),
           ],
         ),
       ),

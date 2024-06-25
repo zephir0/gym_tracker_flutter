@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker_flutter/core/constants/global_variables.dart';
 import '../../../../data/models/exercise.dart';
 import '../exercise_controllers.dart';
 import 'exercise_set_row.dart';
@@ -53,7 +54,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
       title: Text(
         exercise.name,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: GlobalVariables.fontStyle.copyWith(
           color: Color.fromRGBO(43, 138, 132, 1),
           fontWeight: FontWeight.bold,
           fontSize: 18,
@@ -83,7 +84,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(
+          style: GlobalVariables.fontStyle.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -120,7 +121,7 @@ class _ExerciseCardBuilderState extends State<ExerciseCardBuilder> {
       label: Text(
         'ADD SET',
         style:
-            TextStyle(fontSize: 17, color: Color.fromARGB(255, 177, 189, 182)),
+            GlobalVariables.fontStyle.copyWith(fontSize: 17, color: Color.fromARGB(255, 177, 189, 182)),
       ),
       style: OutlinedButton.styleFrom(
         side: BorderSide(width: 3.0, color: Color.fromARGB(255, 6, 53, 31)),
